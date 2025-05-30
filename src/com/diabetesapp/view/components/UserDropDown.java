@@ -19,8 +19,8 @@ public class UserDropDown extends Button {
         super("Hello, " + username);
 
         this.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;");
-        this.setOnMouseEntered(e -> this.setStyle("-fx-background-color: #0069d9; -fx-text-fill: white; -fx-cursor: hand;"));
-        this.setOnMouseExited(e -> this.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;"));
+        this.setOnMouseEntered(_ -> this.setStyle("-fx-background-color: #622f81; -fx-text-fill: white; -fx-cursor: hand;"));
+        this.setOnMouseExited(_ -> this.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;"));
 
         // Crea popup
         popup = new Popup();
@@ -29,28 +29,29 @@ public class UserDropDown extends Button {
         VBox popupContent = new VBox(10);
         popupContent.setStyle(
                 "-fx-background-color: white; " +
-                        "-fx-padding: 10; " +
-                        "-fx-border-color: #007bff; " +
-                        "-fx-border-width: 2; " +
-                        "-fx-border-radius: 8; " +
-                        "-fx-background-radius: 8;"
+                "-fx-padding: 10; " +
+                "-fx-border-color: #780dd7; " +
+                "-fx-border-width: 2; " +
+                "-fx-border-radius: 8; " +
+                "-fx-background-radius: 8;" +
+                "-fx-text-fill: #780dd7;"
         );
 
         Label profile = new Label("Profile");
         Label logout = new Label("Logout");
 
         for (Label label : List.of(profile, logout)) {
-            label.setStyle("-fx-text-fill: #007bff; -fx-font-size: 14px; -fx-cursor: hand;");
-            label.setOnMouseEntered(e -> label.setStyle("-fx-background-color: #e6f0ff; -fx-text-fill: #0056b3; -fx-font-size: 14px; -fx-cursor: hand;"));
-            label.setOnMouseExited(e -> label.setStyle("-fx-text-fill: #007bff; -fx-font-size: 14px; -fx-cursor: hand;"));
+            label.setStyle("-fx-text-fill: #780dd7; -fx-font-size: 14px; -fx-cursor: hand;");
+            label.setOnMouseEntered(_ -> label.setStyle("-fx-underline: true; -fx-text-fill: #780dd7; -fx-cursor: hand;"));
+            label.setOnMouseExited(_ -> label.setStyle("-fx-underline: false; -fx-text-fill: #780dd7; -fx-cursor: hand;"));
         }
 
-        profile.setOnMouseClicked(e -> {
+        profile.setOnMouseClicked(_ -> {
             popup.hide();
             ViewNavigator.navigateToProfile();
         });
 
-        logout.setOnMouseClicked(e -> {
+        logout.setOnMouseClicked(_ -> {
             popup.hide();
             ViewNavigator.logout();
         });
@@ -59,7 +60,7 @@ public class UserDropDown extends Button {
         popup.getContent().add(popupContent);
 
         // Mostra/nasconde il popup
-        this.setOnAction(e -> {
+        this.setOnAction(_ -> {
             if (popup.isShowing()) {
                 popup.hide();
             } else {

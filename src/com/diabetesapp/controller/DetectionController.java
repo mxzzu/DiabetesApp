@@ -4,10 +4,10 @@ import com.diabetesapp.Main;
 import com.diabetesapp.model.Detection;
 import com.diabetesapp.model.DetectionRepository;
 import com.diabetesapp.view.ViewNavigator;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,10 +17,10 @@ public class DetectionController {
     private Label statusLabel;
 
     @FXML
-    private TextField levelField;
+    private MFXTextField levelField;
 
     @FXML
-    private ComboBox<String> mealBox, periodBox;
+    private MFXComboBox<String> mealBox, periodBox;
 
     private DetectionRepository detectionRepository;
 

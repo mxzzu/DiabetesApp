@@ -1,8 +1,9 @@
 package com.diabetesapp.view.components;
 
 import com.diabetesapp.model.User;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.enums.ButtonType;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -31,8 +32,9 @@ public class PatientListRow extends HBox {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button manageButton = new Button("Manage Patient");
-        manageButton.setOnAction(e -> onManageAction.run());
+        MFXButton manageButton = new MFXButton("Manage Patient");
+        manageButton.setButtonType(ButtonType.RAISED);
+        manageButton.setOnAction(_ -> onManageAction.run());
 
         this.getChildren().addAll(usernameLabel, spacer, manageButton);
     }

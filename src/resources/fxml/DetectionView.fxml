@@ -1,83 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Point3D?>
 
-<AnchorPane styleClass="card, container"
-            xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.diabetesapp.controller.DetectionController">
-    <VBox AnchorPane.topAnchor="40.0" AnchorPane.bottomAnchor="40.0"
-          AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" spacing="10" styleClass="form-card" >
+<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.DetectionController">
+    <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
         <children>
-            <VBox alignment="CENTER">
-                <children>
-                    <Label text="Blood Sugar Detection" textAlignment="CENTER">
-                        <font>
-                            <Font name="System Bold" size="24.0" />
-                        </font>
-                    </Label>
-                </children>
+            <Label text="Blood Sugar Detection" textAlignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
                 <VBox.margin>
-                    <Insets bottom="30.0" />
+                    <Insets bottom="50.0" />
                 </VBox.margin>
-            </VBox>
-            <Label fx:id="statusLabel" styleClass="alert-danger" text="Status message goes here"
-                   wrapText="true" visible="false" managed="false">
+            </Label>
+            <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
                 <VBox.margin>
                     <Insets bottom="10.0" />
                 </VBox.margin>
             </Label>
-            <VBox spacing="10.0">
-                <children>
-                    <Label styleClass="form-label" text="Meal" />
-                    <ComboBox fx:id="mealBox" styleClass="form-control">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Breakfast" />
-                                <String fx:value="Lunch" />
-                                <String fx:value="Dinner" />
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                </children>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <Label styleClass="form-label" text="Period" />
-                    <ComboBox fx:id="periodBox" styleClass="form-control">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Before eating" />
-                                <String fx:value="After eating" />
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                </children>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <Label styleClass="form-label" text="Bloodsugar Level" />
-                    <TextField fx:id="levelField" promptText="Enter Value (mg/dL)" styleClass="form-control" />
-                </children>
-                <VBox.margin>
-                    <Insets bottom="20.0" />
-                </VBox.margin>
-            </VBox>
-            <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                    text="Add Detection" onAction="#addDetection">
+            <MFXComboBox fx:id="mealBox" floatingText="Meal" prefHeight="40.0" prefWidth="700.0">
+                 <items>
+                     <FXCollections fx:factory="observableArrayList">
+                         <String fx:value="Breakfast" />
+                         <String fx:value="Lunch" />
+                         <String fx:value="Dinner" />
+                     </FXCollections>
+                 </items>
                 <VBox.margin>
                     <Insets bottom="10.0" />
                 </VBox.margin>
-            </Button>
+            </MFXComboBox>
+            <MFXComboBox fx:id="periodBox" floatingText="Period" prefHeight="40.0" prefWidth="700.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Before eating" />
+                        <String fx:value="After eating" />
+                    </FXCollections>
+                </items>
+                <VBox.margin>
+                    <Insets bottom="10.0" />
+                </VBox.margin>
+            </MFXComboBox>
+            <MFXTextField fx:id="levelField" floatMode="BORDER" floatingText="Bloodsugar Level (mg/dL)" prefHeight="40.0" prefWidth="700.0" />
+            <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addDetection" text="Add Detection">
+                <rotationAxis>
+                    <Point3D />
+                </rotationAxis>
+                <VBox.margin>
+                    <Insets top="50.0" />
+                </VBox.margin>
+            </MFXButton>
         </children>
     </VBox>
     <padding>

@@ -4,16 +4,16 @@ import com.diabetesapp.Main;
 import com.diabetesapp.model.Therapy;
 import com.diabetesapp.model.TherapyRepository;
 import com.diabetesapp.view.ViewNavigator;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 public class TherapyController {
     @FXML
     private Label statusLabel;
 
     @FXML
-    private TextField patientField, drugField, intakeNumberField, quantityField, indicationsField;
+    private MFXTextField patientField, drugField, intakeNumberField, quantityField, indicationsField;
 
     private TherapyRepository therapyRepository;
 

@@ -13,6 +13,7 @@ public class HomeController {
         // If we're already authenticated, hide login/register buttons
         if (ViewNavigator.isAuthenticated()) {
             loginButton.setVisible(false);
+            loginButton.setManaged(false);
         }
     }
     

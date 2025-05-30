@@ -13,15 +13,13 @@ import java.util.Map;
 
 public class PatientsController {
     @FXML
-    private VBox patientManagementSection,  patientListContainer;
+    private VBox patientListContainer;
 
     private UserRepository userRepository;
 
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
-        String currentUsername = ViewNavigator.getAuthenticatedUser();
-        User user = userRepository.getUser(currentUsername);
         populatePatientList();
     }
 

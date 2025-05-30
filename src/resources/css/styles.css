@@ -7,7 +7,7 @@
 
 /* Button Styles */
 .button {
-    -fx-background-color: #007bff;
+    -fx-background-color: #780dd7;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 8px 16px;
@@ -16,7 +16,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #0069d9;
+    -fx-background-color: #622f81;
 }
 
 .button-secondary {
@@ -100,7 +100,7 @@
 
 /* Navigation */
 .nav-container {
-    -fx-background-color: #007bff;
+    -fx-background-color: #780dd7;
     -fx-padding: 10px;
 }
 
@@ -137,4 +137,6 @@
     -fx-border-width: 1;
     -fx-border-radius: 10;
     -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-justify-content: center;
 }

@@ -4,7 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="" />
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PatientListRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PatientListRow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/UserDropDown.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/UserDropDown.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DetectionView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DetectionView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/HomeView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/HomeView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/IntakeView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/IntakeView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/LoginView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/LoginView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/TherapyView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/TherapyView.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +42,21 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mxzzu&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mxzzu/DiabetesTest.git&quot;,
+    &quot;accountId&quot;: &quot;77ba8f83-ec91-494f-9da0-e95cb0dcf13c&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -24,34 +64,37 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2xdkNVTQI9ZMzG8IcJKvuS71Cra" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.RUN.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/coding/web/weddingGuests",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "Errors",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RUN.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/coding/web/weddingGuests&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="RUN" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.diabetesapp.Main" />
@@ -65,8 +108,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.109" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.109" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -78,6 +121,10 @@
       <option name="presentableId" value="Default" />
       <updated>1748275298689</updated>
       <workItem from="1748275299646" duration="9755000" />
+      <workItem from="1748598130741" duration="913000" />
+      <workItem from="1748599084350" duration="3714000" />
+      <workItem from="1748602840846" duration="1871000" />
+      <workItem from="1748607259250" duration="8125000" />
     </task>
     <servers />
   </component>

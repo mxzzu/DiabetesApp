@@ -28,7 +28,7 @@ public class NavBar extends HBox {
     private void initialize() {
         this.setSpacing(10);
         this.setPadding(new Insets(10));
-        this.setStyle("-fx-background-color: #007bff;");
+        this.setStyle("-fx-background-color: #780dd7;");
         
         Label brandLabel = new Label("DiabetesApp");
         brandLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;");
@@ -51,9 +51,8 @@ public class NavBar extends HBox {
      * Create navigation buttons for authenticated users
      */
     private void createAuthenticatedNavButtons() {
-        Button homeBtn = createNavButton("Home", e -> ViewNavigator.navigateToHome());
-        Button dashboardBtn = createNavButton("Dashboard", e -> ViewNavigator.navigateToDashboard());
-        Button profileBtn = createNavButton("Profile", e -> ViewNavigator.navigateToProfile());
+        Button homeBtn = createNavButton("Home", _ -> ViewNavigator.navigateToHome());
+        Button dashboardBtn = createNavButton("Dashboard", _ -> ViewNavigator.navigateToDashboard());
 
         Scene currentScene = this.getScene(); // potrebbe essere null all'inizio
         if (currentScene != null) {
@@ -61,7 +60,7 @@ public class NavBar extends HBox {
             this.getChildren().addAll(homeBtn, dashboardBtn, userButton);
         } else {
             // Delay: aggiungi alla scena appena disponibile
-            this.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            this.sceneProperty().addListener((_, _, newScene) -> {
                 if (newScene != null) {
                     UserDropDown userButton = new UserDropDown(username, newScene);
                     this.getChildren().addAll(homeBtn, dashboardBtn, userButton);
@@ -71,18 +70,14 @@ public class NavBar extends HBox {
         
         Label userLabel = new Label("Hello, " + username);
         userLabel.setStyle("-fx-text-fill: white;");
-        
-        Button logoutBtn = createNavButton("Logout", e -> ViewNavigator.logout());
-        
-        //this.getChildren().addAll(homeBtn, dashboardBtn, profileBtn, userLabel, logoutBtn);
     }
 
     /**
      * Create navigation buttons for unauthenticated users
      */
     private void createUnauthenticatedNavButtons() {
-        Button homeBtn = createNavButton("Home", e -> ViewNavigator.navigateToHome());
-        Button loginBtn = createNavButton("Login", e -> ViewNavigator.navigateToLogin());
+        Button homeBtn = createNavButton("Home", _ -> ViewNavigator.navigateToHome());
+        Button loginBtn = createNavButton("Login", _ -> ViewNavigator.navigateToLogin());
 
         this.getChildren().addAll(homeBtn, loginBtn);
     }
@@ -96,9 +91,9 @@ public class NavBar extends HBox {
         button.setOnAction(handler);
         
         // Hover effect
-        button.setOnMouseEntered(e -> 
-            button.setStyle("-fx-background-color: #0069d9; -fx-text-fill: white; -fx-cursor: hand;"));
-        button.setOnMouseExited(e -> 
+        button.setOnMouseEntered(_ ->
+            button.setStyle("-fx-background-color: #622f81; -fx-text-fill: white; -fx-cursor: hand;"));
+        button.setOnMouseExited(_ ->
             button.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;"));
         
         return button;

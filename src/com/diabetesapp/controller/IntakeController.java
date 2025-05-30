@@ -3,11 +3,11 @@ package com.diabetesapp.controller;
 import com.diabetesapp.model.Intake;
 import com.diabetesapp.model.IntakeRepository;
 import com.diabetesapp.view.ViewNavigator;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import com.diabetesapp.Main;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,13 +19,13 @@ public class IntakeController {
     private Label statusLabel;
 
     @FXML
-    private ComboBox<String> drugBox;
+    private MFXComboBox<String> drugBox;
 
     @FXML
-    private TextField hourTaken, quantityTaken, otherSymptoms, otherDrugs, period;
+    private MFXTextField hourTaken, quantityTaken, otherSymptoms, otherDrugs, period;
 
     @FXML
-    private CheckBox toggleCheckBox;
+    private MFXToggleButton toggleCheckBox;
 
     private IntakeRepository intakeRepository;
 

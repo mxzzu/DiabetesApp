@@ -1,51 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.LoginController">
-   <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.LoginController">
+   <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
       <children>
-         <VBox alignment="CENTER">
-            <children>
-               <Label text="Login" textAlignment="CENTER">
-                  <font>
-                     <Font name="System Bold" size="24.0" />
-                  </font>
-               </Label>
-            </children>
+         <Label text="LOGIN" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="28.0" />
+            </font>
             <VBox.margin>
-               <Insets bottom="30.0" />
+               <Insets bottom="50.0" />
             </VBox.margin>
-         </VBox>
+         </Label>
          <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
             <VBox.margin>
                <Insets bottom="10.0" />
             </VBox.margin>
          </Label>
-         <VBox spacing="10.0">
-            <children>
-               <Label styleClass="form-label" text="Username" />
-               <MFXTextField fx:id="usernameField" floatingText="Enter username"  floatMode="BORDER" styleClass="form-control" />
-            </children>
+         <MFXTextField fx:id="usernameField" floatMode="BORDER" floatingText="Enter Username" prefHeight="40.0" prefWidth="700.0">
             <VBox.margin>
                <Insets bottom="10.0" />
             </VBox.margin>
-         </VBox>
-         <VBox fx:id="passwordBox" spacing="10.0">
-            <children>
-               <Label styleClass="form-label" text="Password" />
-            </children>
+         </MFXTextField>
+         <MFXPasswordField fx:id="passwordField" floatMode="BORDER" floatingText="Enter Password" prefHeight="40.0" prefWidth="700.0" />
+         <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="260.0" text="Login">
+            <rotationAxis>
+               <Point3D />
+            </rotationAxis>
             <VBox.margin>
-               <Insets bottom="20.0" />
-            </VBox.margin>
-         </VBox>
-         <MFXButton defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogin" text="Login" styleClass="outline-button">
-            <VBox.margin>
-               <Insets bottom="10.0" />
+               <Insets top="50.0" />
             </VBox.margin>
          </MFXButton>
       </children>

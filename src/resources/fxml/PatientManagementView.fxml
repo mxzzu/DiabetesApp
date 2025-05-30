@@ -5,6 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <VBox spacing="20.0" styleClass="container" xmlns="http://javafx.com/javafx/16"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.diabetesapp.controller.PatientManagementController">
@@ -49,8 +50,8 @@
                         <Insets top="10.0" />
                     </padding>
                 </HBox>
-                <Button mnemonicParsing="false" onAction="#updateMedicalInformations" styleClass="button-success"
-                        text="Update Medical Informations" />
+                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#updateMedicalInformations" styleClass="button-success"
+                           text="Update Medical Informations" />
             </children>
             <padding>
                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -58,8 +59,8 @@
         </VBox>
         <HBox spacing="10.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleBackToPatients" text="Back to Patients" />
-                <Button mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" styleClass="button-secondary" />
+                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToPatients" text="Back to Patients" />
+                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" styleClass="button-secondary" />
             </children>
         </HBox>
     </children>

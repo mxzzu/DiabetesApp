@@ -1,112 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ComboBox?>
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 
-<AnchorPane styleClass="card, container"
-            xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.diabetesapp.controller.IntakeController">
-    <VBox AnchorPane.topAnchor="40.0" AnchorPane.bottomAnchor="40.0"
-          AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" spacing="10" styleClass="form-card" >
+<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.IntakeController">
+    <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
         <children>
-            <VBox alignment="CENTER">
-                <children>
-                    <Label text="Drug Intake" textAlignment="CENTER">
-                        <font>
-                            <Font name="System Bold" size="24.0" />
-                        </font>
-                    </Label>
-                </children>
+            <Label text="Drug Intake" textAlignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
                 <VBox.margin>
-                    <Insets bottom="30.0" />
+                    <Insets bottom="50.0" />
                 </VBox.margin>
-            </VBox>
-            <Label fx:id="statusLabel" styleClass="alert-danger" text="Status message goes here"
-                   wrapText="true" visible="false" managed="false">
+            </Label>
+            <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
                 <VBox.margin>
                     <Insets bottom="10.0" />
                 </VBox.margin>
             </Label>
-            <VBox spacing="10.0">
-                <children>
-                    <Label styleClass="form-label" text="Drug" />
-                    <ComboBox fx:id="drugBox" styleClass="form-control">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Insulin" />
-                                <String fx:value="Metformina" />
-                                <String fx:value="Glicazide" />
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                </children>
-                <VBox.margin>
-                    <Insets bottom="20.0" />
-                </VBox.margin>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <Label styleClass="form-label" text="Hour" />
-                    <TextField fx:id="hourTaken" promptText="Enter hour (hh:mm)" styleClass="form-control" />
-                </children>
-                <VBox.margin>
-                    <Insets bottom="20.0" />
-                </VBox.margin>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <Label styleClass="form-label" text="Quantity Taken" />
-                    <TextField fx:id="quantityTaken" promptText="Enter Quantity (mg)" styleClass="form-control" />
-                </children>
-                <VBox.margin>
-                    <Insets bottom="20.0" />
-                </VBox.margin>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <CheckBox fx:id="toggleCheckBox" text="Concomitant Therapies" onAction="#handleToggle" styleClass="form-control"/>
-                </children>
-                <VBox.margin>
-                    <Insets bottom="10.0" />
-                </VBox.margin>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <TextField fx:id="otherSymptoms" promptText="Symptoms" visible="false" managed="false" styleClass="form-control"/>
-                </children>
-                <VBox.margin>
-                    <Insets bottom="10.0" />
-                </VBox.margin>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <TextField fx:id="otherDrugs" promptText="Drugs Taken" visible="false" managed="false" styleClass="form-control"/>
-                </children>
-                <VBox.margin>
-                    <Insets bottom="10.0" />
-                </VBox.margin>
-            </VBox>
-            <VBox spacing="10.0">
-                <children>
-                    <TextField fx:id="period" promptText="Period" visible="false" managed="false" styleClass="form-control"/>
-                </children>
-                <VBox.margin>
-                    <Insets bottom="20.0" />
-                </VBox.margin>
-            </VBox>
-            <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                    text="Add Intake" onAction="#addIntake">
-            </Button>
+            <MFXComboBox floatingText="Drug" fx:id="drugBox" prefHeight="40.0" prefWidth="700.0">
+                 <items>
+                     <FXCollections fx:factory="observableArrayList">
+                         <String fx:value="Insulin" />
+                         <String fx:value="Metformina" />
+                         <String fx:value="Glicazide" />
+                     </FXCollections>
+                 </items>
+            </MFXComboBox>
+            <MFXTextField floatMode="BORDER" floatingText="Hour (hh:mm)" fx:id="hourTaken" prefHeight="40.0" prefWidth="700.0" />
+            <MFXTextField floatMode="BORDER" floatingText="Quantity Taken (mg)" fx:id="quantityTaken" prefHeight="40.0" prefWidth="700.0" />
+            <MFXToggleButton fx:id="toggleCheckBox" onAction="#handleToggle" text="Concomitant Therapies" />
+            <MFXTextField floatMode="BORDER" floatingText="Other Symptoms" fx:id="otherSymptoms" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
+            <MFXTextField floatMode="BORDER" floatingText="Drugs Taken" fx:id="otherDrugs" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
+            <MFXTextField floatMode="BORDER" floatingText="Period" fx:id="period" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
+            <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addIntake" text="Add Intake">
+            </MFXButton>
         </children>
     </VBox>
     <padding>

@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 
 <VBox spacing="20.0" styleClass="container" xmlns="http://javafx.com/javafx/16"
       xmlns:fx="http://javafx.com/fxml/1"
@@ -23,7 +24,7 @@
                     <children>
                         <Label styleClass="card-header" text="Create therapy" />
                         <Region VBox.vgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Create therapy" onAction="#createTherapy" />
+                        <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Create therapy" onAction="#createTherapy" />
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -33,7 +34,7 @@
                     <children>
                         <Label styleClass="card-header" text="BOH" />
                         <Region VBox.vgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="BOH" />
+                        <MFXButton buttonType="RAISED" mnemonicParsing="false" text="BOH" />
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -43,7 +44,7 @@
                     <children>
                         <Label styleClass="card-header" text="My Patients" />
                         <Region VBox.vgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Go to my patients" onAction="#handlePatients" />
+                        <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Go to my patients" onAction="#handlePatients" />
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -53,8 +54,8 @@
         </HBox>
         <HBox spacing="10.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
-                <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="button-secondary"
+                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
+                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleLogout" styleClass="button-secondary"
                         text="Logout" />
             </children>
             <VBox.margin>

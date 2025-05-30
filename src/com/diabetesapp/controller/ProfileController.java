@@ -8,7 +8,7 @@ import com.diabetesapp.model.User;
 import com.diabetesapp.model.UserRepository;
 import com.diabetesapp.view.ViewNavigator;
 import com.diabetesapp.view.components.PersonalInfoCard;
-import com.diabetesapp.view.components.TogglePasswordField;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -22,12 +22,13 @@ public class ProfileController {
     private Label statusLabel;
 
     @FXML
-    private VBox personalInfoContainer, newPasswordBox, confirmPasswordBox;
+    private VBox personalInfoContainer;
+
+    @FXML
+    private MFXPasswordField newPasswordField, confirmPasswordField;
 
     private UserRepository userRepository;
     private String currentUsername;
-    TogglePasswordField newPasswordField = new TogglePasswordField();
-    TogglePasswordField confirmPasswordField = new TogglePasswordField();
 
     /**
      * Initialize the controller.
@@ -41,10 +42,6 @@ public class ProfileController {
 
         // Hide the status label initially
         statusLabel.setVisible(false);
-
-        newPasswordBox.getChildren().add(newPasswordField);
-        confirmPasswordBox.getChildren().add(confirmPasswordField);
-
         personalInfoContainer.getChildren().add(personalInfoCard);
     }
 
@@ -54,8 +51,8 @@ public class ProfileController {
      */
     @FXML
     private void handleUpdatePassword() {
-        String newPassword = newPasswordField.getPassword();
-        String confirmPassword = confirmPasswordField.getPassword();
+        String newPassword = newPasswordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
         
         // Validation
         if (newPassword.isEmpty() || confirmPassword.isEmpty()) {

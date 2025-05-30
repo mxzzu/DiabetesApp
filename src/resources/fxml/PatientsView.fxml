@@ -16,13 +16,13 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label text="Welcome to the patients dashboard. You can manage patients below." textAlignment="LEFT">
+      <Label text="Welcome to the patients dashboard. You can manage patients below.">
          <font>
             <Font name="System Regular" size="16.0" />
          </font>
       </Label>
 
-      <VBox fx:id="patientManagementSection" spacing="10.0" styleClass="card">
+      <VBox spacing="10.0" styleClass="card">
          <children>
             <Label text="Patient Management" styleClass="card-header">
                <font>
