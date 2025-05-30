@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane styleClass="card, container"
+            xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.diabetesapp.controller.TherapyController">
+    <VBox AnchorPane.topAnchor="40.0" AnchorPane.bottomAnchor="40.0"
+          AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" spacing="10" styleClass="form-card" >
+        <children>
+            <VBox alignment="CENTER">
+                <children>
+                    <Label text="Patient Therapy" textAlignment="CENTER">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+                </children>
+                <VBox.margin>
+                    <Insets bottom="30.0" />
+                </VBox.margin>
+            </VBox>
+            <Label fx:id="statusLabel" styleClass="alert-danger" text="Status message goes here"
+                   wrapText="true" visible="false" managed="false">
+                <VBox.margin>
+                    <Insets bottom="10.0" />
+                </VBox.margin>
+            </Label>
+            <VBox spacing="10.0">
+                <children>
+                    <Label styleClass="form-label" text="Patient" />
+                    <TextField fx:id="patientField" promptText="Enter a patient (username)" styleClass="form-control" />
+                </children>
+            </VBox>
+            <VBox spacing="10.0">
+                <children>
+                    <Label styleClass="form-label" text="Drug" />
+                    <TextField fx:id="drugField" promptText="Enter a drug" styleClass="form-control" />
+                </children>
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+            </VBox>
+            <VBox spacing="10.0">
+                <children>
+                    <Label styleClass="form-label" text="Intake Number" />
+                    <TextField fx:id="intakeNumberField" promptText="Enter intake number per day" styleClass="form-control" />
+                </children>
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+            </VBox>
+            <VBox spacing="10.0">
+                <children>
+                    <Label styleClass="form-label" text="Quantity" />
+                    <TextField fx:id="quantityField" promptText="Enter quantity per intake (mg)" styleClass="form-control" />
+                </children>
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+            </VBox>
+            <VBox spacing="10.0">
+                <children>
+                    <Label styleClass="form-label" text="Any Indications" />
+                    <TextField fx:id="indicationsField" promptText="Enter any indications (after meals...)" styleClass="form-control" />
+                </children>
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+            </VBox>
+            <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    text="Add Therapy" onAction="#addTherapy">
+                <VBox.margin>
+                    <Insets bottom="10.0" />
+                </VBox.margin>
+            </Button>
+        </children>
+    </VBox>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</AnchorPane>

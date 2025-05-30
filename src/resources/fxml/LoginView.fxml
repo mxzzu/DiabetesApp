@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.LoginController">
+   <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+      <children>
+         <VBox alignment="CENTER">
+            <children>
+               <Label text="Login" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+               </Label>
+            </children>
+            <VBox.margin>
+               <Insets bottom="30.0" />
+            </VBox.margin>
+         </VBox>
+         <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+         </Label>
+         <VBox spacing="10.0">
+            <children>
+               <Label styleClass="form-label" text="Username" />
+               <MFXTextField fx:id="usernameField" floatingText="Enter username"  floatMode="BORDER" styleClass="form-control" />
+            </children>
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+         </VBox>
+         <VBox fx:id="passwordBox" spacing="10.0">
+            <children>
+               <Label styleClass="form-label" text="Password" />
+            </children>
+            <VBox.margin>
+               <Insets bottom="20.0" />
+            </VBox.margin>
+         </VBox>
+         <MFXButton defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogin" text="Login" styleClass="outline-button">
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+         </MFXButton>
+      </children>
+   </VBox>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</AnchorPane>

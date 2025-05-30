@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" styleClass="container" xmlns="http://javafx.com/javafx/16"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.diabetesapp.controller.DoctorDashboardController">
+    <children>
+        <Label text="Doctor Dashboard" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="welcomeLabel" text="Welcome to your dashboard!" wrapText="true" />
+        <Label text="This is a protected dashboard page. Only logged-in users can see this."
+               wrapText="true" />
+        <HBox spacing="20.0">
+            <children>
+                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="card-header" text="Create therapy" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Create therapy" onAction="#createTherapy" />
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </VBox>
+                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="card-header" text="BOH" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="BOH" />
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </VBox>
+                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="card-header" text="My Patients" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Go to my patients" onAction="#handlePatients" />
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
+                <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="button-secondary"
+                        text="Logout" />
+            </children>
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
