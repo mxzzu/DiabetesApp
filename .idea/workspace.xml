@@ -4,27 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="">
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="materialfx implementation">
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PatientListRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PatientListRow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/UserDropDown.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/UserDropDown.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/TherapyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/TherapyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DetectionView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DetectionView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/HomeView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/HomeView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/fxml/IntakeView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/IntakeView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/LoginView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/LoginView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" afterDir="false" />
@@ -125,11 +128,28 @@
       <workItem from="1748599084350" duration="3714000" />
       <workItem from="1748602840846" duration="1871000" />
       <workItem from="1748607259250" duration="8125000" />
+      <workItem from="1748617463073" duration="67000" />
+      <workItem from="1748947135975" duration="19685000" />
+      <workItem from="1749049611535" duration="9665000" />
+      <workItem from="1749135684393" duration="2749000" />
     </task>
+    <task id="LOCAL-00001" summary="materialfx implementation">
+      <option name="closed" value="true" />
+      <created>1748617511198</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748617511198</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="materialfx implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="materialfx implementation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

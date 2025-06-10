@@ -108,7 +108,7 @@ public class ProfileController {
      */
     private void showError(String message) {
         statusLabel.setText(message);
-        statusLabel.setStyle("-fx-text-fill: red;");
+        statusLabel.getStyleClass().add("alert-danger");
         statusLabel.setVisible(true);
         statusLabel.setManaged(true);
     }
@@ -118,7 +118,7 @@ public class ProfileController {
      */
     private void showSuccess() {
         statusLabel.setText("Password updated successfully");
-        statusLabel.setStyle("-fx-text-fill: green;");
+        statusLabel.getStyleClass().add("alert-success");
         statusLabel.setVisible(true);
         statusLabel.setManaged(true);
     }

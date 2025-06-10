@@ -1,10 +1,7 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.model.Detection;
-import com.diabetesapp.model.DetectionRepository;
-import com.diabetesapp.model.Intake;
-import com.diabetesapp.model.IntakeRepository;
+import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,7 +9,7 @@ import java.util.List;
 
 public class DashboardController {
     @FXML
-    private Label welcomeLabel, detectionLabel, intakeLabel;
+    private Label welcomeLabel, detectionLabel, intakeLabel, statusLabel;
 
     private DetectionRepository  detectionRepository;
     private IntakeRepository intakeRepository;
@@ -56,6 +53,12 @@ public class DashboardController {
 
     @FXML
     private void handleIntake() {
+        TherapyRepository therapyRepository = Main.getTherapyRepository();
+        Therapy therapy = therapyRepository.getTherapyByPatient(username);
+        if (therapy == null) {
+            showError();
+            return;
+        }
         ViewNavigator.navigateToIntake();
     }
 
@@ -73,5 +76,11 @@ public class DashboardController {
     @FXML
     private void handleLogout() {
         ViewNavigator.logout();
+    }
+
+    private void showError() {
+        statusLabel.setText("No active therapy!");
+        statusLabel.setVisible(true);
+        statusLabel.setManaged(true);
     }
 }

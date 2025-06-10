@@ -43,6 +43,6 @@ public class Patient extends User {
     }
 
     public String toString() {
-        return String.format("%s, %s, %s, %s", super.toString(), riskFactors, prevPats, comorbidities);
+        return String.format("%s, %s, %s, %s, %s", super.toString(), riskFactors, prevPats, comorbidities, docUser);
     }
 }

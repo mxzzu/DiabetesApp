@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
 
@@ -55,7 +56,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //System.out.println(BCrypt.hashpw("ambro", BCrypt.gensalt())); //DEV
+        //System.out.println(BCrypt.hashpw("gio", BCrypt.gensalt())); //DEV
     }
     
     /**

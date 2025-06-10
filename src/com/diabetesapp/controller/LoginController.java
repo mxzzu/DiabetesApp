@@ -50,7 +50,6 @@ public class LoginController {
 
     private void showError(String message) {
         statusLabel.setText(message);
-        statusLabel.setStyle("-fx-text-fill: red;");
         statusLabel.setVisible(true);
         statusLabel.setManaged(true);
     }

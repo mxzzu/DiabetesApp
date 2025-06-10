@@ -2,6 +2,7 @@ package com.diabetesapp.view;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.controller.MainController;
+import com.diabetesapp.model.Therapy;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class ViewNavigator {
     private static MainController mainController;
 
     private static String patientToManage = null;
+    private static Therapy therapyToEdit = null;
     
     // Current authenticated username
     private static String authenticatedUser = null;
@@ -49,6 +51,7 @@ public class ViewNavigator {
      * Navigate to the home view
      */
     public static void navigateToHome() {
+        patientToManage = null;
         loadView("HomeView.fxml");
     }
     
@@ -67,6 +70,7 @@ public class ViewNavigator {
         if (isAuthenticated() && getUserType().equals("patient")) {
             loadView("DashboardView.fxml");
         } else if (isAuthenticated()) {
+            patientToManage = null;
             loadView("DoctorDashboardView.fxml");
         } else {
             navigateToLogin();
@@ -79,6 +83,7 @@ public class ViewNavigator {
      */
     public static void navigateToProfile() {
         if (isAuthenticated()) {
+            patientToManage = null;
             loadView("ProfileView.fxml");
         } else {
             navigateToLogin();
@@ -87,6 +92,7 @@ public class ViewNavigator {
 
     public static void navigateToPatients() {
         if (isAuthenticated()) {
+            patientToManage = null;
             loadView("PatientsView.fxml");
         } else {
             navigateToLogin();
@@ -109,8 +115,9 @@ public class ViewNavigator {
         }
     }
 
-    public static void navigateToTherapy() {
+    public static void navigateToTherapy(Therapy therapy) {
         if (isAuthenticated()) {
+            therapyToEdit = therapy;
             loadView("TherapyView.fxml");
         } else {
             navigateToLogin();
@@ -150,6 +157,9 @@ public class ViewNavigator {
     public static String getPatientToManage() {
         return patientToManage;
     }
+    public static Therapy getTherapyToEdit() {
+        return therapyToEdit;
+    }
     
     /**
      * Check if a user is authenticated
@@ -166,6 +176,8 @@ public class ViewNavigator {
      */
     public static void logout() {
         authenticatedUser = null;
+        patientToManage = null;
+        userType = null;
         mainController.updateNavBar(false);
         navigateToHome();
     }

@@ -56,6 +56,6 @@ public class User {
     }
 
     public String toString() {
-        return String.format("%s, %s", username, password);
+        return String.format("%s, %s %s", username, password, userType);
     }
 }

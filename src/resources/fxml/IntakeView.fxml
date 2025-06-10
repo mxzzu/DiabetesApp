@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
@@ -28,15 +25,7 @@
                     <Insets bottom="10.0" />
                 </VBox.margin>
             </Label>
-            <MFXComboBox floatingText="Drug" fx:id="drugBox" prefHeight="40.0" prefWidth="700.0">
-                 <items>
-                     <FXCollections fx:factory="observableArrayList">
-                         <String fx:value="Insulin" />
-                         <String fx:value="Metformina" />
-                         <String fx:value="Glicazide" />
-                     </FXCollections>
-                 </items>
-            </MFXComboBox>
+            <MFXTextField floatMode="BORDER" floatingText="Drug" fx:id="drugField" prefHeight="40.0" prefWidth="700.0" disable="true" />
             <MFXTextField floatMode="BORDER" floatingText="Hour (hh:mm)" fx:id="hourTaken" prefHeight="40.0" prefWidth="700.0" />
             <MFXTextField floatMode="BORDER" floatingText="Quantity Taken (mg)" fx:id="quantityTaken" prefHeight="40.0" prefWidth="700.0" />
             <MFXToggleButton fx:id="toggleCheckBox" onAction="#handleToggle" text="Concomitant Therapies" />

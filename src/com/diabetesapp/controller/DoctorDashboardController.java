@@ -18,7 +18,7 @@ public class DoctorDashboardController {
 
     @FXML
     private void createTherapy() {
-        ViewNavigator.navigateToTherapy();
+        ViewNavigator.navigateToTherapy(null);
     }
 
     @FXML

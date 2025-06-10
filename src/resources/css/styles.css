@@ -115,7 +115,7 @@
 }
 
 .alert-danger {
-    -fx-text-fill: #721c24;
+    -fx-text-fill: red;
     -fx-background-color: #f8d7da;
     -fx-padding: 10px;
     -fx-background-radius: 4px;
@@ -125,7 +125,9 @@
 
 /* Container and Layout */
 .container {
-    -fx-padding: 20px;
+    -fx-padding: 20;
+    -fx-spacing: 20;
+    -fx-pref-width: Infinity;
 }
 
 .section {

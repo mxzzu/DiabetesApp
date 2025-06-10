@@ -1,14 +1,16 @@
 package com.diabetesapp.controller;
 
+import com.diabetesapp.config.AppConfig;
 import com.diabetesapp.model.Intake;
 import com.diabetesapp.model.IntakeRepository;
+import com.diabetesapp.model.TherapyRepository;
 import com.diabetesapp.view.ViewNavigator;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.diabetesapp.Main;
+import javafx.scene.input.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,30 +21,32 @@ public class IntakeController {
     private Label statusLabel;
 
     @FXML
-    private MFXComboBox<String> drugBox;
-
-    @FXML
-    private MFXTextField hourTaken, quantityTaken, otherSymptoms, otherDrugs, period;
+    private MFXTextField drugField, hourTaken, quantityTaken, otherSymptoms, otherDrugs, period;
 
     @FXML
     private MFXToggleButton toggleCheckBox;
 
     private IntakeRepository intakeRepository;
+    private String drug = null;
 
     public void initialize() {
         intakeRepository = Main.getIntakeRepository();
+        TherapyRepository therapyRepository = Main.getTherapyRepository();
         statusLabel.setVisible(false);
+        drug = therapyRepository.getTherapyByPatient(ViewNavigator.getAuthenticatedUser()).getDrug();
+        drugField.setText(drug);
+        quantityTaken.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
+        hourTaken.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.timeFormatOnly(hourTaken));
     }
 
     @FXML
     private void addIntake() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date =  dateFormat.format(new Date());
-        String drug = drugBox.getValue();
         String hour = hourTaken.getText();
         String quantity = quantityTaken.getText();
 
-        if (drug.equals("null") || hour.isEmpty() || quantity.isEmpty()) {
+        if (hour.isEmpty() || quantity.isEmpty()) {
             showError();
             return;
         }
@@ -66,7 +70,7 @@ public class IntakeController {
 
     private void showError() {
         statusLabel.setText("Please fill out all fields");
-        statusLabel.setStyle("-fx-text-fill: red;");
+        statusLabel.setManaged(true);
         statusLabel.setVisible(true);
     }
 }

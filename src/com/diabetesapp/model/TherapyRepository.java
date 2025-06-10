@@ -49,7 +49,11 @@ public class TherapyRepository {
         addTherapyToDB(therapy);
     }
 
-    public List<Therapy> getAllTherapies() {
-        return new ArrayList<>(therapies);
+    public Therapy getTherapyByPatient(String patient) {
+        Document doc = therapiesCollection.find(new Document("patient", patient)).first();
+        if (doc == null) {
+            return null;
+        }
+        return new Therapy(doc.getString("patient"), doc.getString("drug"), doc.getString("intakeNumber"), doc.getString("quantity"), doc.getString("indications"));
     }
 }

@@ -8,6 +8,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.TherapyController">
     <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
         <children>
@@ -24,7 +25,7 @@
                     <Insets bottom="10.0" />
                 </VBox.margin>
             </Label>
-            <MFXTextField floatMode="BORDER" floatingText="Patient" fx:id="patientField" prefHeight="40.0" prefWidth="700.0" />
+            <MFXFilterComboBox fx:id="patientBox" floatMode="BORDER" floatingText="Patient" prefHeight="40.0" prefWidth="700.0" />
             <MFXTextField floatMode="BORDER" floatingText="Drug" fx:id="drugField" prefHeight="40.0" prefWidth="700.0" />
             <MFXTextField floatMode="BORDER" floatingText="Intake Number (p/die)" fx:id="intakeNumberField" prefHeight="40.0" prefWidth="700.0" />
             <MFXTextField floatMode="BORDER" floatingText="Quantity (mg)" fx:id="quantityField" prefHeight="40.0" prefWidth="700.0" />

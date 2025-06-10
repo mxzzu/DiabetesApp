@@ -11,4 +11,8 @@ public class Doctor extends User {
     public String getMail() {
         return mail;
     }
+
+    public String toString() {
+        return String.format("%s, %s", super.toString(), mail);
+    }
 }

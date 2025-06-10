@@ -1,6 +1,7 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
+import com.diabetesapp.config.AppConfig;
 import com.diabetesapp.model.Detection;
 import com.diabetesapp.model.DetectionRepository;
 import com.diabetesapp.view.ViewNavigator;
@@ -8,6 +9,8 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +31,7 @@ public class DetectionController {
     public void initialize() {
         detectionRepository = Main.getDetectionRepository();
         statusLabel.setVisible(false);
+        levelField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
     }
 
     @FXML
@@ -52,7 +56,6 @@ public class DetectionController {
 
     private void showError() {
         statusLabel.setText("Please fill out all fields");
-        statusLabel.setStyle("-fx-text-fill: red;");
         statusLabel.setVisible(true);
         statusLabel.setManaged(true);
     }

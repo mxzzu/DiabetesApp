@@ -6,9 +6,14 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
@@ -53,10 +58,15 @@ public class UserRepository {
         usersCollection.insertOne(doc);
     }
 
-    private void changePasswordOnDB(User user) {
+    private void updateOnDB(User user) {
         Bson filter = eq("username", user.getUsername());
-        Bson update = set("password", user.getPassword());
-        usersCollection.findOneAndUpdate(filter, update);
+        Bson pswUpdate = set("password", user.getPassword());
+        if (user.getUserType().equals("doctor")) {
+            Bson mailUpdate = set("mail", ((Doctor) user).getMail());
+            usersCollection.updateOne(filter, Updates.combine(pswUpdate, mailUpdate));
+        } else {
+            usersCollection.findOneAndUpdate(filter, pswUpdate);
+        }
     }
     
     /**
@@ -64,7 +74,7 @@ public class UserRepository {
      */
     public void saveUser(User user) {
         users.put(user.getUsername(), user);
-        changePasswordOnDB(user);
+        updateOnDB(user);
     }
     
     /**
@@ -73,18 +83,21 @@ public class UserRepository {
     public User getUser(String username) {
         return users.get(username);
     }
-    
-    /**
-     * Check if a username exists
-     */
-    public boolean usernameExists(String username) {
-        return users.containsKey(username);
-    }
 
     /**
      * Get all users
      */
     public Map<String, User> getAllUsers() {
         return new HashMap<>(users);
+    }
+
+    public ObservableList<String> getAllPatients() {
+        List<String> patients = new ArrayList<>();
+        for (User user : users.values()) {
+            if (user.getUserType().equals("patient")) {
+                patients.add(user.getUsername());
+            }
+        }
+        return FXCollections.observableList(patients);
     }
 }

@@ -2,26 +2,33 @@ package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.model.Patient;
+import com.diabetesapp.model.Therapy;
+import com.diabetesapp.model.TherapyRepository;
 import com.diabetesapp.model.UserRepository;
 import com.diabetesapp.view.ViewNavigator;
 import com.diabetesapp.view.components.PersonalInfoCard;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class PatientManagementController {
     @FXML
-    private Label statusLabel;
+    private Label statusLabel, therapyError;
 
     @FXML
-    private VBox personalInfoContainer;
+    private VBox personalInfoContainer, therapyContainer, informationContainer;
 
     @FXML
-    private HBox riskContainer, prevPatContainer, comContainer;
+    private MFXButton therapyButton;
 
     private UserRepository userRepository;
+    private TherapyRepository therapyRepository;
     private String patientToManage;
+    private Therapy therapy;
+    private Patient patient;
 
     /**
      * Initialize the controller.
@@ -30,6 +37,7 @@ public class PatientManagementController {
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
+        therapyRepository = Main.getTherapyRepository();
         patientToManage = ViewNavigator.getPatientToManage();
         PersonalInfoCard personalInfoCard = new PersonalInfoCard(patientToManage);
 
@@ -37,24 +45,53 @@ public class PatientManagementController {
         statusLabel.setVisible(false);
 
         personalInfoContainer.getChildren().add(personalInfoCard);
-        fetchInformation();
+        fetchMedicalInformation();
+        fetchTherapy();
     }
 
-    private void fetchInformation() {
-        Patient temp = (Patient) userRepository.getUser(patientToManage);
-        String[] riskFactors = temp.getSplittedRiskFactors();
-        String[] prevPats =  temp.getSplittedPrevPats();
-        String[] coms = temp.getSplittedComorbidities();
+    private void fetchMedicalInformation() {
+        patient = (Patient) userRepository.getUser(patientToManage);
+        String[] riskFactors = patient.getSplittedRiskFactors();
+        String[] prevPats =  patient.getSplittedPrevPats();
+        String[] coms = patient.getSplittedComorbidities();
 
-        String RISK_TITLE = "Risk Factors: ";
-        createTitleLabel(riskContainer, RISK_TITLE);
-        createValueLabel(riskContainer, riskFactors);
-        String PREV_PAT_TITLE = "Previous Pathologies: ";
-        createTitleLabel(prevPatContainer, PREV_PAT_TITLE);
-        createValueLabel(prevPatContainer, prevPats);
-        String COM_TITLE = "Comorbidities: ";
-        createTitleLabel(comContainer, COM_TITLE);
-        createValueLabel(comContainer, coms);
+        createHBoxContainer(informationContainer, "Risk Factors: ", riskFactors);
+        createHBoxContainer(informationContainer,  "Previous Pathologies: ", prevPats);
+        createHBoxContainer(informationContainer,  "Comorbidities: ", coms);
+    }
+
+    private void fetchTherapy() {
+        if (!patient.getDocUser().equals(ViewNavigator.getAuthenticatedUser())) {
+            therapyButton.setDisable(true);
+        }
+
+        therapy = therapyRepository.getTherapyByPatient(patientToManage);
+        if (therapy == null) {
+            therapyError.setVisible(true);
+            therapyError.setManaged(true);
+            therapyButton.setText("Add Therapy");
+            therapyButton.getStyleClass().clear();
+            therapyButton.getStyleClass().add("button");
+            return;
+        }
+        String[] drug = {therapy.getDrug()};
+        String[] intakeNumber = {therapy.getIntakeNumber()};
+        String[] quantity = {therapy.getQuantity()};
+        String[] indications = {therapy.getIndications()};
+        createHBoxContainer(therapyContainer, "Drug: " , drug);
+        createHBoxContainer(therapyContainer, "Intake Number: ", intakeNumber);
+        createHBoxContainer(therapyContainer, "Quantity: ", quantity);
+        createHBoxContainer(therapyContainer, "Indications: ", indications);
+    }
+
+    private void createHBoxContainer(VBox container, String title, String[] values) {
+        HBox hBox = new HBox();
+        hBox.setSpacing(10);
+        hBox.getStyleClass().add("hbox-container");
+        hBox.setPadding(new Insets(10, 0, 0, 0));
+        createTitleLabel(hBox, title);
+        createValueLabel(hBox, values);
+        container.getChildren().add(hBox);
     }
 
     private void createTitleLabel(HBox container, String title) {
@@ -91,6 +128,11 @@ public class PatientManagementController {
         ViewNavigator.navigateToPatients();
     }
 
+    @FXML
+    private void handleTherapyButton() {
+        ViewNavigator.navigateToTherapy(therapy);
+    }
+
     /**
      * Show an error message in the status label.
      *
@@ -98,7 +140,7 @@ public class PatientManagementController {
      */
     private void showError(String message) {
         statusLabel.setText(message);
-        statusLabel.setStyle("-fx-text-fill: red;");
+        statusLabel.getStyleClass().add("alert-danger");
         statusLabel.setVisible(true);
         statusLabel.setManaged(true);
     }
@@ -108,7 +150,7 @@ public class PatientManagementController {
      */
     private void showSuccess() {
         statusLabel.setText("Medical Informations updated successfully");
-        statusLabel.setStyle("-fx-text-fill: green;");
+        statusLabel.getStyleClass().add("alert-success");
         statusLabel.setVisible(true);
         statusLabel.setManaged(true);
     }

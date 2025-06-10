@@ -6,45 +6,58 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.scene.layout.HBox?>
 
-<VBox spacing="20.0" styleClass="container" xmlns="http://javafx.com/javafx/16" 
-      xmlns:fx="http://javafx.com/fxml/1" 
-      fx:controller="com.diabetesapp.controller.PatientsController">
-   <children>
-      <Label text="Patients Dashboard" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Label text="Welcome to the patients dashboard. You can manage patients below.">
-         <font>
-            <Font name="System Regular" size="16.0" />
-         </font>
-      </Label>
+<AnchorPane xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.diabetesapp.controller.PatientsController">
 
-      <VBox spacing="10.0" styleClass="card">
-         <children>
-            <Label text="Patient Management" styleClass="card-header">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
+   <MFXScrollPane fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <content>
+         <HBox alignment="TOP_CENTER">
+            <VBox spacing="20.0" maxWidth="800" styleClass="container" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Patients Dashboard" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Welcome to the patients dashboard. You can manage patients below.">
+                     <font>
+                        <Font name="System Regular" size="16.0" />
+                     </font>
+                  </Label>
 
-            <ScrollPane fitToWidth="true">
-               <content>
-                  <VBox fx:id="patientListContainer" spacing="10.0">
-                     <padding>
-                        <Insets top="5.0" bottom="5.0" />
-                     </padding>
+                  <VBox spacing="10.0" styleClass="card">
+                     <children>
+                        <Label text="Patient Management" styleClass="card-header">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+
+                        <ScrollPane fitToWidth="true">
+                           <content>
+                              <VBox fx:id="patientListContainer" spacing="10.0">
+                                 <padding>
+                                    <Insets top="5.0" bottom="5.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
                   </VBox>
-               </content>
-            </ScrollPane>
-         </children>
-      </VBox>
-      
-      <Button mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" />
-   </children>   
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+
+                  <Button mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </HBox>
+      </content>
+   </MFXScrollPane>
+</AnchorPane>
