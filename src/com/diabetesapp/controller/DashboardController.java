@@ -13,12 +13,13 @@ public class DashboardController {
 
     private DetectionRepository  detectionRepository;
     private IntakeRepository intakeRepository;
-    private final String username = ViewNavigator.getAuthenticatedUser();
+    private final String authenticatedName = ViewNavigator.getAuthenticatedName();
+    private final String username = ViewNavigator.getAuthenticatedUsername();
     
     @FXML
     public void initialize() {
         // This is a protected view, so we should always have an authenticated user
-        welcomeLabel.setText("Welcome to your dashboard, " + username + "!");
+        welcomeLabel.setText("Welcome to your dashboard, " + authenticatedName + "!");
         detectionRepository = Main.getDetectionRepository();
         intakeRepository = Main.getIntakeRepository();
         fetchDailyDetections();

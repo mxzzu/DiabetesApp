@@ -3,6 +3,7 @@ package com.diabetesapp.view;
 import com.diabetesapp.Main;
 import com.diabetesapp.controller.MainController;
 import com.diabetesapp.model.Therapy;
+import com.diabetesapp.model.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import java.io.IOException;
@@ -18,10 +19,12 @@ public class ViewNavigator {
 
     private static String patientToManage = null;
     private static Therapy therapyToEdit = null;
+    private static boolean userSaved =  false;
     
     // Current authenticated username
-    private static String authenticatedUser = null;
+    private static User authenticatedUser = null;
     private static String userType = null;
+    private static boolean mustChangePassword = false;
     
     /**
      * Set the main controller reference
@@ -67,13 +70,27 @@ public class ViewNavigator {
      * Will redirect to login if not authenticated
      */
     public static void navigateToDashboard() {
-        if (isAuthenticated() && getUserType().equals("patient")) {
+        if (isAuthenticated() && isMustChangePassword()) {
+            navigateToProfile();
+        } else if (isAuthenticated() && getUserType().equals("patient")) {
             loadView("DashboardView.fxml");
+        } else if (isAuthenticated() && getUserType().equals("admin")) {
+            navigateToRegister(false);
         } else if (isAuthenticated()) {
             patientToManage = null;
             loadView("DoctorDashboardView.fxml");
         } else {
             navigateToLogin();
+        }
+    }
+
+    public static void navigateToRegister(boolean userEntered) {
+        if (userEntered) {
+            userSaved = true;
+            loadView("RegisterView.fxml");
+        } else {
+            userSaved = false;
+            loadView("RegisterView.fxml");
         }
     }
     
@@ -131,26 +148,50 @@ public class ViewNavigator {
             navigateToLogin();
         }
     }
+
+    public static void navigateToMedicalInformations() {
+        if (isAuthenticated()) {
+            loadView("MedicalInformationsView.fxml");
+        } else {
+            navigateToLogin();
+        }
+    }
     
     /**
      * Set the authenticated user
-     * @param username The username of the authenticated user
+     * @param user The authenticated user
      */
-    public static void setAuthenticatedUser(String username, String user) {
-        authenticatedUser = username;
-        userType = user;
+    public static void setAuthenticatedUser(User user) {
+        authenticatedUser = user;
+        userType = user.getUserType();
         mainController.updateNavBar(isAuthenticated());
     }
 
     public static void setPatientToManage(String username) {
         patientToManage = username;
     }
+
+    public static void setUserSaved(boolean value) {
+        userSaved = value;
+    }
+
+    public static void setMustChangePassword(boolean value) {
+        mustChangePassword = value;
+    }
     
     /**
      * Get the authenticated user
      * @return The username of the authenticated user, or null if not authenticated
      */
-    public static String getAuthenticatedUser() {
+    public static String getAuthenticatedUsername() {
+        return authenticatedUser.getUsername();
+    }
+
+    public static String getAuthenticatedName() {
+        return authenticatedUser.getName();
+    }
+
+    public static User getAuthenticatedUser() {
         return authenticatedUser;
     }
 
@@ -159,6 +200,14 @@ public class ViewNavigator {
     }
     public static Therapy getTherapyToEdit() {
         return therapyToEdit;
+    }
+
+    public static boolean isUserSaved() {
+        return userSaved;
+    }
+
+    public static boolean isMustChangePassword() {
+        return mustChangePassword;
     }
     
     /**
@@ -178,6 +227,8 @@ public class ViewNavigator {
         authenticatedUser = null;
         patientToManage = null;
         userType = null;
+        userSaved = false;
+        mustChangePassword = false;
         mainController.updateNavBar(false);
         navigateToHome();
     }

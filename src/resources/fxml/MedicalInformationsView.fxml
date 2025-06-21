@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+
+<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.MedicalInformationsController">
+    <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
+        <children>
+
+            <!-- TITLE -->
+            <Label text="Medical Informations" textAlignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+                <VBox.margin>
+                    <Insets bottom="50.0" />
+                </VBox.margin>
+            </Label>
+
+            <!-- PATIENT FIELD -->
+            <MFXTextField floatMode="BORDER" floatingText="Patient" fx:id="patientField" prefHeight="40.0" prefWidth="700.0" disable="true" />
+
+            <!-- RISK FACTORS FIELD -->
+            <MFXTextField floatMode="BORDER" floatingText="Risk Factors" fx:id="riskFactorsField" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel1" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- PREVIOUS PATHOLOGIES FIELD -->
+            <MFXTextField floatMode="BORDER" floatingText="Previous Pathologies" fx:id="prevPatField" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel2" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- COMORBIDITIES FIELD -->
+            <MFXTextField floatMode="BORDER" floatingText="Comorbidities" fx:id="comField" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel3" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- BUTTONS -->
+            <HBox spacing="10.0" alignment="CENTER">
+                <MFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#backToPatient" mnemonicParsing="false" text="Back" styleClass="button-secondary" />
+                <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#updateInformations" mnemonicParsing="false" text="Update Informations" />
+            </HBox>
+
+        </children>
+    </VBox>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</AnchorPane>
+

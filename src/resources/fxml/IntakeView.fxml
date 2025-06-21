@@ -12,6 +12,8 @@
 <AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.IntakeController">
     <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
         <children>
+
+            <!-- TITLE -->
             <Label text="Drug Intake" textAlignment="CENTER">
                 <font>
                     <Font name="System Bold" size="28.0" />
@@ -20,20 +22,28 @@
                     <Insets bottom="50.0" />
                 </VBox.margin>
             </Label>
-            <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
-                <VBox.margin>
-                    <Insets bottom="10.0" />
-                </VBox.margin>
-            </Label>
+
+            <!-- DRUG BOX -->
             <MFXTextField floatMode="BORDER" floatingText="Drug" fx:id="drugField" prefHeight="40.0" prefWidth="700.0" disable="true" />
+
+            <!-- HOUR FIELD -->
             <MFXTextField floatMode="BORDER" floatingText="Hour (hh:mm)" fx:id="hourTaken" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel1" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- QUANTITY FIELD -->
             <MFXTextField floatMode="BORDER" floatingText="Quantity Taken (mg)" fx:id="quantityTaken" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel2" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- TOGGLE THERAPIES -->
             <MFXToggleButton fx:id="toggleCheckBox" onAction="#handleToggle" text="Concomitant Therapies" />
+
+            <!-- CONCOMITANT THERAPIES -->
             <MFXTextField floatMode="BORDER" floatingText="Other Symptoms" fx:id="otherSymptoms" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
             <MFXTextField floatMode="BORDER" floatingText="Drugs Taken" fx:id="otherDrugs" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
             <MFXTextField floatMode="BORDER" floatingText="Period" fx:id="period" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
-            <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addIntake" text="Add Intake">
-            </MFXButton>
+
+            <!-- ADD INTAKE -->
+            <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addIntake" text="Add Intake" />
         </children>
     </VBox>
     <padding>

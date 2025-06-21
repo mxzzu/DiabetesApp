@@ -39,7 +39,7 @@ public class PatientsController {
         // Add a row for each non-admin user
         for (User user : users.values()) {
             // Skip admin users (they should not appear in this list)
-            if (user.getUserType().equals("doctor")) {
+            if (user.getUserType().equals("doctor") || user.getUserType().equals("admin")) {
                 continue;
             }
             

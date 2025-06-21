@@ -23,6 +23,12 @@ public class PatientListRow extends HBox {
         this.setSpacing(10);
         this.setPadding(new Insets(5));
         this.setStyle("-fx-border-color: #dee2e6; -fx-border-width: 0 0 1 0;");
+
+        Label nameLabel = new Label(user.getName());
+        nameLabel.setPrefWidth(150);
+
+        Label surnameLabel = new Label(user.getSurname());
+        surnameLabel.setPrefWidth(150);
         
         // Username label
         Label usernameLabel = new Label(user.getUsername());
@@ -36,6 +42,6 @@ public class PatientListRow extends HBox {
         manageButton.setButtonType(ButtonType.RAISED);
         manageButton.setOnAction(_ -> onManageAction.run());
 
-        this.getChildren().addAll(usernameLabel, spacer, manageButton);
+        this.getChildren().addAll(nameLabel, surnameLabel, usernameLabel, spacer, manageButton);
     }
 }

@@ -9,9 +9,12 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import javafx.scene.layout.HBox?>
 <AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.TherapyController">
     <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
         <children>
+
+            <!-- TITLE -->
             <Label text="Patient Therapy" textAlignment="CENTER">
                 <font>
                     <Font name="System Bold" size="28.0" />
@@ -20,21 +23,33 @@
                     <Insets bottom="50.0" />
                 </VBox.margin>
             </Label>
-            <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
-                <VBox.margin>
-                    <Insets bottom="10.0" />
-                </VBox.margin>
-            </Label>
+
+            <!-- PATIENT BOX -->
             <MFXFilterComboBox fx:id="patientBox" floatMode="BORDER" floatingText="Patient" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel1" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- DRUG FIELD -->
             <MFXTextField floatMode="BORDER" floatingText="Drug" fx:id="drugField" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel2" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- INTAKE FIELD -->
             <MFXTextField floatMode="BORDER" floatingText="Intake Number (p/die)" fx:id="intakeNumberField" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel3" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- QUANTITY FIELD -->
             <MFXTextField floatMode="BORDER" floatingText="Quantity (mg)" fx:id="quantityField" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel4" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- INDICATIONS FIELD -->
             <MFXTextField floatMode="BORDER" floatingText="Any Indications" fx:id="indicationsField" prefHeight="40.0" prefWidth="700.0" />
-            <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addTherapy" text="Add Therapy">
-                <VBox.margin>
-                    <Insets bottom="10.0" />
-                </VBox.margin>
-            </MFXButton>
+            <Label styleClass="validationLabel" fx:id="validationLabel5" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+
+            <!-- BUTTONS -->
+            <HBox spacing="10.0" alignment="CENTER">
+                <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleBack" text="Back" styleClass="button-secondary" />
+                <MFXButton fx:id="therapyButton" buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addTherapy" text="Add Therapy" />
+            </HBox>
+
         </children>
     </VBox>
     <padding>

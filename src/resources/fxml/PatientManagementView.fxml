@@ -44,12 +44,6 @@
                         <VBox styleClass="card">
                             <children>
                                 <Label styleClass="card-header" text="Medical Information" />
-                                <Label fx:id="statusLabel" text="Status message"
-                                       wrapText="true" visible="false" managed="false">
-                                    <VBox.margin>
-                                        <Insets bottom="10.0" top="10.0" />
-                                    </VBox.margin>
-                                </Label>
                                 <VBox fx:id="informationContainer" />
                                 <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#updateMedicalInformations" styleClass="button-success"
                                            text="Update Medical Informations" >

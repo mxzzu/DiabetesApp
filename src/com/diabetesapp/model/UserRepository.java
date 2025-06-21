@@ -37,22 +37,19 @@ public class UserRepository {
         for (Document d : docs) {
             if (d.getString("userType").equals("patient")) {
                 users.put(d.getString("username"),
-                    new Patient(d.getString("username"), d.getString("password"), d.getString("userType"), d.getString("riskFactors"), d.getString("prevPat"), d.getString("comorbidities"), d.getString("docUser")));
+                    new Patient(d.getString("username"), d.getString("password"), d.getString("userType"), d.getString("name"), d.getString("surname"), d.getString("birthDate"), d.getString("gender"), d.getString("email"), d.getBoolean("mustChangePassword"), d.getString("riskFactors"), d.getString("prevPats"), d.getString("comorbidities"), d.getString("docUser")));
             } else {
                 users.put(d.getString("username"),
-                    new Doctor(d.getString("username"), d.getString("password"), d.getString("userType"), d.getString("mail")));
+                    new User(d.getString("username"), d.getString("password"), d.getString("userType"), d.getString("name"), d.getString("surname"), d.getString("birthDate"), d.getString("gender"), d.getString("email"), d.getBoolean("mustChangePassword")));
             }
         }
     }
 
     private void addUserToDB(User user) {
-        Document doc = new Document("username", user.getUsername()).append("password", user.getPassword()).append("userType", user.getUserType());
+        Document doc = new Document("username", user.getUsername()).append("password", user.getPassword()).append("userType", user.getUserType()).append("name", user.getName()).append("surname", user.getSurname()).append("birthDate", user.getBirthDate()).append("gender", user.getGender()).append("email", user.getEmail()).append("gender", user.getGender()).append("mustChangePassword", true);
         if (user.getUserType().equals("patient")) {
             Patient patient = (Patient) user;
-            doc.append("riskFactors", patient.getRiskFactors()).append("prevPat", patient.getPrevPats()).append("comorbidities", patient.getComorbidities()).append("docUser", patient.getDocUser());
-        } else {
-            Doctor doctor = (Doctor) user;
-            doc.append("mail", doctor.getMail());
+            doc.append("riskFactors", patient.getRiskFactors()).append("prevPats", patient.getPrevPats()).append("comorbidities", patient.getComorbidities()).append("docUser", patient.getDocUser());
         }
 
         usersCollection.insertOne(doc);
@@ -61,20 +58,30 @@ public class UserRepository {
     private void updateOnDB(User user) {
         Bson filter = eq("username", user.getUsername());
         Bson pswUpdate = set("password", user.getPassword());
-        if (user.getUserType().equals("doctor")) {
-            Bson mailUpdate = set("mail", ((Doctor) user).getMail());
-            usersCollection.updateOne(filter, Updates.combine(pswUpdate, mailUpdate));
-        } else {
-            usersCollection.findOneAndUpdate(filter, pswUpdate);
+        Bson mailUpdate = set("email", user.getEmail());
+        Bson mustChangePassword = set("mustChangePassword", user.isMustChangePassword());
+        Bson combinedUpdated = Updates.combine(pswUpdate, mailUpdate, mustChangePassword);
+        if (user.getUserType().equals("patient")) {
+            Patient patient = (Patient) user;
+            Bson riskFactorsUpdate = set("riskFactors", patient.getRiskFactors());
+            Bson prevPatsUpdate = set("prevPats", patient.getPrevPats());
+            Bson comorbiditiesUpdate = set("comorbidities", patient.getComorbidities());
+            combinedUpdated = Updates.combine(combinedUpdated, riskFactorsUpdate, prevPatsUpdate, comorbiditiesUpdate);
         }
+        usersCollection.updateOne(filter, combinedUpdated);
     }
     
     /**
      * Save a user to the repository
      */
-    public void saveUser(User user) {
+    public void modifyUser(User user) {
         users.put(user.getUsername(), user);
         updateOnDB(user);
+    }
+
+    public void addUser(User user) {
+        users.put(user.getUsername(), user);
+        addUserToDB(user);
     }
     
     /**
@@ -82,6 +89,15 @@ public class UserRepository {
      */
     public User getUser(String username) {
         return users.get(username);
+    }
+
+    public User getUserByEmail(String email) {
+        for (User user : users.values()) {
+            if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     /**
@@ -95,7 +111,7 @@ public class UserRepository {
         List<String> patients = new ArrayList<>();
         for (User user : users.values()) {
             if (user.getUserType().equals("patient")) {
-                patients.add(user.getUsername());
+                patients.add(String.format("%s %s (%s)",  user.getName(), user.getSurname(), user.getUsername()));
             }
         }
         return FXCollections.observableList(patients);

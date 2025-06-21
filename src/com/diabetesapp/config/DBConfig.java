@@ -12,11 +12,4 @@ public class DBConfig {
         }
         return client;
     }
-
-    public static void close() {
-        if (client != null) {
-            client.close();
-            client = null;
-        }
-    }
 }

@@ -1,12 +1,13 @@
 package com.diabetesapp.config;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.model.Doctor;
+import com.diabetesapp.model.Patient;
 import com.diabetesapp.model.User;
 import com.diabetesapp.model.UserRepository;
 import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import java.io.File;
@@ -81,12 +82,15 @@ public class AppConfig {
         };
     }
 
-    public static EventHandler<KeyEvent> updateMail(String username, MFXTextField textField) {
+    public static EventHandler<KeyEvent> updateMail(String username, MFXTextField textField, Label errorLabel) {
         return event -> {
             if (event.getCode() == KeyCode.ENTER) {
+                boolean check = Validator.checkConstraints(textField, errorLabel);
+                if (check) {
+                    return;
+                }
                 String newMail = textField.getText();
                 changeMail(username, newMail);
-                ViewNavigator.navigateToProfile();
             }
         };
     }
@@ -94,8 +98,15 @@ public class AppConfig {
     public static void changeMail(String username, String mail) {
         UserRepository userRepository = Main.getUserRepository();
         User currentUser = userRepository.getUser(username);
-        User newUser = new Doctor(currentUser.getUsername(), currentUser.getPassword(), "doctor", mail);
-        userRepository.saveUser(newUser);
+        User newUser;
+        if (currentUser.getUserType().equals("patient")) {
+            Patient patient = (Patient) currentUser;
+            newUser = new Patient(patient.getUsername(), patient.getPassword(), patient.getUserType(), patient.getName(), patient.getSurname(), patient.getBirthDate(), patient.getGender(), mail, patient.isMustChangePassword(), patient.getRiskFactors(), patient.getPrevPats(), patient.getComorbidities(), patient.getDocUser());
+        } else {
+            newUser = new User(currentUser.getUsername(), currentUser.getPassword(), "doctor", currentUser.getName(), currentUser.getSurname(), currentUser.getBirthDate(), currentUser.getGender(), mail, currentUser.isMustChangePassword());
+        }
+        userRepository.modifyUser(newUser);
+        ViewNavigator.navigateToProfile();
     }
 
     // Create a data directory if it doesn't exist

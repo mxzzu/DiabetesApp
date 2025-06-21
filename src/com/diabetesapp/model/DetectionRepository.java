@@ -35,8 +35,8 @@ public class DetectionRepository {
      * Add detection to DB
      */
     private void addDetectionToDB(Detection detection) {
-        Document doc = new Document("username", detection.getUsername())
-                .append("date", detection.getDate()).append("meal", detection.getMeal()).append("period", detection.getPeriod()).append("level", detection.getLevel());
+        Document doc = new Document("username", detection.username())
+                .append("date", detection.date()).append("meal", detection.meal()).append("period", detection.period()).append("level", detection.level());
 
         detectionsCollection.insertOne(doc);
     }
@@ -51,12 +51,5 @@ public class DetectionRepository {
 
     public List<Detection> getDailyDetections(String username) {
         return DailyEntityUtils.getDailyEntities(username, detections);
-    }
-
-    /**
-     * Get all detections
-     */
-    public List<Detection> getAllDetections() {
-        return new ArrayList<>(detections);
     }
 }

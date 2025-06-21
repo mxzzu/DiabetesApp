@@ -2,6 +2,7 @@ package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.config.AppConfig;
+import com.diabetesapp.config.Validator;
 import com.diabetesapp.model.Detection;
 import com.diabetesapp.model.DetectionRepository;
 import com.diabetesapp.view.ViewNavigator;
@@ -10,14 +11,13 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DetectionController {
     @FXML
-    private Label statusLabel;
+    private Label validationLabel1, validationLabel2,  validationLabel3;
 
     @FXML
     private MFXTextField levelField;
@@ -30,33 +30,32 @@ public class DetectionController {
     @FXML
     public void initialize() {
         detectionRepository = Main.getDetectionRepository();
-        statusLabel.setVisible(false);
         levelField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
+        Validator.emptyFieldConstraints(mealBox,validationLabel1);
+        Validator.emptyFieldConstraints(periodBox,validationLabel2);
+        Validator.emptyFieldConstraints(levelField,validationLabel3);
     }
 
     @FXML
     private void addDetection() {
+        boolean check1 = Validator.checkConstraints(mealBox,validationLabel1);
+        boolean check2 = Validator.checkConstraints(periodBox,validationLabel2);
+        boolean check3 = Validator.checkConstraints(levelField,validationLabel3);
+
+        if (!check1 || !check2 || !check3) {
+            return;
+        }
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date =  dateFormat.format(new Date());
         String level = levelField.getText();
         String meal = mealBox.getValue();
         String period = periodBox.getValue();
 
-        if (level.isEmpty() || meal.isEmpty() || period.isEmpty()) {
-            showError();
-            return;
-        }
-
-        Detection newDetection = new Detection(ViewNavigator.getAuthenticatedUser(), date, meal, period, level);
+        Detection newDetection = new Detection(ViewNavigator.getAuthenticatedUsername(), date, meal, period, level);
         detectionRepository.saveDetection(newDetection);
 
         ViewNavigator.navigateToDashboard();
 
-    }
-
-    private void showError() {
-        statusLabel.setText("Please fill out all fields");
-        statusLabel.setVisible(true);
-        statusLabel.setManaged(true);
     }
 }

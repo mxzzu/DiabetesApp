@@ -6,12 +6,20 @@ public class Patient extends User {
     private final String comorbidities;
     private final String docUser;
 
-    public Patient(String username, String psw, String userType, String riskFactors, String prevPats, String comorbidities, String docUser) {
-        super(username, psw, userType);
+    public Patient(String username, String psw, String userType, String name, String surname, String birthDate, String gender, String email, boolean mustChangePassword, String riskFactors, String prevPats, String comorbidities, String docUser) {
+        super(username, psw, userType,  name, surname, birthDate, gender, email, mustChangePassword);
         this.riskFactors = riskFactors;
         this.prevPats = prevPats;
         this.comorbidities = comorbidities;
         this.docUser = docUser;
+    }
+
+    public Patient(Patient oldPatient, String riskFactors, String prevPats, String comorbidities) {
+        super(oldPatient);
+        this.riskFactors = riskFactors;
+        this.prevPats = prevPats;
+        this.comorbidities = comorbidities;
+        this.docUser = oldPatient.getDocUser();
     }
 
     public String getRiskFactors() {

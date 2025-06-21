@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.RegisterController">
+
+        <VBox spacing="10.0" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
+            <children>
+
+                <!-- TITLE -->
+                <Label text="REGISTER USER" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="50.0" />
+                    </VBox.margin>
+                </Label>
+
+                <Label fx:id="statusLabel" managed="false" styleClass="alert-success" text="Status Message" visible="false" wrapText="true">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Label>
+
+                <HBox spacing="10.0" alignment="CENTER">
+                    <!-- USER TYPE -->
+                    <VBox spacing="5.0" alignment="CENTER">
+                        <MFXComboBox fx:id="userTypeBox" floatMode="BORDER" floatingText="User Type" prefHeight="40.0" prefWidth="345.0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Patient" />
+                                    <String fx:value="Doctor" />
+                                </FXCollections>
+                            </items>
+                        </MFXComboBox>
+                        <Label styleClass="validationLabel" fx:id="userTypeLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                    </VBox>
+
+                    <!-- GENDER -->
+                    <VBox spacing="5.0" alignment="CENTER">
+                        <MFXComboBox fx:id="genderBox" floatMode="BORDER" floatingText="Gender" prefHeight="40.0" prefWidth="345.0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="M" />
+                                    <String fx:value="F" />
+                                </FXCollections>
+                            </items>
+                        </MFXComboBox>
+                        <Label styleClass="validationLabel" fx:id="genderLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                    </VBox>
+                </HBox>
+
+                <!-- TAX CODE -->
+                <VBox spacing="5.0" alignment="CENTER">
+                    <MFXTextField fx:id="usernameField" floatMode="BORDER" floatingText="Enter Tax Code" prefHeight="40.0" prefWidth="700.0" />
+                    <Label styleClass="validationLabel" fx:id="taxCodeLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                </VBox>
+
+                <HBox spacing="10.0" alignment="CENTER" >
+                    <!-- NAME -->
+                    <VBox spacing="5.0" alignment="CENTER">
+                        <MFXTextField fx:id="nameField" floatMode="BORDER" floatingText="Enter Name" prefHeight="40.0" prefWidth="345.0" />
+                        <Label styleClass="validationLabel" fx:id="nameLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                    </VBox>
+
+                    <!-- SURNAME -->
+                    <VBox spacing="5.0" alignment="CENTER">
+                        <MFXTextField fx:id="surnameField" floatMode="BORDER" floatingText="Enter Surname" prefHeight="40.0" prefWidth="345.0" />
+                        <Label styleClass="validationLabel" fx:id="surnameLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                    </VBox>
+                </HBox>
+
+                <!-- BIRTH DATE -->
+                <VBox spacing="5.0" alignment="CENTER">
+                    <MFXDatePicker fx:id="birthDateField" floatMode="BORDER" floatingText="Enter Date of Birth" prefHeight="40.0" prefWidth="700.0" />
+                    <Label styleClass="validationLabel" fx:id="birthDateLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                </VBox>
+
+                <!-- EMAIL -->
+                <VBox spacing="5.0" alignment="CENTER">
+                    <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="Enter Email" prefHeight="40.0" prefWidth="700.0" />
+                    <Label styleClass="validationLabel" fx:id="emailLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                </VBox>
+
+                <HBox spacing="10.0" alignment="CENTER">
+                    <!-- RISK  FACTORS -->
+                    <MFXTextField fx:id="riskField" floatMode="BORDER" floatingText="Enter Risk Factors" prefHeight="40.0" prefWidth="345.0" visible="false" managed="false" />
+
+                    <!-- PREV PAT -->
+                    <MFXTextField fx:id="prevPatField" floatMode="BORDER" floatingText="Enter Previous Pathologies" prefHeight="40.0" prefWidth="345.0" visible="false" managed="false" />
+                </HBox>
+
+                <HBox spacing="10.0" alignment="CENTER">
+                    <!-- COMORBIDITIES -->
+                    <MFXTextField fx:id="comField" floatMode="BORDER" floatingText="Enter Comorbidities" prefHeight="40.0" prefWidth="345.0" visible="false" managed="false" />
+
+                    <!-- DOC USER -->
+                    <VBox spacing="5.0" alignment="CENTER">
+                        <MFXTextField fx:id="docField" floatMode="BORDER" floatingText="Enter Doctor Tax Code" prefHeight="40.0" prefWidth="345.0" visible="false" managed="false" />
+                        <Label styleClass="validationLabel" fx:id="docUserLabel" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                    </VBox>
+                </HBox>
+
+                <!-- BUTTON -->
+                <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleRegister" prefHeight="40.0" prefWidth="260.0" text="Register">
+                    <rotationAxis>
+                        <Point3D />
+                    </rotationAxis>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </MFXButton>
+            </children>
+        </VBox>
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</AnchorPane>

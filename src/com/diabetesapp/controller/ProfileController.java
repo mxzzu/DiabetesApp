@@ -2,16 +2,20 @@ package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.config.PasswordUtil;
-import com.diabetesapp.model.Doctor;
 import com.diabetesapp.model.Patient;
 import com.diabetesapp.model.User;
 import com.diabetesapp.model.UserRepository;
 import com.diabetesapp.view.ViewNavigator;
 import com.diabetesapp.view.components.PersonalInfoCard;
+import com.diabetesapp.config.Validator;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the profile view.
@@ -19,13 +23,19 @@ import javafx.scene.layout.VBox;
  */
 public class ProfileController {
     @FXML
-    private Label statusLabel;
+    private Label statusLabel, validationLabel1, validationLabel2;
 
     @FXML
     private VBox personalInfoContainer;
 
     @FXML
     private MFXPasswordField newPasswordField, confirmPasswordField;
+
+    @FXML
+    private MFXButton backToDashboardBtn;
+
+    @FXML
+    private MFXProgressSpinner progressSpinner;
 
     private UserRepository userRepository;
     private String currentUsername;
@@ -37,12 +47,19 @@ public class ProfileController {
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
-        currentUsername = ViewNavigator.getAuthenticatedUser();
-        PersonalInfoCard personalInfoCard = new PersonalInfoCard(currentUsername);
+        currentUsername = ViewNavigator.getAuthenticatedUsername();
+        PersonalInfoCard personalInfoCard = new PersonalInfoCard(currentUsername, !ViewNavigator.isMustChangePassword());
 
         // Hide the status label initially
         statusLabel.setVisible(false);
         personalInfoContainer.getChildren().add(personalInfoCard);
+
+        Validator.createPasswordConstraints(newPasswordField, confirmPasswordField, validationLabel1);
+        Validator.createPasswordConstraints(confirmPasswordField, newPasswordField, validationLabel2);
+
+        if (ViewNavigator.isMustChangePassword()) {
+            backToDashboardBtn.setDisable(true);
+        }
     }
 
     /**
@@ -51,32 +68,36 @@ public class ProfileController {
      */
     @FXML
     private void handleUpdatePassword() {
+        boolean check1 = Validator.checkConstraints(newPasswordField, validationLabel1);
+        boolean check2 = Validator.checkConstraints(confirmPasswordField, validationLabel2);
+
+        if (!check1 || !check2) {
+            return;
+        }
+
         String newPassword = newPasswordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
-        
-        // Validation
-        if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            showError("Please fill out all password fields");
-            return;
-        }
-        
-        if (!newPassword.equals(confirmPassword)) {
-            showError("Passwords do not match");
-            return;
-        }
 
         String hashedPassword = PasswordUtil.hashPassword(newPassword);
         
         // Update the user with the new password
         User currentUser = userRepository.getUser(currentUsername);
         User updatedUser = getUser(currentUser, hashedPassword);
-        userRepository.saveUser(updatedUser);
+        userRepository.modifyUser(updatedUser);
 
         showSuccess();
         
         // Clear fields
         newPasswordField.clear();
         confirmPasswordField.clear();
+
+        if (ViewNavigator.isMustChangePassword()) {
+            ViewNavigator.setMustChangePassword(false);
+            progressSpinner.setVisible(true);
+            progressSpinner.setManaged(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(_ -> ViewNavigator.navigateToDashboard());
+            pause.play();
+        }
     }
 
     private User getUser(User currentUser, String newPassword) {
@@ -84,10 +105,9 @@ public class ProfileController {
         User updatedUser;
         if (userType.equals("patient")) {
             Patient currentPatient = (Patient) currentUser;
-            updatedUser = new Patient(currentUsername, newPassword, userType, currentPatient.getRiskFactors(), currentPatient.getPrevPats(), currentPatient.getComorbidities(), currentPatient.getDocUser());
+            updatedUser = new Patient(currentUsername, newPassword, userType, currentPatient.getName(), currentPatient.getSurname(), currentPatient.getBirthDate(), currentPatient.getGender(), currentPatient.getEmail(), false, currentPatient.getRiskFactors(), currentPatient.getPrevPats(), currentPatient.getComorbidities(), currentPatient.getDocUser());
         } else {
-            Doctor currentDoctor = (Doctor) currentUser;
-            updatedUser = new Doctor(currentUsername, newPassword, userType, currentDoctor.getMail());
+            updatedUser = new User(currentUsername, newPassword, userType, currentUser.getName(), currentUser.getSurname(), currentUser.getBirthDate(), currentUser.getGender(), currentUser.getEmail(), false);
         }
         return updatedUser;
     }
@@ -100,19 +120,7 @@ public class ProfileController {
     private void handleBackToDashboard() {
         ViewNavigator.navigateToDashboard();
     }
-    
-    /**
-     * Show an error message in the status label.
-     * 
-     * @param message The error message to display
-     */
-    private void showError(String message) {
-        statusLabel.setText(message);
-        statusLabel.getStyleClass().add("alert-danger");
-        statusLabel.setVisible(true);
-        statusLabel.setManaged(true);
-    }
-    
+
     /**
      * Show a success message in the status label.
      */

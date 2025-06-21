@@ -35,8 +35,8 @@ public class IntakeRepository {
      * Add intake to DB
      */
     private void addIntakeToDB(Intake intake) {
-        Document doc = new Document("username", intake.getUsername())
-                .append("date", intake.getDate()).append("drugs", intake.getDrugs()).append("hour", intake.getHour()).append("quantity", intake.getQuantity());
+        Document doc = new Document("username", intake.username())
+                .append("date", intake.date()).append("drugs", intake.drugs()).append("hour", intake.hour()).append("quantity", intake.quantity());
 
         intakesCollection.insertOne(doc);
     }
@@ -51,9 +51,5 @@ public class IntakeRepository {
 
     public List<Intake> getDailyIntakes(String username) {
         return DailyEntityUtils.getDailyEntities(username, intakes);
-    }
-
-    public List<Intake> getAllIntakes() {
-        return new ArrayList<>(intakes);
     }
 }

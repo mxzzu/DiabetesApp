@@ -15,6 +15,8 @@
 <AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.DetectionController">
     <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
         <children>
+
+            <!-- TITLE -->
             <Label text="Blood Sugar Detection" textAlignment="CENTER">
                 <font>
                     <Font name="System Bold" size="28.0" />
@@ -23,11 +25,8 @@
                     <Insets bottom="50.0" />
                 </VBox.margin>
             </Label>
-            <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
-                <VBox.margin>
-                    <Insets bottom="10.0" />
-                </VBox.margin>
-            </Label>
+
+            <!-- MEAL BOX -->
             <MFXComboBox fx:id="mealBox" floatingText="Meal" prefHeight="40.0" prefWidth="700.0">
                  <items>
                      <FXCollections fx:factory="observableArrayList">
@@ -36,10 +35,14 @@
                          <String fx:value="Dinner" />
                      </FXCollections>
                  </items>
+            </MFXComboBox>
+            <Label styleClass="validationLabel" fx:id="validationLabel1" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" >
                 <VBox.margin>
                     <Insets bottom="10.0" />
                 </VBox.margin>
-            </MFXComboBox>
+            </Label>
+
+            <!-- PERIOD BOX -->
             <MFXComboBox fx:id="periodBox" floatingText="Period" prefHeight="40.0" prefWidth="700.0">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -47,11 +50,22 @@
                         <String fx:value="After eating" />
                     </FXCollections>
                 </items>
+            </MFXComboBox>
+            <Label styleClass="validationLabel" fx:id="validationLabel2" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" >
                 <VBox.margin>
                     <Insets bottom="10.0" />
                 </VBox.margin>
-            </MFXComboBox>
+            </Label>
+
+            <!-- LEVEL FIELD -->
             <MFXTextField fx:id="levelField" floatMode="BORDER" floatingText="Bloodsugar Level (mg/dL)" prefHeight="40.0" prefWidth="700.0" />
+            <Label styleClass="validationLabel" fx:id="validationLabel3" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" >
+                <VBox.margin>
+                    <Insets bottom="10.0" />
+                </VBox.margin>
+            </Label>
+
+            <!-- ADD BUTTON -->
             <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addDetection" text="Add Detection">
                 <rotationAxis>
                     <Point3D />

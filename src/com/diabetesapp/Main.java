@@ -56,7 +56,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //System.out.println(BCrypt.hashpw("gio", BCrypt.gensalt())); //DEV
+        //System.out.println(BCrypt.hashpw("Mazzu105", BCrypt.gensalt())); //DEV
     }
     
     /**

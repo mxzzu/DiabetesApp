@@ -12,7 +12,7 @@ public class DailyEntityUtils {
         String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
         allEntities.forEach(entity -> {
-            if (entity.getUsername().equals(username) && entity.getDate().equals(date)) {
+            if (entity.username().equals(username) && entity.date().equals(date)) {
                 dailyEntities.add(entity);
             }
         });

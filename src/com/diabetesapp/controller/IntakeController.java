@@ -1,6 +1,7 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.config.AppConfig;
+import com.diabetesapp.config.Validator;
 import com.diabetesapp.model.Intake;
 import com.diabetesapp.model.IntakeRepository;
 import com.diabetesapp.model.TherapyRepository;
@@ -18,7 +19,7 @@ import java.util.Date;
 public class IntakeController {
 
     @FXML
-    private Label statusLabel;
+    private Label validationLabel1, validationLabel2;
 
     @FXML
     private MFXTextField drugField, hourTaken, quantityTaken, otherSymptoms, otherDrugs, period;
@@ -32,26 +33,31 @@ public class IntakeController {
     public void initialize() {
         intakeRepository = Main.getIntakeRepository();
         TherapyRepository therapyRepository = Main.getTherapyRepository();
-        statusLabel.setVisible(false);
-        drug = therapyRepository.getTherapyByPatient(ViewNavigator.getAuthenticatedUser()).getDrug();
+        drug = therapyRepository.getTherapyByPatient(ViewNavigator.getAuthenticatedUser().getUsername()).drug();
         drugField.setText(drug);
+
         quantityTaken.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
         hourTaken.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.timeFormatOnly(hourTaken));
+
+        Validator.emptyFieldConstraints(hourTaken, validationLabel1);
+        Validator.emptyFieldConstraints(quantityTaken, validationLabel2);
     }
 
     @FXML
     private void addIntake() {
+        boolean check1 = Validator.checkConstraints(hourTaken, validationLabel1);
+        boolean check2 = Validator.checkConstraints(quantityTaken, validationLabel2);
+
+        if (!check1 || !check2) {
+            return;
+        }
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date =  dateFormat.format(new Date());
         String hour = hourTaken.getText();
         String quantity = quantityTaken.getText();
 
-        if (hour.isEmpty() || quantity.isEmpty()) {
-            showError();
-            return;
-        }
-
-        Intake newIntake = new Intake(ViewNavigator.getAuthenticatedUser(), date, drug, hour, quantity);
+        Intake newIntake = new Intake(ViewNavigator.getAuthenticatedUsername(), date, drug, hour, quantity);
         intakeRepository.saveIntake(newIntake);
 
         ViewNavigator.navigateToDashboard();
@@ -66,11 +72,5 @@ public class IntakeController {
         otherDrugs.setManaged(isChecked);
         period.setVisible(isChecked);
         period.setManaged(isChecked);
-    }
-
-    private void showError() {
-        statusLabel.setText("Please fill out all fields");
-        statusLabel.setManaged(true);
-        statusLabel.setVisible(true);
     }
 }

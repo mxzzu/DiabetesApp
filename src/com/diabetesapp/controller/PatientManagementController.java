@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 public class PatientManagementController {
     @FXML
-    private Label statusLabel, therapyError;
+    private Label therapyError;
 
     @FXML
     private VBox personalInfoContainer, therapyContainer, informationContainer;
@@ -39,10 +39,7 @@ public class PatientManagementController {
         userRepository = Main.getUserRepository();
         therapyRepository = Main.getTherapyRepository();
         patientToManage = ViewNavigator.getPatientToManage();
-        PersonalInfoCard personalInfoCard = new PersonalInfoCard(patientToManage);
-
-        // Hide the status label initially
-        statusLabel.setVisible(false);
+        PersonalInfoCard personalInfoCard = new PersonalInfoCard(patientToManage, false);
 
         personalInfoContainer.getChildren().add(personalInfoCard);
         fetchMedicalInformation();
@@ -61,7 +58,7 @@ public class PatientManagementController {
     }
 
     private void fetchTherapy() {
-        if (!patient.getDocUser().equals(ViewNavigator.getAuthenticatedUser())) {
+        if (!patient.getDocUser().equals(ViewNavigator.getAuthenticatedUsername())) {
             therapyButton.setDisable(true);
         }
 
@@ -74,10 +71,10 @@ public class PatientManagementController {
             therapyButton.getStyleClass().add("button");
             return;
         }
-        String[] drug = {therapy.getDrug()};
-        String[] intakeNumber = {therapy.getIntakeNumber()};
-        String[] quantity = {therapy.getQuantity()};
-        String[] indications = {therapy.getIndications()};
+        String[] drug = {therapy.drug()};
+        String[] intakeNumber = {therapy.intakeNumber()};
+        String[] quantity = {therapy.quantity()};
+        String[] indications = {therapy.indications()};
         createHBoxContainer(therapyContainer, "Drug: " , drug);
         createHBoxContainer(therapyContainer, "Intake Number: ", intakeNumber);
         createHBoxContainer(therapyContainer, "Quantity: ", quantity);
@@ -90,7 +87,11 @@ public class PatientManagementController {
         hBox.getStyleClass().add("hbox-container");
         hBox.setPadding(new Insets(10, 0, 0, 0));
         createTitleLabel(hBox, title);
-        createValueLabel(hBox, values);
+        if (values.length == 1 && values[0].isEmpty()) {
+            createEmptyValueLabel(hBox);
+        } else {
+            createValueLabel(hBox, values);
+        }
         container.getChildren().add(hBox);
     }
 
@@ -109,9 +110,15 @@ public class PatientManagementController {
         }
     }
 
+    private void createEmptyValueLabel(HBox container) {
+        Label newLabel = new Label("No data found!");
+        newLabel.getStyleClass().add("empty-value");
+        container.getChildren().add(newLabel);
+    }
+
     @FXML
     private void updateMedicalInformations() {
-
+        ViewNavigator.navigateToMedicalInformations();
     }
 
     /**
@@ -131,27 +138,5 @@ public class PatientManagementController {
     @FXML
     private void handleTherapyButton() {
         ViewNavigator.navigateToTherapy(therapy);
-    }
-
-    /**
-     * Show an error message in the status label.
-     *
-     * @param message The error message to display
-     */
-    private void showError(String message) {
-        statusLabel.setText(message);
-        statusLabel.getStyleClass().add("alert-danger");
-        statusLabel.setVisible(true);
-        statusLabel.setManaged(true);
-    }
-
-    /**
-     * Show a success message in the status label.
-     */
-    private void showSuccess() {
-        statusLabel.setText("Medical Informations updated successfully");
-        statusLabel.getStyleClass().add("alert-success");
-        statusLabel.setVisible(true);
-        statusLabel.setManaged(true);
     }
 }

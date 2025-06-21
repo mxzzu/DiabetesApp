@@ -8,12 +8,12 @@ public class DoctorDashboardController {
     @FXML
     private Label welcomeLabel;
 
-    private final String username = ViewNavigator.getAuthenticatedUser();
+    private final String userName = ViewNavigator.getAuthenticatedUser().getName();
 
     @FXML
     public void initialize() {
         // This is a protected view, so we should always have an authenticated user
-        welcomeLabel.setText("Welcome to your doctor dashboard, " + username + "!");
+        welcomeLabel.setText("Welcome to your doctor dashboard, " + userName + "!");
     }
 
     @FXML

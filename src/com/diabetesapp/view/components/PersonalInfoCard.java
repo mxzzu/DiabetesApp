@@ -2,22 +2,28 @@ package com.diabetesapp.view.components;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.config.AppConfig;
-import com.diabetesapp.model.Doctor;
+import com.diabetesapp.config.Validator;
 import com.diabetesapp.model.Patient;
+import com.diabetesapp.model.User;
 import com.diabetesapp.model.UserRepository;
-import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.ButtonType;
 import io.github.palexdev.materialfx.enums.FloatMode;
+import io.github.palexdev.materialfx.validation.Constraint;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+
+import java.util.List;
+import static io.github.palexdev.materialfx.validation.Validated.INVALID_PSEUDO_CLASS;
 
 public class PersonalInfoCard extends VBox {
     private final VBox infoContainer = new VBox();
@@ -25,7 +31,7 @@ public class PersonalInfoCard extends VBox {
     private final UserRepository userRepository;
     private MFXTextField newField;
 
-    public PersonalInfoCard(String username) {
+    public PersonalInfoCard(String username, boolean mailUpdatable) {
         this.username = username;
         userRepository = Main.getUserRepository();
 
@@ -39,38 +45,62 @@ public class PersonalInfoCard extends VBox {
         infoContainer.setPadding(new Insets(10, 0, 0, 0));
 
         createHBox("Username: ", username);
-        fetchInformation();
+        fetchInformation(mailUpdatable);
 
         this.getChildren().add(infoContainer);
 
         this.setPadding(new Insets(15));
     }
 
-    private void fetchInformation() {
+    private void fetchInformation(boolean mailUpdatable) {
         String userType = userRepository.getUser(username).getUserType();
-        if (userType.equals("doctor")) {
-            String mail = ((Doctor) userRepository.getUser(username)).getMail();
-            createHBox("Mail:", mail);
+        String name = userRepository.getUser(username).getName();
+        String surname =  userRepository.getUser(username).getSurname();
+        String birthDate = userRepository.getUser(username).getBirthDate();
+        String email = userRepository.getUser(username).getEmail();
+        createHBox("Name: ", name);
+        createHBox("Surname: ", surname);
+        createHBox("Date of Birth: ", birthDate);
+        createHBox("Email: ", email);
+        if (userType.equals("patient")) {
+            createSeparator();
+            String docUser = ((Patient) userRepository.getUser(username)).getDocUser();
+            User doc = userRepository.getUser(docUser);
+            createHBox("Doctor:", String.format("%s %s", doc.getName(), doc.getSurname()));
+            createHBox("Doctor Mail:", doc.getEmail());
+        }
+        if (mailUpdatable) {
+            createSeparator();
             newField = new MFXTextField();
             newField.setFloatMode(FloatMode.BORDER);
             newField.setFloatingText("New Mail");
             newField.setPrefSize(1000.0, 40.0);
             newField.setVisible(false);
             newField.setManaged(false);
-            newField.addEventFilter(KeyEvent.KEY_PRESSED, AppConfig.updateMail(username, newField));
-            infoContainer.getChildren().add(newField);
+            newField.getStyleClass().add("validatedField");
+            Label errorLabel = new Label();
+            errorLabel.getStyleClass().add("validationLabel");
+            errorLabel.setMaxSize(1.7976931348623157E308, Double.NEGATIVE_INFINITY);
+            errorLabel.setWrapText(true);
+            errorLabel.setTextFill(Paint.valueOf("ef6e6b"));
+            errorLabel.setManaged(false);
+            errorLabel.setVisible(false);
+            newField.addEventFilter(KeyEvent.KEY_PRESSED, AppConfig.updateMail(username, newField, errorLabel));
+            infoContainer.getChildren().addAll(newField, errorLabel);
             MFXButton updateButton = new MFXButton("Update Mail");
             updateButton.setButtonType(ButtonType.RAISED);
             updateButton.setMnemonicParsing(false);
             updateButton.getStyleClass().add("button-success");
-            updateButton.setOnAction(updateMail());
+            updateButton.setOnAction(updateMail(username, newField, errorLabel));
             infoContainer.getChildren().add(updateButton);
-        } else {
-            String doc = ((Patient) userRepository.getUser(username)).getDocUser();
-            String mail = ((Doctor) userRepository.getUser(doc)).getMail();
-            createHBox("Doctor:", doc);
-            createHBox("Doctor Mail:", mail);
+            Validator.createMailConstraints(newField, errorLabel);
         }
+    }
+
+    private void createSeparator() {
+        Separator sep = new Separator();
+        sep.getStyleClass().add("separator");
+        infoContainer.getChildren().add(sep);
     }
 
     private void createHBox(String title, String value) {
@@ -85,14 +115,21 @@ public class PersonalInfoCard extends VBox {
         infoContainer.getChildren().add(hBox);
     }
 
-    private EventHandler<ActionEvent> updateMail() {
+    private EventHandler<ActionEvent> updateMail(String username, MFXTextField mailField, Label errorLabel) {
         return _ -> {
-            if (!newField.isVisible()) {
-                newField.setVisible(true);
-                newField.setManaged(true);
+            if (!mailField.isVisible()) {
+                mailField.setVisible(true);
+                mailField.setManaged(true);
             } else {
+                List<Constraint> constraints = mailField.validate();
+                if (!constraints.isEmpty()) {
+                    mailField.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, true);
+                    errorLabel.setText(constraints.getFirst().getMessage());
+                    errorLabel.setVisible(true);
+                    errorLabel.setManaged(true);
+                    return;
+                }
                 AppConfig.changeMail(username, newField.getText());
-                ViewNavigator.navigateToProfile();
             }
         };
     }

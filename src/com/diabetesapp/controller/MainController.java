@@ -40,6 +40,14 @@ public class MainController {
      * Update the navigation bar based on authentication status
      */
     public void updateNavBar(boolean isAuthenticated) {
-        navBar.updateAuthStatus(isAuthenticated, ViewNavigator.getAuthenticatedUser());
+        String authUser;
+        if (ViewNavigator.getAuthenticatedUser() != null && ViewNavigator.getAuthenticatedUser().getUserType().equals("admin")) {
+            authUser = "admin";
+        } else if (ViewNavigator.getAuthenticatedUser() != null) {
+            authUser = ViewNavigator.getAuthenticatedName();
+        } else {
+            authUser = null;
+        }
+        navBar.updateAuthStatus(isAuthenticated, authUser);
     }
 }

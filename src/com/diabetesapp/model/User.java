@@ -4,6 +4,12 @@ public class User {
     private final String username;
     private final String password;
     private final String userType;
+    private final String name;
+    private final String surname;
+    private final String birthDate;
+    private final String gender;
+    private final String email;
+    private final boolean mustChangePassword;
     
     /**
      * Constructor for creating a user with a username and password
@@ -11,27 +17,29 @@ public class User {
      * @param username The user's username
      * @param password The user's password (stored in plain text for educational purposes)
      */
-    public User(String username, String password, String userType) {
+    public User(String username, String password, String userType, String name, String surname, String birthDate, String gender, String email, boolean mustChangePassword) {
         this.username = username;
         this.password = password;
         this.userType = userType;
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.email = email;
+        this.mustChangePassword = mustChangePassword;
     }
 
-
-    /*
-     * Factory method to create a new user
-     * 
-     * @param username The user's username
-     * @param password The user's password
-     * @return A new User object
-     */
-    /*public static User create(String username, String password, String userType) {
-        return new User(username, password, userType);
+    protected User(Patient oldPatient) {
+        this.username = oldPatient.getUsername();
+        this.password = oldPatient.getPassword();
+        this.userType = oldPatient.getUserType();
+        this.name = oldPatient.getName();
+        this.surname = oldPatient.getSurname();
+        this.birthDate = oldPatient.getBirthDate();
+        this.gender = oldPatient.getGender();
+        this.email = oldPatient.getEmail();
+        this.mustChangePassword = oldPatient.isMustChangePassword();
     }
-
-    public static User create(String username, String password) {
-        return new User(username, password, "paziente");
-    }*/
 
     /**
      * Get the user's username
@@ -55,7 +63,23 @@ public class User {
         return userType;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getBirthDate() { return birthDate; }
+
+    public String getGender() { return gender; }
+
+    public String getEmail() { return email; }
+
+    public boolean isMustChangePassword() { return mustChangePassword; }
+
     public String toString() {
-        return String.format("%s, %s %s", username, password, userType);
+        return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s", username, password, userType, name, surname, birthDate, gender, email, mustChangePassword);
     }
 }
