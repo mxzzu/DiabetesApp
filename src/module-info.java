@@ -13,6 +13,7 @@ module com.diabetesapp {
     requires org.mongodb.driver.core;
     requires slf4j.api;
     requires MaterialFX;
+    requires org.kordamp.ikonli.core;
 
     opens com.diabetesapp to javafx.fxml;
     exports com.diabetesapp;

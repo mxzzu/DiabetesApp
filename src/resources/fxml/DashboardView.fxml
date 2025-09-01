@@ -9,6 +9,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.scene.text.TextFlow?>
+<?import io.github.palexdev.mfxcore.controls.Text?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -36,38 +38,43 @@
                   </VBox.margin>
                </Label>
                <HBox spacing="20.0">
-                  <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                  <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                      </padding>
                      <Label styleClass="card-header" text="Daily Intake"/>
-                     <Label fx:id="intakeLabel" text="This card contains daily intakes." wrapText="true">
+                     <Text fx:id="intakeLabel" text="This card contains daily intakes." >
                         <VBox.margin>
                            <Insets bottom="10.0" top="10.0"/>
                         </VBox.margin>
-                     </Label>
+                     </Text>
                      <Region VBox.vgrow="ALWAYS"/>
                      <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Add Intake" onAction="#handleIntake"/>
                   </VBox>
-                  <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                  <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                      </padding>
                      <Label styleClass="card-header" text="Daily Detection"/>
-                     <Label fx:id="detectionLabel" text="This card contains daily detections." wrapText="true">
+                     <Label fx:id="detectionLabel" text="This card contains daily detections." wrapText="true" >
                         <VBox.margin>
                            <Insets bottom="10.0" top="10.0"/>
                         </VBox.margin>
                      </Label>
+                     <TextFlow fx:id="flowContainer" lineSpacing="5.0">
+                         <VBox.margin>
+                             <Insets top="10.0"/>
+                         </VBox.margin>
+                     </TextFlow>
                      <Region VBox.vgrow="ALWAYS"/>
                      <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Add Detection" onAction="#handleDetection"/>
                   </VBox>
-                  <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                  <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                      </padding>
                      <Label styleClass="card-header" text="Notifications"/>
-                     <Label text="This card could list user notifications." wrapText="true">
+                     <Label fx:id="notificationLabel" text="This card could list user notifications." wrapText="true">
                         <VBox.margin>
                            <Insets bottom="10.0" top="10.0"/>
                         </VBox.margin>
