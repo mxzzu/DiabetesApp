@@ -156,6 +156,14 @@ public class ViewNavigator {
             navigateToLogin();
         }
     }
+
+    public static void navigateToHistory() {
+        if (isAuthenticated()) {
+            loadView("History.fxml");
+        } else {
+            navigateToLogin();
+        }
+    }
     
     /**
      * Set the authenticated user
@@ -189,6 +197,10 @@ public class ViewNavigator {
 
     public static String getAuthenticatedName() {
         return authenticatedUser.getName();
+    }
+
+    public static String getAuthenticatedSurnname() {
+        return authenticatedUser.getSurname();
     }
 
     public static User getAuthenticatedUser() {

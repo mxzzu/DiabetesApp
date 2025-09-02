@@ -7,13 +7,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="">
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="Changes History added">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Change.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/ChangeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/fxml/History.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Intake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Intake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/MedicalInformationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/MedicalInformationsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,8 +115,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
-        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-IU-252.23892.409" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
       </set>
     </attachedChunks>
   </component>
@@ -132,12 +142,27 @@
       <workItem from="1749914936761" duration="679000" />
       <workItem from="1750061927568" duration="2065000" />
       <workItem from="1756734389053" duration="93000" />
-      <workItem from="1756734493380" duration="11476000" />
+      <workItem from="1756734493380" duration="11569000" />
+      <workItem from="1756818044125" duration="13240000" />
     </task>
+    <task id="LOCAL-00001" summary="Detections Level Check">
+      <option name="closed" value="true" />
+      <created>1756745996036</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1756745996036</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Detections Level Check" />
+    <MESSAGE value="Changes History added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes History added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

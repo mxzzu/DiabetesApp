@@ -1,12 +1,13 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.model.Patient;
-import com.diabetesapp.model.UserRepository;
+import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MedicalInformationsController {
     @FXML
@@ -16,10 +17,13 @@ public class MedicalInformationsController {
     private Label validationLabel1, validationLabel2,  validationLabel3;
 
     private UserRepository userRepository;
+    private ChangeRepository changeRepository;
 
     @FXML
     private void initialize() {
         userRepository = Main.getUserRepository();
+        changeRepository = Main.getChangeRepository();
+
         if (ViewNavigator.getPatientToManage() != null) {
             fillPatientField();
         }
@@ -41,6 +45,12 @@ public class MedicalInformationsController {
 
         Patient oldPatient = (Patient) userRepository.getUser(ViewNavigator.getPatientToManage());
         Patient newPatient = new Patient(oldPatient, riskFactors, prevPat, com);
+        String diff = oldPatient.diff(newPatient);
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String docName = ViewNavigator.getAuthenticatedName() + ' ' + ViewNavigator.getAuthenticatedSurnname();
+        Change change = new Change(ViewNavigator.getPatientToManage(), docName, diff, date.format(myFormatObj));
+        changeRepository.saveChange(change);
         userRepository.modifyUser(newPatient);
 
         ViewNavigator.navigateToManagePatient();

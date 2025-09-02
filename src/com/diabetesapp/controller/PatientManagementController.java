@@ -121,6 +121,9 @@ public class PatientManagementController {
         ViewNavigator.navigateToMedicalInformations();
     }
 
+    @FXML
+    private void seeChangesHistory() { ViewNavigator.navigateToHistory(); }
+
     /**
      * Handle navigating back to the dashboard.
      * This method is called when the user clicks the "Back to Dashboard" button.

@@ -1,10 +1,7 @@
 package com.diabetesapp;
 
 import com.diabetesapp.config.AppConfig;
-import com.diabetesapp.model.DetectionRepository;
-import com.diabetesapp.model.IntakeRepository;
-import com.diabetesapp.model.TherapyRepository;
-import com.diabetesapp.model.UserRepository;
+import com.diabetesapp.model.*;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
@@ -25,6 +22,7 @@ public class Main extends Application {
     private static final DetectionRepository detectionRepository = new DetectionRepository();
     private static final IntakeRepository intakeRepository = new IntakeRepository();
     private static final TherapyRepository therapyRepository = new TherapyRepository();
+    private static final ChangeRepository changeRepository = new ChangeRepository();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -68,6 +66,7 @@ public class Main extends Application {
     public static DetectionRepository getDetectionRepository() { return detectionRepository; }
     public static IntakeRepository getIntakeRepository() { return intakeRepository; }
     public static TherapyRepository getTherapyRepository() { return therapyRepository; }
+    public static ChangeRepository getChangeRepository() { return changeRepository; }
 
     public static void main(String[] args) {
         launch(args);

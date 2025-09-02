@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<AnchorPane xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.diabetesapp.controller.HistoryController">
+
+    <MFXScrollPane fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <content>
+            <HBox alignment="TOP_CENTER">
+                <VBox spacing="20.0" maxWidth="800" styleClass="container" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label text="Changes History" textAlignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+
+                        <VBox styleClass="card" >
+                            <Label fx:id="errorLabel" text="No changes found for this patient!" textAlignment="CENTER" managed="false" >
+                                <VBox.margin>
+                                    <Insets top="10.0" />
+                                </VBox.margin>
+                            </Label>
+                            <MFXTableView fx:id="table" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+                                          prefWidth="800.0" />
+                            <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#backToPatient" styleClass="button"
+                                       text="Back To Patient" >
+
+                                <VBox.margin>
+                                    <Insets top="20.0"/>
+                                </VBox.margin>
+                            </MFXButton>
+                        </VBox>
+
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </VBox>
+            </HBox>
+        </content>
+    </MFXScrollPane>
+</AnchorPane>

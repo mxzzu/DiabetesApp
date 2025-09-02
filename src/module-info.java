@@ -14,6 +14,7 @@ module com.diabetesapp {
     requires slf4j.api;
     requires MaterialFX;
     requires org.kordamp.ikonli.core;
+    requires java.sql;
 
     opens com.diabetesapp to javafx.fxml;
     exports com.diabetesapp;

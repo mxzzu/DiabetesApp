@@ -23,6 +23,7 @@ public class AppConfig {
     public static final String INTAKES_COLLECTION_NAME = "intakes";
     public static final String THERAPIES_COLLECTION_NAME = "therapies";
     public static final String USERS_COLLECTION_NAME = "users";
+    public static final String CHANGES_COLLECTION_NAME = "changes";
 
     public static EventHandler<KeyEvent> digitsOnly() {
         return event -> {

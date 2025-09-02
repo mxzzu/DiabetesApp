@@ -94,7 +94,7 @@ public class RegisterController {
 
         String psw = createRandomPsw();
 
-        String userType = userTypeBox.getValue();
+        String userType = userTypeBox.getValue().toLowerCase();
         String gender = genderBox.getValue();
         String taxCode = usernameField.getText();
         String userName = nameField.getText();
@@ -107,7 +107,7 @@ public class RegisterController {
             return;
         }
 
-        if (userType.equals("Patient")) {
+        if (userType.equals("patient")) {
             String riskFactors =  riskField.getText();
             String prevPat = prevPatField.getText();
             String com = comField.getText();
