@@ -6,8 +6,8 @@
 <?import javafx.geometry.Insets?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
-
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.HistoryController">
@@ -24,7 +24,7 @@
                             </font>
                         </Label>
 
-                        <VBox styleClass="card" >
+                        <VBox fx:id="container" styleClass="card" >
                             <Label fx:id="errorLabel" text="No changes found for this patient!" textAlignment="CENTER" managed="false" >
                                 <VBox.margin>
                                     <Insets top="10.0" />

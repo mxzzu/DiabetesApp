@@ -49,7 +49,7 @@ public class MedicalInformationsController {
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String docName = ViewNavigator.getAuthenticatedName() + ' ' + ViewNavigator.getAuthenticatedSurnname();
-        Change change = new Change(ViewNavigator.getPatientToManage(), docName, diff, date.format(myFormatObj));
+        Change change = new Change(ViewNavigator.getPatientToManage(), docName, ViewNavigator.getAuthenticatedUsername(), diff, date.format(myFormatObj));
         changeRepository.saveChange(change);
         userRepository.modifyUser(newPatient);
 

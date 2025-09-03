@@ -29,7 +29,7 @@ public class ChangeRepository {
     private void loadChanges() {
         FindIterable<Document> docs = changesCollection.find();
         for (Document d : docs) {
-            changes.add(new Change(d.getString("patientUser"), d.getString("docName"), d.getString("change"), d.getString("changeDate")));
+            changes.add(new Change(d.getString("patientUser"), d.getString("docName"), d.getString("docUser"), d.getString("change"), d.getString("changeDate")));
         }
     }
 
@@ -38,7 +38,7 @@ public class ChangeRepository {
      */
     private void addChangeToDB(Change change) {
         Document doc = new Document("patientUser", change.patientUser())
-                .append("docName", change.docName()).append("change", change.change()).append("changeDate", change.changeDate());
+                .append("docName", change.docName()).append("docUser", change.docUser()).append("change", change.change()).append("changeDate", change.changeDate());
 
         changesCollection.insertOne(doc);
     }
@@ -55,7 +55,7 @@ public class ChangeRepository {
         List<Change> changes = new ArrayList<>();
         FindIterable<Document> docs = changesCollection.find(new  Document("patientUser", patientUser));
         for (Document d : docs) {
-            changes.add(new Change(d.getString("patientUser"), d.getString("docName"), d.getString("change"), d.getString("changeDate")));
+            changes.add(new Change(d.getString("patientUser"), d.getString("docName"), d.getString("docUser"), d.getString("change"), d.getString("changeDate")));
         }
         return FXCollections.observableList(changes);
     }

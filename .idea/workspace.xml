@@ -8,22 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="Changes History added">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Change.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/ChangeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/fxml/History.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/MedicalInformationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/MedicalInformationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientManagementView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Change.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Change.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/ChangeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/ChangeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/History.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/History.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,35 +63,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RUN.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mazzu/coding/java/DiabetesTest&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.RUN.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/mazzu/coding/java/DiabetesTest",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="RUN" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.diabetesapp.Main" />
@@ -144,6 +134,7 @@
       <workItem from="1756734389053" duration="93000" />
       <workItem from="1756734493380" duration="11569000" />
       <workItem from="1756818044125" duration="13240000" />
+      <workItem from="1756905975260" duration="12057000" />
     </task>
     <task id="LOCAL-00001" summary="Detections Level Check">
       <option name="closed" value="true" />
