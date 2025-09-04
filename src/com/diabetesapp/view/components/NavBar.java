@@ -2,6 +2,7 @@ package com.diabetesapp.view.components;
 
 import com.diabetesapp.view.ViewNavigator;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -29,6 +30,8 @@ public class NavBar extends HBox {
         this.setSpacing(10);
         this.setPadding(new Insets(10));
         this.setStyle("-fx-background-color: #780dd7;");
+        //allineamento verticale scritta DiabetesApp (Navbar)
+        this.setAlignment(Pos.CENTER);
         
         Label brandLabel = new Label("DiabetesApp");
         brandLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;");
