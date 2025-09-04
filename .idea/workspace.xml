@@ -7,19 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="Pop up added">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PatientListHeader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PatientListRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" afterDir="false" />
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
