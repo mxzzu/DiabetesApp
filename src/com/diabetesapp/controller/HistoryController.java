@@ -57,9 +57,9 @@ public class HistoryController {
 
             dialogContent = MFXDialogs.info()
                     .setShowMinimize(false)
+                    .setShowAlwaysOnTop(false)
                     .setHeaderText("Change Details")
                     .setOnClose(_ -> showMoreDialog.close())
-                    .setOnAlwaysOnTop(_ -> showMoreDialog.setAlwaysOnTop(!dialogContent.isAlwaysOnTop()))
                     .get();
 
             showMoreDialog = new MFXStageDialog(this.dialogContent);
@@ -78,7 +78,15 @@ public class HistoryController {
         MFXTableColumn<Change> changeColumn = new MFXTableColumn<>("Change", false, Comparator.comparing(Change::change));
         MFXTableColumn<Change> dateColumn = new MFXTableColumn<>("Date", false, Comparator.comparing(Change::changeDate));
 
-        docColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Change::docName));
+        //docColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Change::docName));
+        docColumn.setRowCellFactory(changeData -> {
+            MFXTableRowCell<Change, String> changeRow = new MFXTableRowCell<>(Change::docName);
+            changeRow.addEventHandler(MouseEvent.MOUSE_CLICKED, _ -> {
+                createDialogContent(changeData);
+                showMoreDialog.showDialog();
+            });
+            return changeRow;
+        });
         changeColumn.setRowCellFactory(changeData -> {
             MFXTableRowCell<Change, String> changeRow = new MFXTableRowCell<>(Change::change);
             changeRow.addEventHandler(MouseEvent.MOUSE_CLICKED, _ -> {
@@ -105,14 +113,18 @@ public class HistoryController {
     private void createDialogContent(Change change) {
         VBox container = new VBox();
         container.setSpacing(10.0);
-        VBox.setMargin(container, new Insets(10.0));
 
-        Label doctorLabel = new Label();
+        /*Label doctorLabel = new Label();
         String docText = "\nDoctor: " + change.docName() + " (" + change.docUser() + ")";
         doctorLabel.setText(docText);
-        doctorLabel.setWrapText(true);
+        doctorLabel.setWrapText(true);*/
+        Text doctorTitle = new Text("\nDoctor: ");
+        doctorTitle.setStyle("-fx-font-weight: bold");
+        Text doctorName = new Text(change.docName() + " (" + change.docUser() + ")");
+        TextFlow doctorTextFlow = new TextFlow(doctorTitle, doctorName);
 
         Text changeTitle = new Text("Changes:" + "\n");
+        changeTitle.setStyle("-fx-font-weight: bold");
         String[] changesStrings = change.change().split(";");
         Text changes = new Text("");
         for (String c : changesStrings) {
@@ -123,9 +135,9 @@ public class HistoryController {
             // Se removed -> colorato rosso, Se addedd -> colorato verde
             changes.setText(prevText + "-  " + c + "\n");
         }
-        TextFlow textFlow = new TextFlow(changeTitle, changes);
+        TextFlow changeTextFlow = new TextFlow(changeTitle, changes);
 
-        container.getChildren().addAll(doctorLabel, textFlow);
+        container.getChildren().addAll(doctorTextFlow, changeTextFlow);
 
         dialogContent.setContent(container);
     }
