@@ -1,70 +1,81 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
+import com.diabetesapp.model.Patient;
+import io.github.palexdev.materialfx.controls.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.MFXTableView;
+import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import com.diabetesapp.model.User;
+import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import com.diabetesapp.model.UserRepository;
 import com.diabetesapp.view.ViewNavigator;
-import com.diabetesapp.view.components.PatientListHeader;
-import com.diabetesapp.view.components.PatientListRow;
-import java.util.Map;
+import javafx.scene.paint.Color;
+import org.kordamp.ikonli.javafx.FontIcon;
+import java.util.Comparator;
 
 public class PatientsController {
     @FXML
-    private VBox patientListContainer;
+    private MFXTableView<Patient> table;
 
     private UserRepository userRepository;
+    private ObservableList<Patient> patients;
 
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
-        populatePatientList();
+        patients = userRepository.getAllPatients();
+        createTable();
+        table.getTableColumns().getFirst().setPrefWidth(200);
+        table.getTableColumns().get(1).setPrefWidth(200);
+        table.getTableColumns().get(2).setPrefWidth(200);
+        table.getTableColumns().getLast().setPrefWidth(200);
     }
 
-    private void populatePatientList() {
-        // Clear the container first
-        patientListContainer.getChildren().clear();
-        
-        // Add a header row
-        PatientListHeader headerRow = new PatientListHeader();
-        patientListContainer.getChildren().add(headerRow);
-        
-        // Get all users
-        Map<String, User> users = userRepository.getAllUsers();
+    private void createTable() {
+        MFXTableColumn<Patient> nameColumn = new MFXTableColumn<>("Name", false, Comparator.comparing(Patient::getName));
+        MFXTableColumn<Patient> surnameColumn = new MFXTableColumn<>("Surname", false, Comparator.comparing(Patient::getSurname));
+        MFXTableColumn<Patient> cfColumn = new MFXTableColumn<>("Username", false, Comparator.comparing(Patient::getUsername));
+        MFXTableColumn<Patient> actionColumn = new MFXTableColumn<>("Manage", false);
 
-        boolean hasNonDoctorUsers = false;
-        
-        // Add a row for each non-admin user
-        for (User user : users.values()) {
-            // Skip admin users (they should not appear in this list)
-            if (user.getUserType().equals("doctor") || user.getUserType().equals("admin")) {
-                continue;
-            }
-            
-            hasNonDoctorUsers = true;
-            
-            // Create a user row component and add it to the container
-            PatientListRow userRow = new PatientListRow(
-                user,
-                () -> handleManagePatient(user.getUsername())
-            );
-            
-            patientListContainer.getChildren().add(userRow);
-        }
+        nameColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Patient::getName));
+        surnameColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Patient::getSurname));
+        cfColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Patient::getUsername));
+        actionColumn.setRowCellFactory(patient -> {
+            MFXTableRowCell<Patient, String> tableRow = new MFXTableRowCell<>(Patient::getButtonLabel);
+            tableRow.setAlignment(Pos.CENTER_RIGHT);
 
-        if (!hasNonDoctorUsers) {
-            Label noPatientsLabel = new Label("No patient found.");
-            patientListContainer.getChildren().add(noPatientsLabel);
-        }
+            FontIcon icon = new FontIcon("bi-pencil-square");
+            icon.setIconColor(Color.web("#780dd7"));
+            icon.setIconSize(24);
+            icon.getStyleClass().add("table-button");
+            icon.addEventHandler(MouseEvent.MOUSE_CLICKED, _ -> {
+                ViewNavigator.setPatientToManage(patient.getUsername());
+                ViewNavigator.navigateToManagePatient();
+            });
+            tableRow.setGraphic(icon);
+
+            return tableRow;
+        });
+        actionColumn.setAlignment(Pos.CENTER_RIGHT);
+
+        nameColumn.getStyleClass().add("bold-text");
+        surnameColumn.getStyleClass().add("bold-text");
+        cfColumn.getStyleClass().add("bold-text");
+        actionColumn.getStyleClass().add("bold-text");
+
+        table.getTableColumns().addAll(nameColumn, surnameColumn, cfColumn, actionColumn);
+        table.getFilters().addAll(
+                new StringFilter<>("Name", Patient::getName),
+                new StringFilter<>("Surname", Patient::getSurname),
+                new StringFilter<>("Username", Patient::getUsername)
+        );
+
+        table.setItems(patients);
     }
 
-    private void handleManagePatient(String username) {
-        ViewNavigator.setPatientToManage(username);
-        ViewNavigator.navigateToManagePatient();
-    }
-    
     /**
      * Handle navigating back to the dashboard
      */

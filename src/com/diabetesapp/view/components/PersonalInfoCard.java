@@ -108,7 +108,7 @@ public class PersonalInfoCard extends VBox {
         hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER_LEFT);
         Label titleLabel = new Label(title);
-        titleLabel.getStyleClass().add("form-label");
+        titleLabel.getStyleClass().add("bold-text");
         Label valueLabel = new Label(value);
         hBox.getChildren().add(titleLabel);
         hBox.getChildren().add(valueLabel);

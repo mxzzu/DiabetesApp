@@ -17,6 +17,10 @@
     -fx-cursor: hand;
 }
 
+.table-button {
+    -fx-cursor: hand;
+}
+
 .button:hover {
     -fx-background-color: #622f81;
 }
@@ -60,7 +64,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.25), 0, 0, 0, 0);
 }
 
-.form-label {
+.bold-text {
     -fx-font-weight: bold;
 }
 

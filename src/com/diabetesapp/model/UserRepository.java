@@ -107,11 +107,21 @@ public class UserRepository {
         return new HashMap<>(users);
     }
 
-    public ObservableList<String> getAllPatients() {
+    public ObservableList<String> getAllDataPatients() {
         List<String> patients = new ArrayList<>();
         for (User user : users.values()) {
             if (user.getUserType().equals("patient")) {
                 patients.add(String.format("%s %s (%s)",  user.getName(), user.getSurname(), user.getUsername()));
+            }
+        }
+        return FXCollections.observableList(patients);
+    }
+
+    public ObservableList<Patient> getAllPatients() {
+        List<Patient> patients = new ArrayList<>();
+        for (User user : users.values()) {
+            if (user.getUserType().equals("patient")) {
+                patients.add((Patient) user);
             }
         }
         return FXCollections.observableList(patients);

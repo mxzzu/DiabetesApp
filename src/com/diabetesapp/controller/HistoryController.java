@@ -13,7 +13,6 @@ import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -78,7 +77,6 @@ public class HistoryController {
         MFXTableColumn<Change> changeColumn = new MFXTableColumn<>("Change", false, Comparator.comparing(Change::change));
         MFXTableColumn<Change> dateColumn = new MFXTableColumn<>("Date", false, Comparator.comparing(Change::changeDate));
 
-        //docColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Change::docName));
         docColumn.setRowCellFactory(changeData -> {
             MFXTableRowCell<Change, String> changeRow = new MFXTableRowCell<>(Change::docName);
             changeRow.addEventHandler(MouseEvent.MOUSE_CLICKED, _ -> {
@@ -100,6 +98,10 @@ public class HistoryController {
         }});
         dateColumn.setAlignment(Pos.CENTER_RIGHT);
 
+        docColumn.getStyleClass().add("bold-text");
+        changeColumn.getStyleClass().add("bold-text");
+        dateColumn.getStyleClass().add("bold-text");
+
         table.getTableColumns().addAll(docColumn, changeColumn, dateColumn);
         table.getFilters().addAll(
                 new StringFilter<>("Doctor", Change::docName),
@@ -114,10 +116,6 @@ public class HistoryController {
         VBox container = new VBox();
         container.setSpacing(10.0);
 
-        /*Label doctorLabel = new Label();
-        String docText = "\nDoctor: " + change.docName() + " (" + change.docUser() + ")";
-        doctorLabel.setText(docText);
-        doctorLabel.setWrapText(true);*/
         Text doctorTitle = new Text("\nDoctor: ");
         doctorTitle.setStyle("-fx-font-weight: bold");
         Text doctorName = new Text(change.docName() + " (" + change.docUser() + ")");

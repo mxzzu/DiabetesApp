@@ -53,6 +53,10 @@ public class Patient extends User {
         return docUser;
     }
 
+    public String getButtonLabel() {
+        return "";
+    }
+
     public String toString() {
         return String.format("%s, %s, %s, %s, %s", super.toString(), riskFactors, prevPats, comorbidities, docUser);
     }
