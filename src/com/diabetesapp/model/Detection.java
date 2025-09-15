@@ -1,6 +1,8 @@
 package com.diabetesapp.model;
 
-public record Detection(String username, String date, String meal, String period, String level) implements DailyEntity {
+import java.time.LocalDate;
+
+public record Detection(String username, LocalDate date, String meal, String period, String level) implements DailyEntity {
 
     @Override
     public String toString() {

@@ -1,15 +1,14 @@
 package com.diabetesapp.model;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DailyEntityUtils {
 
     public static <T extends DailyEntity> List<T> getDailyEntities(String username, List<T> allEntities) {
         List<T> dailyEntities = new ArrayList<>();
-        String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        LocalDate date = LocalDate.now();
 
         allEntities.forEach(entity -> {
             if (entity.username().equals(username) && entity.date().equals(date)) {

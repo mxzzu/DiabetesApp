@@ -1,6 +1,8 @@
 package com.diabetesapp.model;
 
+import java.time.LocalDate;
+
 public interface DailyEntity {
     String username();
-    String date();
+    LocalDate date();
 }

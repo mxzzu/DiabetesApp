@@ -12,9 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.diabetesapp.Main;
 import javafx.scene.input.KeyEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class IntakeController {
 
@@ -52,12 +50,10 @@ public class IntakeController {
             return;
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String date =  dateFormat.format(new Date());
         String hour = hourTaken.getText();
         String quantity = quantityTaken.getText();
 
-        Intake newIntake = new Intake(ViewNavigator.getAuthenticatedUsername(), date, drug, hour, quantity);
+        Intake newIntake = new Intake(ViewNavigator.getAuthenticatedUsername(), LocalDate.now(), drug, hour, quantity);
         intakeRepository.saveIntake(newIntake);
 
         ViewNavigator.navigateToDashboard();

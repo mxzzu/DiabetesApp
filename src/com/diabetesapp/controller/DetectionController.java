@@ -11,9 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DetectionController {
     @FXML
@@ -46,13 +44,11 @@ public class DetectionController {
             return;
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String date =  dateFormat.format(new Date());
         String level = levelField.getText();
         String meal = mealBox.getValue();
         String period = periodBox.getValue();
 
-        Detection newDetection = new Detection(ViewNavigator.getAuthenticatedUsername(), date, meal, period, level);
+        Detection newDetection = new Detection(ViewNavigator.getAuthenticatedUsername(), LocalDate.now(), meal, period, level);
         detectionRepository.saveDetection(newDetection);
 
         ViewNavigator.navigateToDashboard();

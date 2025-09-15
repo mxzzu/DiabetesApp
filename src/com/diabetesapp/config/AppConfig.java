@@ -1,6 +1,7 @@
 package com.diabetesapp.config;
 
 import com.diabetesapp.Main;
+import com.diabetesapp.model.Detection;
 import com.diabetesapp.model.Patient;
 import com.diabetesapp.model.User;
 import com.diabetesapp.model.UserRepository;
@@ -11,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import java.io.File;
+import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 public class AppConfig {
     // Application settings
@@ -24,6 +27,8 @@ public class AppConfig {
     public static final String THERAPIES_COLLECTION_NAME = "therapies";
     public static final String USERS_COLLECTION_NAME = "users";
     public static final String CHANGES_COLLECTION_NAME = "changes";
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final Function<Detection, String> DATE_PARSE_FUNCTION = detection ->  detection.date().format(DATE_FORMAT);
 
     public static EventHandler<KeyEvent> digitsOnly() {
         return event -> {

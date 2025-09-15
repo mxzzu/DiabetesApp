@@ -159,7 +159,15 @@ public class ViewNavigator {
 
     public static void navigateToHistory() {
         if (isAuthenticated()) {
-            loadView("History.fxml");
+            loadView("HistoryView.fxml");
+        } else {
+            navigateToLogin();
+        }
+    }
+
+    public static void navigateToData() {
+        if (isAuthenticated()) {
+            loadView("DataView.fxml");
         } else {
             navigateToLogin();
         }

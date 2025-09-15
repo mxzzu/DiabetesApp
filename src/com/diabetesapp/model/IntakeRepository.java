@@ -7,6 +7,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class IntakeRepository {
     private void loadIntakes() {
         FindIterable<Document> docs = intakesCollection.find();
         for (Document d : docs) {
-            intakes.add(new Intake(d.getString("username"), d.getString("date"), d.getString("drugs"), d.getString("hour"), d.getString("quantity")));
+            intakes.add(new Intake(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("drugs"), d.getString("hour"), d.getString("quantity")));
         }
     }
 
@@ -36,7 +38,7 @@ public class IntakeRepository {
      */
     private void addIntakeToDB(Intake intake) {
         Document doc = new Document("username", intake.username())
-                .append("date", intake.date()).append("drugs", intake.drugs()).append("hour", intake.hour()).append("quantity", intake.quantity());
+                .append("date", intake.date().format(AppConfig.DATE_FORMAT)).append("drugs", intake.drugs()).append("hour", intake.hour()).append("quantity", intake.quantity());
 
         intakesCollection.insertOne(doc);
     }
