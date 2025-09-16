@@ -29,16 +29,16 @@ public class DetectionController {
     public void initialize() {
         detectionRepository = Main.getDetectionRepository();
         levelField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
-        Validator.emptyFieldConstraints(mealBox,validationLabel1);
-        Validator.emptyFieldConstraints(periodBox,validationLabel2);
-        Validator.emptyFieldConstraints(levelField,validationLabel3);
+        Validator.createDetectionConstraints(mealBox, periodBox, validationLabel1);
+        Validator.createDetectionConstraints(periodBox, mealBox, validationLabel2);
+        Validator.emptyFieldConstraints(levelField, validationLabel3);
     }
 
     @FXML
     private void addDetection() {
-        boolean check1 = Validator.checkConstraints(mealBox,validationLabel1);
-        boolean check2 = Validator.checkConstraints(periodBox,validationLabel2);
-        boolean check3 = Validator.checkConstraints(levelField,validationLabel3);
+        boolean check1 = Validator.checkConstraints(mealBox, validationLabel1);
+        boolean check2 = Validator.checkConstraints(periodBox, validationLabel2);
+        boolean check3 = Validator.checkConstraints(levelField, validationLabel3);
 
         if (!check1 || !check2 || !check3) {
             return;

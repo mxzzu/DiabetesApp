@@ -3,12 +3,12 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -43,7 +43,7 @@
                                                   minWidth="-Infinity" prefHeight="300.0"
                                                   prefWidth="800.0"/>
 
-                                    <Button mnemonicParsing="false" onAction="#handleShowChart" text="Show Monthly Chart" styleClass="chart-button"/>
+                                    <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleShowChart" text="Show Monthly Chart" styleClass="button-secondary"/>
 
                                     <padding>
                                         <Insets top="5.0" bottom="5.0"/>
@@ -54,7 +54,7 @@
 
                         <HBox alignment="CENTER" spacing="20.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#handleBackToPatients" text="Back to Patients"/>
+                                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToPatients" text="Back to Patients"/>
                             </children>
                         </HBox>
                     </children>

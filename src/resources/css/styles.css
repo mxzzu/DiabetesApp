@@ -183,7 +183,8 @@
 }
 
 /* Stile personalizzato per il pulsante del grafico */
-.chart-button {
+/* NON SERVIREBBE */
+ .chart-button {
     -fx-background-color: #1E88E5; /* Blu primario, coerente con il colore del grafico */
     -fx-text-fill: white;
     -fx-font-weight: bold;

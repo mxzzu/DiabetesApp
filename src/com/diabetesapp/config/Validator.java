@@ -1,5 +1,10 @@
 package com.diabetesapp.config;
 
+import com.diabetesapp.Main;
+import com.diabetesapp.model.Detection;
+import com.diabetesapp.model.DetectionRepository;
+import com.diabetesapp.view.ViewNavigator;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.validation.Constraint;
@@ -216,14 +221,47 @@ public class Validator {
         );
     }
 
-    public static void createDetectionConstraints(MFXTextField mealField, MFXTextField periodField, Label errorLabel) {
-        BooleanBinding blankBinding1 = mealField.textProperty().isNotEmpty();
-        Constraint blankConstraint1 = createConstraint("Field can't be empty", blankBinding1);
+    public static void createDetectionConstraints(MFXComboBox<String> comboBox1, MFXComboBox<String> comboBox2, Label errorLabel) {
+        DetectionRepository detectionRepository = Main.getDetectionRepository();
+        List<Detection> todaysDetections = detectionRepository.getDailyDetections(ViewNavigator.getAuthenticatedUsername());
 
-        BooleanBinding blankBinding2 = periodField.textProperty().isNotEmpty();
-        Constraint blankConstraint2 = createConstraint("Field can't be empty", blankBinding2);
+        BooleanBinding blankBinding = comboBox1.textProperty().isNotEmpty();
+        Constraint blankConstraint = createConstraint("Field can't be empty", blankBinding);
 
-        //BooleanBinding duplicateBinding = mealField.textProperty();
+        Constraint duplicateConstraint = null;
+        if (comboBox2.getId().equals("mealBox")) {
+            BooleanBinding duplicateBinding = Bindings.createBooleanBinding(() -> todaysDetections.stream()
+                    .noneMatch(detection ->
+                            detection.meal().equals(comboBox2.getSelectedItem()) &&
+                                    detection.period().equals(comboBox1.getSelectedItem())
+                    ), comboBox1.textProperty(), comboBox2.textProperty());
+            duplicateConstraint = createConstraint("Detection already registered", duplicateBinding);
+        }
+
+        if (duplicateConstraint != null) {
+            comboBox1.getValidator()
+                    .constraint(blankConstraint)
+                    .constraint(duplicateConstraint);
+        } else {
+            comboBox1.getValidator()
+                    .constraint(blankConstraint);
+        }
+
+        setupValidationListeners(
+                comboBox1.getValidator().validProperty(),
+                comboBox1.delegateFocusedProperty(),
+                comboBox1::validate,
+                state -> comboBox1.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, state),
+                msg -> {
+                    errorLabel.setText(msg);
+                    errorLabel.setVisible(true);
+                    errorLabel.setManaged(true);
+                },
+                () -> {
+                    errorLabel.setVisible(false);
+                    errorLabel.setManaged(false);
+                }
+        );
     }
 
     public static boolean checkConstraints(MFXTextField field, Label errorLabel) {

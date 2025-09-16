@@ -7,6 +7,7 @@ import com.diabetesapp.model.DetectionRepository;
 import com.diabetesapp.model.User;
 import com.diabetesapp.model.UserRepository;
 import com.diabetesapp.view.ViewNavigator;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -26,7 +27,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -34,13 +34,11 @@ import javafx.scene.shape.Circle;
 import javafx.util.StringConverter;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Comparator;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-
 import static com.diabetesapp.config.AppConfig.DATE_PARSE_FUNCTION;
 
 public class DataController {
@@ -162,10 +160,10 @@ public class DataController {
         HBox colorLegend = createColorLegend();
         HBox rangesLegend = createRangesLegend();
 
-        this.chartsContainer = new VBox(20);
-        this.chartsContainer.setAlignment(Pos.CENTER);
+        chartsContainer = new VBox(20);
+        chartsContainer.setAlignment(Pos.CENTER);
 
-        ScrollPane scrollPane = new ScrollPane(this.chartsContainer);
+        MFXScrollPane scrollPane = new MFXScrollPane(chartsContainer);
         scrollPane.setFitToWidth(true);
 
         mainLayout.getChildren().addAll(pickerContainer, colorLegend, rangesLegend, scrollPane);

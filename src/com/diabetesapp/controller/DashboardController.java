@@ -10,7 +10,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.kordamp.ikonli.javafx.FontIcon;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class DashboardController {
     @FXML
@@ -37,11 +39,20 @@ public class DashboardController {
     }
 
     private void fetchDailyDetections() {
+        Map<String, Integer> mealOrder = Map.of(
+                "Breakfast", 1,
+                "Lunch", 2,
+                "Dinner", 3
+        );
+
         List<Detection> detections = detectionRepository.getDailyDetections(username);
         if (detections.isEmpty()) {
             detectionLabel.setText("No detections found!");
         } else {
             detectionLabel.setManaged(false);
+            detections.sort(Comparator
+                    .comparingInt((Detection d) -> mealOrder.get(d.meal()))
+                    .thenComparing(Detection::period, Comparator.reverseOrder()));
             printColoredDetections(detections);
         }
     }
