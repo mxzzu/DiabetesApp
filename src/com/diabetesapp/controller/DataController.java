@@ -10,13 +10,13 @@ import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import java.util.Comparator;
-
 import static com.diabetesapp.config.AppConfig.DATE_PARSE_FUNCTION;
 
 public class DataController {
@@ -71,7 +71,7 @@ public class DataController {
                 new DateFilter<>("Date", Detection::date),
                 new StringFilter<>("Meal", Detection::meal),
                 new StringFilter<>("Period", Detection::period),
-                new StringFilter<>("Level", Detection::level)
+                new IntegerFilter<>("Level", Detection::level)
         );
 
         table.setItems(detections);

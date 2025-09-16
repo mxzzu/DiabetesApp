@@ -216,6 +216,16 @@ public class Validator {
         );
     }
 
+    public static void createDetectionConstraints(MFXTextField mealField, MFXTextField periodField, Label errorLabel) {
+        BooleanBinding blankBinding1 = mealField.textProperty().isNotEmpty();
+        Constraint blankConstraint1 = createConstraint("Field can't be empty", blankBinding1);
+
+        BooleanBinding blankBinding2 = periodField.textProperty().isNotEmpty();
+        Constraint blankConstraint2 = createConstraint("Field can't be empty", blankBinding2);
+
+        //BooleanBinding duplicateBinding = mealField.textProperty();
+    }
+
     public static boolean checkConstraints(MFXTextField field, Label errorLabel) {
         List<Constraint> constraints = field.validate();
         if (!constraints.isEmpty()) {

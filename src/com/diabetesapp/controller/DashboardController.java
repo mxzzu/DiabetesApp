@@ -77,7 +77,7 @@ public class DashboardController {
         String level;
         for (Detection item : list) {
             Text newLine = new Text("  " + item.toString() + "\n");
-            int parsedLevel = Integer.parseInt(item.level());
+            int parsedLevel = item.level();
             if (item.period().equals("Before eating")) {
                 if (parsedLevel >= 80 && parsedLevel <= 130) {
                     level = "normal";

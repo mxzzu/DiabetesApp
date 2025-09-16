@@ -30,7 +30,7 @@ public class DetectionRepository {
     private void loadDetections() {
         FindIterable<Document> docs = detectionsCollection.find();
         for (Document d : docs) {
-            detections.add(new Detection(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("meal"), d.getString("period"), d.getString("level")));
+            detections.add(new Detection(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("meal"), d.getString("period"), d.getInteger("level")));
         }
     }
 
@@ -60,7 +60,7 @@ public class DetectionRepository {
         List<Detection> detections = new ArrayList<>();
         FindIterable<Document> docs = detectionsCollection.find(new Document("username", patient));
         for (Document d : docs) {
-            detections.add(new Detection(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("meal"), d.getString("period"), d.getString("level")));
+            detections.add(new Detection(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("meal"), d.getString("period"), d.getInteger("level")));
         }
 
         return FXCollections.observableList(detections);

@@ -44,7 +44,7 @@ public class DetectionController {
             return;
         }
 
-        String level = levelField.getText();
+        int level = Integer.parseInt(levelField.getText());
         String meal = mealBox.getValue();
         String period = periodBox.getValue();
 
