@@ -63,6 +63,8 @@
                                         <Insets top="5.0" bottom="5.0" />
                                     </padding>
                                 </VBox>
+                                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleDeleteConcTherapy" text="Delete Therapy"
+                                           styleClass="button-danger" disable="true" fx:id="deleteButton" />
                             </children>
                         </VBox>
 

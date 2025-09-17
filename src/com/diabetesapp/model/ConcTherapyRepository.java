@@ -30,18 +30,8 @@ public class ConcTherapyRepository {
     private void loadConcTherapies() {
         FindIterable<Document> docs = concTherapyCollection.find();
         for (Document d : docs) {
-            concTherapies.add(new ConcTherapy(d.getString("username"), d.getString("symptoms"), d.getString("drugs"), LocalDate.parse(d.getString("start"), AppConfig.DATE_FORMAT), LocalDate.parse(d.getString("end"), AppConfig.DATE_FORMAT)));
+            concTherapies.add(docToObj(d));
         }
-    }
-
-    /**
-     * Add concomitant therapies to DB
-     */
-    private void addConcTherapyToDB(ConcTherapy therapy) {
-        Document doc = new Document("username", therapy.username())
-                .append("symptoms", therapy.symptoms()).append("drugs", therapy.drugs()).append("start", therapy.start().format(AppConfig.DATE_FORMAT)).append("end", therapy.end().format(AppConfig.DATE_FORMAT));
-
-        concTherapyCollection.insertOne(doc);
     }
 
     /**
@@ -49,15 +39,49 @@ public class ConcTherapyRepository {
      */
     public void saveConcTherapy(ConcTherapy therapy) {
         concTherapies.add(therapy);
-        addConcTherapyToDB(therapy);
+        concTherapyCollection.insertOne(objToDoc(therapy));
+    }
+
+    /**
+     * Delete concomitant therapy from the repository
+     */
+    public void removeConcTherapy(ConcTherapy therapy) {
+        concTherapies.remove(therapy);
+        concTherapyCollection.deleteOne(objToDoc(therapy));
     }
 
     public ObservableList<ConcTherapy> getConcTherapiesByUser(String username) {
         List<ConcTherapy> concTherapies = new ArrayList<>();
         FindIterable<Document> docs = concTherapyCollection.find(new  Document("username", username));
         for (Document d : docs) {
-            concTherapies.add(new ConcTherapy(d.getString("username"), d.getString("symptoms"), d.getString("drugs"), LocalDate.parse(d.getString("start"), AppConfig.DATE_FORMAT), LocalDate.parse(d.getString("end"), AppConfig.DATE_FORMAT)));
-        }
+            concTherapies.add(docToObj(d));
+         }
         return FXCollections.observableList(concTherapies);
+    }
+
+    private ConcTherapy docToObj(Document d) {
+        String username = d.getString("username");
+        String symptoms = d.getString("symptoms");
+        String drugs = d.getString("drugs");
+        LocalDate start = LocalDate.parse(d.getString("start"), AppConfig.DATE_FORMAT);
+        LocalDate end = null;
+
+        if (d.get("end") != null) {
+            end = LocalDate.parse(d.getString("end"), AppConfig.DATE_FORMAT);
+        }
+
+        return new ConcTherapy(username, symptoms, drugs, start, end);
+    }
+
+    private Document objToDoc(ConcTherapy therapy) {
+        Document doc = new Document("username", therapy.username())
+                .append("symptoms", therapy.symptoms()).append("drugs", therapy.drugs()).append("start", therapy.start().format(AppConfig.DATE_FORMAT));
+
+        if (therapy.end() != null) {
+            doc.append("end", therapy.end().format(AppConfig.DATE_FORMAT));
+        }  else {
+            doc.append("end", null);
+        }
+        return doc;
     }
 }

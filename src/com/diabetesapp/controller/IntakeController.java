@@ -56,7 +56,7 @@ public class IntakeController {
         if (toggleCheckBox.isSelected()) {
             boolean check3 =  Validator.checkConstraints(otherSymptoms, validationLabel3);
             boolean check4 = Validator.checkConstraints(start, validationLabel3);
-            if (otherDrugs.getText().isEmpty()) {
+            if (otherDrugs.getText().isEmpty() && end.getText().isEmpty()) {
                 Validator.removeConstraints(end, validationLabel4);
                 if (!check3 ||  !check4) {
                     return;
@@ -67,9 +67,7 @@ public class IntakeController {
                     return;
                 }
             }
-            System.out.println("VALID");
-            return;
-            //addConcTherapy();
+            addConcTherapy();
         }
 
         String hour = hourTaken.getText();
@@ -88,6 +86,8 @@ public class IntakeController {
         LocalDate endDate = null;
         if (!drugs.isEmpty()) {
             endDate = LocalDate.parse(end.getText(),  AppConfig.DATE_FORMAT);
+        } else {
+            drugs = "No drugs taken";
         }
 
         ConcTherapy newConcTherapy = new ConcTherapy(ViewNavigator.getAuthenticatedUsername(), symptoms, drugs, startDate, endDate);

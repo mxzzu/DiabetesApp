@@ -1,21 +1,14 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.config.DateFilter;
-import com.diabetesapp.model.Detection;
-import com.diabetesapp.model.DetectionRepository;
-import com.diabetesapp.model.User;
-import com.diabetesapp.model.UserRepository;
+import com.diabetesapp.config.AppConfig;
+import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.dialogs.MFXDialogs;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
 import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
-import io.github.palexdev.materialfx.filter.IntegerFilter;
-import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,12 +32,13 @@ import java.time.Month;
 import java.util.Comparator;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import static com.diabetesapp.config.AppConfig.DETECTION_DATE_PARSE_FUNCTION;
 
 public class DataController {
 
     @FXML
     private MFXTableView<Detection> table;
+    @FXML
+    private MFXTableView<ConcTherapy> concTherapiesTable;
     @FXML
     private Label cardTitle;
     @FXML
@@ -52,7 +46,9 @@ public class DataController {
 
     private DetectionRepository detectionRepository;
     private UserRepository userRepository;
+    private ConcTherapyRepository concTherapyRepository;
     private ObservableList<Detection> detections;
+    private ObservableList<ConcTherapy> concTherapies;
     private MFXGenericDialog dialogContent;
     private MFXStageDialog chartDialog;
     private VBox chartsContainer;
@@ -66,49 +62,21 @@ public class DataController {
     @FXML
     public void initialize() {
         detectionRepository = Main.getDetectionRepository();
+        concTherapyRepository = Main.getConcTherapyRepository();
         userRepository = Main.getUserRepository();
         detections = detectionRepository.getAllDetectionsByPatient(ViewNavigator.getPatientToManage());
+        concTherapies = concTherapyRepository.getConcTherapiesByUser(ViewNavigator.getPatientToManage());
         User patient = userRepository.getUser(ViewNavigator.getPatientToManage());
         String title = String.format("Data Table of: %s %s (%s)", patient.getName(), patient.getSurname(), patient.getUsername());
         cardTitle.setText(title);
 
-        createTable();
-        table.getTableColumns().getFirst().setPrefWidth(200);
-        table.getTableColumns().get(1).setPrefWidth(200);
-        table.getTableColumns().get(2).setPrefWidth(200);
-        table.getTableColumns().getLast().setPrefWidth(200);
+        AppConfig.createDetectionTable(table, detections);
+        AppConfig.createConcTherapyTable(concTherapiesTable, concTherapies);
+
+        AppConfig.setTableSize(table);
+        AppConfig.setTableSize(concTherapiesTable);
 
         setupChartDialog();
-    }
-
-    private void createTable() {
-        MFXTableColumn<Detection> dateColumn = new MFXTableColumn<>("Date", false, Comparator.comparing(Detection::date));
-        MFXTableColumn<Detection> mealColumn = new MFXTableColumn<>("Meal", false, Comparator.comparing(Detection::meal));
-        MFXTableColumn<Detection> periodColumn = new MFXTableColumn<>("Period", false, Comparator.comparing(Detection::period));
-        MFXTableColumn<Detection> levelColumn = new MFXTableColumn<>("Level", false, Comparator.comparing(Detection::level));
-
-        dateColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(DETECTION_DATE_PARSE_FUNCTION));
-        mealColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Detection::meal));
-        periodColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Detection::period));
-        levelColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Detection::level) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
-
-        levelColumn.setAlignment(Pos.CENTER_RIGHT);
-
-        dateColumn.getStyleClass().add("bold-text");
-        mealColumn.getStyleClass().add("bold-text");
-        periodColumn.getStyleClass().add("bold-text");
-        levelColumn.getStyleClass().add("bold-text");
-
-        table.getTableColumns().addAll(dateColumn, mealColumn, periodColumn, levelColumn);
-        table.getFilters().addAll(
-                new DateFilter<>("Date", Detection::date),
-                new StringFilter<>("Meal", Detection::meal),
-                new StringFilter<>("Period", Detection::period),
-                new IntegerFilter<>("Level", Detection::level)
-        );
-        table.setItems(detections);
     }
 
     private void setupChartDialog() {
