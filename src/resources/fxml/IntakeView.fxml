@@ -39,8 +39,12 @@
 
             <!-- CONCOMITANT THERAPIES -->
             <MFXTextField floatMode="BORDER" floatingText="Other Symptoms" fx:id="otherSymptoms" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
+            <Label styleClass="validationLabel" fx:id="validationLabel3" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
             <MFXTextField floatMode="BORDER" floatingText="Drugs Taken" fx:id="otherDrugs" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
-            <MFXTextField floatMode="BORDER" floatingText="Period" fx:id="period" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
+            <MFXTextField floatMode="BORDER" floatingText="Start" fx:id="start" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
+            <Label styleClass="validationLabel" fx:id="validationLabel4" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+            <MFXTextField floatMode="BORDER" floatingText="End" fx:id="end" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
+            <Label styleClass="validationLabel" fx:id="validationLabel5" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
 
             <!-- ADD INTAKE -->
             <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addIntake" text="Add Intake" />

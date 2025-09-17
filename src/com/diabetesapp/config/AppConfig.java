@@ -27,6 +27,7 @@ public class AppConfig {
     public static final String THERAPIES_COLLECTION_NAME = "therapies";
     public static final String USERS_COLLECTION_NAME = "users";
     public static final String CHANGES_COLLECTION_NAME = "changes";
+    public static final String CONCTHERAPY_COLLECTION_NAME = "concTherapies";
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final Function<Detection, String> DATE_PARSE_FUNCTION = detection ->  detection.date().format(DATE_FORMAT);
 

@@ -23,6 +23,7 @@ public class Main extends Application {
     private static final IntakeRepository intakeRepository = new IntakeRepository();
     private static final TherapyRepository therapyRepository = new TherapyRepository();
     private static final ChangeRepository changeRepository = new ChangeRepository();
+    private static final ConcTherapyRepository concTherapyRepository = new ConcTherapyRepository();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -58,7 +59,7 @@ public class Main extends Application {
     }
     
     /**
-     * Get the application-wide user repository
+     * Get the application-wide repositories
      */
     public static UserRepository getUserRepository() {
         return userRepository;
@@ -67,6 +68,7 @@ public class Main extends Application {
     public static IntakeRepository getIntakeRepository() { return intakeRepository; }
     public static TherapyRepository getTherapyRepository() { return therapyRepository; }
     public static ChangeRepository getChangeRepository() { return changeRepository; }
+    public static ConcTherapyRepository getConcTherapyRepository() { return concTherapyRepository; }
 
     public static void main(String[] args) {
         launch(args);

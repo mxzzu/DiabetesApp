@@ -7,15 +7,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="Data Visualization Table and DateFilter">
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="Check on duplicate detection">
+      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/ConcTherapy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/ConcTherapyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/Validator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DataView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DataView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/IntakeView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/IntakeView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +140,7 @@
       <workItem from="1757948258478" duration="54000" />
       <workItem from="1757948329053" duration="11371000" />
       <workItem from="1758032860045" duration="2882000" />
+      <workItem from="1758098378224" duration="4139000" />
     </task>
     <task id="LOCAL-00001" summary="Detections Level Check">
       <option name="closed" value="true" />
@@ -158,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757959690975</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Check on duplicate detection">
+      <option name="closed" value="true" />
+      <created>1758043450900</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758043450900</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,7 +176,8 @@
     <MESSAGE value="Detections Level Check" />
     <MESSAGE value="Changes History added" />
     <MESSAGE value="Data Visualization Table and DateFilter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Data Visualization Table and DateFilter" />
+    <MESSAGE value="Check on duplicate detection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Check on duplicate detection" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
