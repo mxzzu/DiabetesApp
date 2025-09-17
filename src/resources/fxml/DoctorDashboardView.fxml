@@ -62,7 +62,7 @@
                         <HBox spacing="10.0" alignment="CENTER">
                             <children>
                                 <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
-                                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleLogout" styleClass="button-secondary"
+                                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleLogout" styleClass="button-danger"
                                            text="Logout" />
                             </children>
                             <VBox.margin>

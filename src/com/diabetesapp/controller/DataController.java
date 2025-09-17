@@ -39,7 +39,7 @@ import java.time.Month;
 import java.util.Comparator;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import static com.diabetesapp.config.AppConfig.DATE_PARSE_FUNCTION;
+import static com.diabetesapp.config.AppConfig.DETECTION_DATE_PARSE_FUNCTION;
 
 public class DataController {
 
@@ -87,7 +87,7 @@ public class DataController {
         MFXTableColumn<Detection> periodColumn = new MFXTableColumn<>("Period", false, Comparator.comparing(Detection::period));
         MFXTableColumn<Detection> levelColumn = new MFXTableColumn<>("Level", false, Comparator.comparing(Detection::level));
 
-        dateColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(DATE_PARSE_FUNCTION));
+        dateColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(DETECTION_DATE_PARSE_FUNCTION));
         mealColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Detection::meal));
         periodColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Detection::period));
         levelColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Detection::level) {{

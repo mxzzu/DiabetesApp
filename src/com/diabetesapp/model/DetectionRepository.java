@@ -65,4 +65,13 @@ public class DetectionRepository {
 
         return FXCollections.observableList(detections);
     }
+
+    public ObservableList<Detection> getAllDetectionsByUser(String username) {
+        List<Detection> detections = new ArrayList<>();
+        FindIterable<Document> docs = detectionsCollection.find(new Document("username", username));
+        for (Document d : docs) {
+            detections.add(new Detection(username, LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("meal"), d.getString("period"), d.getInteger("level")));
+        }
+        return FXCollections.observableList(detections);
+    }
 }

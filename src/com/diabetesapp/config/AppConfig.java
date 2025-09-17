@@ -1,10 +1,7 @@
 package com.diabetesapp.config;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.model.Detection;
-import com.diabetesapp.model.Patient;
-import com.diabetesapp.model.User;
-import com.diabetesapp.model.UserRepository;
+import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.EventHandler;
@@ -29,7 +26,10 @@ public class AppConfig {
     public static final String CHANGES_COLLECTION_NAME = "changes";
     public static final String CONCTHERAPY_COLLECTION_NAME = "concTherapies";
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    public static final Function<Detection, String> DATE_PARSE_FUNCTION = detection ->  detection.date().format(DATE_FORMAT);
+    public static final Function<Detection, String> DETECTION_DATE_PARSE_FUNCTION = detection ->  detection.date().format(DATE_FORMAT);
+    public static final Function<Intake, String> INTAKE_DATE_PARSE_FUNCTION = intake ->  intake.date().format(DATE_FORMAT);
+    public static final Function<ConcTherapy, String> START_DATE_PARSE_FUNCTION = concTherapy -> concTherapy.start().format(DATE_FORMAT);
+    public static final Function<ConcTherapy, String> END_DATE_PARSE_FUNCTION = concTherapy -> concTherapy.end().format(DATE_FORMAT);
 
     public static EventHandler<KeyEvent> digitsOnly() {
         return event -> {

@@ -284,6 +284,18 @@ public class Validator {
                 .get();
     }
 
+    public static void removeConstraints(MFXTextField field, Label errorLabel) {
+        BooleanBinding blankBinding = field.textProperty().isNotEmpty();
+        Constraint blankConstraint = createConstraint("Field can't be empty", blankBinding);
+
+        BooleanBinding regexBinding = Bindings.createBooleanBinding(() -> field.getText().matches("^[0-9]{2}+/[0-9]{2}+/[0-9]{4}$"), field.textProperty());
+        Constraint regexConstraint = createConstraint("Enter a valid date", regexBinding);
+
+        field.getValidator().removeConstraint(blankConstraint).removeConstraint(regexConstraint);
+        errorLabel.setVisible(false);
+        errorLabel.setManaged(false);
+    }
+
     private static void setupValidationListeners(
             ObservableValue<Boolean> validProperty,
             ObservableValue<Boolean> focusedProperty,

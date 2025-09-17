@@ -20,6 +20,7 @@ public class ViewNavigator {
     private static String patientToManage = null;
     private static Therapy therapyToEdit = null;
     private static boolean userSaved =  false;
+    private static String dataToView = null;
     
     // Current authenticated username
     private static User authenticatedUser = null;
@@ -172,6 +173,14 @@ public class ViewNavigator {
             navigateToLogin();
         }
     }
+
+    public static void navigateToAllData() {
+        if (isAuthenticated()) {
+            loadView("AllDataView.fxml");
+        }  else {
+            navigateToLogin();
+        }
+    }
     
     /**
      * Set the authenticated user
@@ -189,6 +198,10 @@ public class ViewNavigator {
 
     public static void setUserSaved(boolean value) {
         userSaved = value;
+    }
+
+    public static void setDataToView(String data) {
+        dataToView = data;
     }
 
     public static void setMustChangePassword(boolean value) {
@@ -218,8 +231,13 @@ public class ViewNavigator {
     public static String getPatientToManage() {
         return patientToManage;
     }
+
     public static Therapy getTherapyToEdit() {
         return therapyToEdit;
+    }
+
+    public static String getDataToView() {
+        return dataToView;
     }
 
     public static boolean isUserSaved() {

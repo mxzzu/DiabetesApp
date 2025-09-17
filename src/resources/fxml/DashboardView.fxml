@@ -29,7 +29,6 @@
                      <Font name="System Bold" size="24.0"/>
                   </font>
                </Label>
-               <Label fx:id="welcomeLabel" text="Welcome to your dashboard!" wrapText="true"/>
                <Label text="This is a protected dashboard page. Only logged-in users can see this."
                       wrapText="true"/>
                <Label fx:id="statusLabel" managed="false" styleClass="alert-danger" text="Status message goes here" visible="false" wrapText="true">
@@ -38,57 +37,63 @@
                   </VBox.margin>
                </Label>
                <HBox spacing="20.0">
-                  <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
-                     </padding>
-                     <Label styleClass="card-header" text="Daily Intake"/>
-                     <Text fx:id="intakeLabel" text="This card contains daily intakes." >
-                        <VBox.margin>
-                           <Insets bottom="10.0" top="10.0"/>
-                        </VBox.margin>
-                     </Text>
-                     <Region VBox.vgrow="ALWAYS"/>
-                     <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Add Intake" onAction="#handleIntake"/>
-                  </VBox>
-                  <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
-                     </padding>
-                     <Label styleClass="card-header" text="Daily Detection"/>
-                     <Label fx:id="detectionLabel" text="This card contains daily detections." wrapText="true" >
-                        <VBox.margin>
-                           <Insets bottom="10.0" top="10.0"/>
-                        </VBox.margin>
-                     </Label>
-                     <TextFlow fx:id="flowContainer" lineSpacing="5.0">
+                   <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
+                      <padding>
+                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                      </padding>
+                      <Label styleClass="card-header" text="Daily Intake"/>
+                      <Text fx:id="intakeLabel" text="This card contains daily intakes." >
                          <VBox.margin>
-                             <Insets top="10.0"/>
+                            <Insets bottom="10.0" top="10.0"/>
                          </VBox.margin>
-                     </TextFlow>
-                     <Region VBox.vgrow="ALWAYS"/>
-                     <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Add Detection" onAction="#handleDetection"/>
-                  </VBox>
-                  <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
-                     </padding>
-                     <Label styleClass="card-header" text="Notifications"/>
-                     <Label fx:id="notificationLabel" text="This card could list user notifications." wrapText="true">
-                        <VBox.margin>
-                           <Insets bottom="10.0" top="10.0"/>
-                        </VBox.margin>
-                     </Label>
-                     <Region VBox.vgrow="ALWAYS"/>
-                     <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Clear All"/>
-                  </VBox>
+                      </Text>
+                      <Region VBox.vgrow="ALWAYS"/>
+                      <HBox spacing="5.0" alignment="CENTER">
+                          <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Add Intake" onAction="#handleIntake"/>
+                          <MFXButton buttonType="RAISED" mnemonicParsing="false" text="View All" onAction="#handleViewAllIntakes" styleClass="button-secondary"/>
+                      </HBox>
+                   </VBox>
+                   <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
+                      <padding>
+                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                      </padding>
+                      <Label styleClass="card-header" text="Daily Detection"/>
+                      <Label fx:id="detectionLabel" text="This card contains daily detections." wrapText="true" >
+                         <VBox.margin>
+                            <Insets bottom="10.0" top="10.0"/>
+                         </VBox.margin>
+                      </Label>
+                      <TextFlow fx:id="flowContainer" lineSpacing="5.0">
+                          <VBox.margin>
+                              <Insets top="10.0"/>
+                          </VBox.margin>
+                      </TextFlow>
+                      <Region VBox.vgrow="ALWAYS"/>
+                       <HBox spacing="5.0" alignment="CENTER">
+                           <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Add Detection" onAction="#handleDetection"/>
+                           <MFXButton buttonType="RAISED" mnemonicParsing="false" text="View All" onAction="#handleViewAllDetections" styleClass="button-secondary"/>
+                       </HBox>
+                   </VBox>
+                   <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
+                      <padding>
+                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                      </padding>
+                      <Label styleClass="card-header" text="Notifications"/>
+                      <Label fx:id="notificationLabel" text="This card could list user notifications." wrapText="true">
+                          <VBox.margin>
+                              <Insets bottom="10.0" top="10.0"/>
+                          </VBox.margin>
+                      </Label>
+                      <Region VBox.vgrow="ALWAYS"/>
+                      <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Clear All"/>
+                   </VBox>
                </HBox>
                <HBox spacing="10.0" alignment="CENTER">
-                  <VBox.margin>
-                     <Insets top="10.0"/>
-                  </VBox.margin>
-                  <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile"/>
-                  <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleLogout" styleClass="button-secondary"
+                   <VBox.margin>
+                      <Insets top="10.0"/>
+                   </VBox.margin>
+                   <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile"/>
+                   <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleLogout" styleClass="button-danger"
                              text="Logout"/>
                </HBox>
             </VBox>

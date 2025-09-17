@@ -6,6 +6,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.bson.Document;
 
 import java.time.LocalDate;
@@ -53,5 +55,14 @@ public class IntakeRepository {
 
     public List<Intake> getDailyIntakes(String username) {
         return DailyEntityUtils.getDailyEntities(username, intakes);
+    }
+
+    public ObservableList<Intake> getAllIntakesByUser(String username) {
+        List<Intake> intakes = new ArrayList<>();
+        FindIterable<Document> docs = intakesCollection.find(new Document("username", username));
+        for (Document d : docs) {
+            intakes.add(new Intake(username, LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("drugs"), d.getString("hour"), d.getString("quantity")));
+        }
+        return FXCollections.observableList(intakes);
     }
 }

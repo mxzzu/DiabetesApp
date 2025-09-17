@@ -16,6 +16,7 @@ module com.diabetesapp {
     requires org.kordamp.ikonli.core;
     requires java.sql;
     requires javafx.graphics;
+    requires javafx.base;
 
     opens com.diabetesapp to javafx.fxml;
     exports com.diabetesapp;

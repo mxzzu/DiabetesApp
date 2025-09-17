@@ -56,12 +56,20 @@ public class IntakeController {
         if (toggleCheckBox.isSelected()) {
             boolean check3 =  Validator.checkConstraints(otherSymptoms, validationLabel3);
             boolean check4 = Validator.checkConstraints(start, validationLabel3);
-            boolean check5 = Validator.checkConstraints(end, validationLabel4);
-            if (!check3 || !check4 || !check5) {
-                return;
+            if (otherDrugs.getText().isEmpty()) {
+                Validator.removeConstraints(end, validationLabel4);
+                if (!check3 ||  !check4) {
+                    return;
+                }
+            } else {
+                boolean check5 = Validator.checkConstraints(end, validationLabel4);
+                if (!check3 || !check4 || !check5) {
+                    return;
+                }
             }
-
-            addConcTherapy();
+            System.out.println("VALID");
+            return;
+            //addConcTherapy();
         }
 
         String hour = hourTaken.getText();

@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class DashboardController {
     @FXML
-    private Label welcomeLabel, detectionLabel, notificationLabel, statusLabel;
+    private Label detectionLabel, notificationLabel, statusLabel;
     @FXML
     private TextFlow flowContainer;
     @FXML
@@ -24,13 +24,10 @@ public class DashboardController {
 
     private DetectionRepository  detectionRepository;
     private IntakeRepository intakeRepository;
-    private final String authenticatedName = ViewNavigator.getAuthenticatedName();
     private final String username = ViewNavigator.getAuthenticatedUsername();
     
     @FXML
     public void initialize() {
-        // This is a protected view, so we should always have an authenticated user
-        welcomeLabel.setText("Welcome to your dashboard, " + authenticatedName + "!");
         detectionRepository = Main.getDetectionRepository();
         intakeRepository = Main.getIntakeRepository();
         fetchDailyDetections();
@@ -145,7 +142,18 @@ public class DashboardController {
         ViewNavigator.navigateToDetection();
     }
 
-    
+    @FXML
+    private void handleViewAllIntakes() {
+        ViewNavigator.setDataToView("intakes");
+        ViewNavigator.navigateToAllData();
+    }
+
+    @FXML
+    private void handleViewAllDetections() {
+        ViewNavigator.setDataToView("detections");
+        ViewNavigator.navigateToAllData();
+    }
+
     @FXML
     private void handleViewProfile() {
         ViewNavigator.navigateToProfile();
