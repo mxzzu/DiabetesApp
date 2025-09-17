@@ -182,28 +182,30 @@
     -fx-font-size: 11;
 }
 
-/* Stile personalizzato per il pulsante del grafico */
-/* NON SERVIREBBE */
- .chart-button {
-    -fx-background-color: #1E88E5; /* Blu primario, coerente con il colore del grafico */
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-padding: 10px 20px; /* Padding generoso per un aspetto moderno */
-    -fx-background-radius: 8px; /* Angoli più arrotondati */
-    -fx-border-radius: 8px;
-    -fx-border-color: transparent;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.25) , 10, 0, 0, 2 ); /* Ombra per un effetto 3D */
-    -fx-transition: all 0.2s ease-in-out; /* Animazione fluida per tutti gli effetti */
+/* GRAFICI */
+/*
+ * Usiamo la classe .glucose-chart per rendere queste regole
+ * più specifiche di quelle di default di MaterialFX.
+ */
+
+/* Stile per la prima serie (Before Eating - Blu) */
+.glucose-chart .default-color0.chart-line {
+    -fx-stroke: #1E88E5; /* Colore della linea */
+}
+.glucose-chart .chart-legend-item-symbol.default-color0 {
+    -fx-background-color: #1E88E5; /* Colore del simbolo nella legenda */
+    -fx-background-radius: 0;
+    -fx-pref-width: 25px;
+    -fx-pref-height: 4px;
 }
 
-.chart-button:hover {
-    -fx-background-color: #1976D2; /* Un blu leggermente più scuro al passaggio del mouse */
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.35) , 12, 0, 0, 4 ); /* Ombra più pronunciata */
+/* Stile per la seconda serie (After Eating - Viola) */
+.glucose-chart .default-color1.chart-line {
+    -fx-stroke: #8E44AD; /* Colore della linea */
 }
-
-.chart-button:pressed {
-    -fx-background-color: #1565C0; /* Blu ancora più scuro quando premuto */
-    -fx-effect: none; /* Rimuove l'ombra per un effetto "premuto" */
+.glucose-chart .chart-legend-item-symbol.default-color1 {
+    -fx-background-color: #8E44AD; /* Colore del simbolo nella legenda */
+    -fx-background-radius: 0;
+    -fx-pref-width: 25px;
+    -fx-pref-height: 4px;
 }

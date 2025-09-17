@@ -148,6 +148,7 @@ public class DataController {
         yearPicker.valueProperty().addListener((_, _, newYear) -> {
             if (newYear != null) {
                 populateMonthPicker(newYear);
+                updateChartsFromPickers();
             }
         });
 
@@ -259,6 +260,12 @@ public class DataController {
         yAxis.setAutoRanging(false);
 
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+
+        //Applica il foglio di stile CSS
+        lineChart.getStyleClass().add("glucose-chart");
+        String cssPath = getClass().getResource("/css/styles.css").toExternalForm();
+        lineChart.getStylesheets().add(cssPath);
+
         lineChart.setTitle("Glucose Levels for " + mealType + " (" + month + " " + year + ")");
         lineChart.setLegendVisible(true);
         lineChart.setMaxWidth(Double.MAX_VALUE);
@@ -294,10 +301,25 @@ public class DataController {
 
         lineChart.getData().addAll(beforeSeries, afterSeries);
 
-        // applica sempre i colori blu/viola per linee e legenda
-        styleSeries(lineChart, beforeSeries, afterSeries);
+        styleChartLines(beforeSeries, afterSeries);
 
         return lineChart;
+    }
+
+    private void styleChartLines(XYChart.Series<Number, Number> beforeSeries, XYChart.Series<Number, Number> afterSeries) {
+        Platform.runLater(() -> {
+            // Stile per la linea "Before Eating"
+            Node beforeLine = beforeSeries.getNode().lookup(".chart-series-line");
+            if (beforeLine != null) {
+                beforeLine.setStyle("-fx-stroke: " + BEFORE_EATING_COLOR + ";");
+            }
+
+            // Stile per la linea "After Eating"
+            Node afterLine = afterSeries.getNode().lookup(".chart-series-line");
+            if (afterLine != null) {
+                afterLine.setStyle("-fx-stroke: " + AFTER_EATING_COLOR + ";");
+            }
+        });
     }
 
     private static NumberAxis getNumberAxis(Month month, int year) {
@@ -390,41 +412,6 @@ public class DataController {
 
         mainBox.getChildren().addAll(beforeBox, afterBox);
         return mainBox;
-    }
-
-    private void styleSeries(LineChart<Number, Number> lineChart,
-                             XYChart.Series<Number, Number> beforeSeries,
-                             XYChart.Series<Number, Number> afterSeries) {
-
-        Platform.runLater(() -> {
-            // Stile linee
-            if (beforeSeries.getNode() != null) {
-                beforeSeries.getNode().setStyle("-fx-stroke: " + BEFORE_EATING_COLOR + ";");
-            }
-            if (afterSeries.getNode() != null) {
-                afterSeries.getNode().setStyle("-fx-stroke: " + AFTER_EATING_COLOR + ";");
-            }
-
-            // Stile legenda "Before eating"
-            for (Node node : lineChart.lookupAll(".chart-legend-item-symbol.default-color0")) {
-                node.setStyle(
-                        "-fx-background-color: " + BEFORE_EATING_COLOR + ";" +
-                                "-fx-background-radius: 0;" +
-                                "-fx-pref-width: 25px;" +
-                                "-fx-pref-height: 4px;"
-                );
-            }
-
-            // Stile legenda "After eating"
-            for (Node node : lineChart.lookupAll(".chart-legend-item-symbol.default-color1")) {
-                node.setStyle(
-                        "-fx-background-color: " + AFTER_EATING_COLOR + ";" +
-                                "-fx-background-radius: 0;" +
-                                "-fx-pref-width: 25px;" +
-                                "-fx-pref-height: 4px;"
-                );
-            }
-        });
     }
 
     @FXML
