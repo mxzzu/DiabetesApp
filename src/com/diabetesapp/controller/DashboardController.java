@@ -3,14 +3,15 @@ package com.diabetesapp.controller;
 import com.diabetesapp.Main;
 import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -57,23 +58,31 @@ public class DashboardController {
      * e un riepilogo nel centro notifiche.
      */
     private void checkYesterdayIntakesAndNotify() {
-        // 1. Ottieni la LISTA dei farmaci mancanti dal repository
+
+        // Passo 1: Controlla SEMPRE se ci sono farmaci mancanti
         List<String> missingDrugs = intakeRepository.getMissingEntriesForYesterday(username);
 
-        // 2. Se la lista NON è vuota, ci sono farmaci mancanti
+        // Passo 2: Aggiorna SEMPRE il messaggio persistente nella card
         if (!missingDrugs.isEmpty()) {
-            // A. Mostra un riepilogo nel centro notifiche (messaggio persistente)
             String alertMessage = "Attention: yesterday you didn’t record the intake of: " + String.join(", ", missingDrugs);
             notificationLabel.setText(alertMessage);
             notificationLabel.setStyle("-fx-text-fill: #e10c0c; -fx-font-weight: bold;");
+            FontIcon icon = new FontIcon();
+            icon.setIconSize(13);
+            icon.setIconLiteral("bi-exclamation-triangle");
+            icon.setIconColor(Color.web("#e10c0c"));
+            notificationLabel.setGraphic(icon);
+        } else {
+            notificationLabel.setText("No important notifications.");
+        }
 
-            // B. Mostra un pop-up temporaneo per ogni farmaco mancante
+        // Passo 3: Mostra il POP-UP solo se ci sono farmaci mancanti E se non è già stato mostrato
+        if (!missingDrugs.isEmpty() && !ViewNavigator.hasInitialNotificationBeenShown()) {
             for (String nomeFarmaco : missingDrugs) {
                 showMedicationReminder(nomeFarmaco);
             }
-        } else {
-            // Se è tutto a posto, mostra un messaggio standard
-            notificationLabel.setText("No important notifications.");
+            // Imposta il flag a true solo dopo aver mostrato i pop-up
+            ViewNavigator.setInitialNotificationShown(true);
         }
     }
 
@@ -82,51 +91,77 @@ public class DashboardController {
      * @param nomeFarmaco Il nome del farmaco da mostrare.
      */
     private void showMedicationReminder(String nomeFarmaco) {
-        // 1. Crea il contenuto grafico della notifica
-        VBox notificationContent = getBox(nomeFarmaco);
+        // --- 1. CREA IL CONTENUTO GRAFICO ---
 
-        // 2. Aggiungi la notifica al rootPane e imposta i vincoli di ancoraggio
+        // Testo dell'intestazione (invariato)
+        Text header = new Text("Intakes Notification 💊");
+        header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        // Pulsante di chiusura "X" con un'icona
+        FontIcon closeIcon = new FontIcon("bi-x");
+        MFXButton closeButton = new MFXButton("", closeIcon);
+        closeButton.setCursor(Cursor.HAND);
+        closeButton.setStyle("-fx-background-color: transparent;"); // Rende il bottone trasparente
+
+        // Un "separatore" che spinge il bottone a destra
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        // Contenitore per l'intestazione (titolo a sinistra, bottone a destra)
+        HBox headerBox = new HBox(header, spacer, closeButton);
+        headerBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+
+        // Testo del contenuto (invariato)
+        VBox notificationContent = getVBox(nomeFarmaco, headerBox);
+
+
+        // --- 2. LOGICA DI VISUALIZZAZIONE E CHIUSURA ---
+
+        // Aggiungi la notifica alla scena e ancorala in basso a destra
         rootPane.getChildren().add(notificationContent);
-        AnchorPane.setBottomAnchor(notificationContent, 20.0); // 20px dal basso
-        AnchorPane.setRightAnchor(notificationContent, 20.0);  // 20px da destra
+        AnchorPane.setBottomAnchor(notificationContent, 20.0);
+        AnchorPane.setRightAnchor(notificationContent, 20.0);
 
-        // 3. Mostra la notifica con un'animazione di fade-in
+        // Animazione di comparsa (Fade-in)
         FadeTransition fadeIn = new FadeTransition(Duration.millis(400), notificationContent);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
 
-        // 4. Imposta un timer per farla scomparire dopo 7 secondi
-        PauseTransition delay = new PauseTransition(Duration.seconds(7));
-        delay.setOnFinished(_ -> {
-            // Animazione di fade-out
+        // Timer per la chiusura automatica
+        PauseTransition delay = new PauseTransition(Duration.seconds(15));
+
+        // Azione di chiusura (animazione fade-out e rimozione del nodo)
+        Runnable hideNotification = () -> {
+            // Impedisce di provare a chiudere una notifica già chiusa
+            if (!rootPane.getChildren().contains(notificationContent)) return;
+
             FadeTransition fadeOut = new FadeTransition(Duration.millis(400), notificationContent);
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
-            fadeOut.setOnFinished(_ -> rootPane.getChildren().remove(notificationContent)); // Rimuovi il nodo alla fine
+            fadeOut.setOnFinished(e -> rootPane.getChildren().remove(notificationContent));
             fadeOut.play();
+        };
+
+        // Imposta l'azione del timer e del pulsante
+        delay.setOnFinished(event -> hideNotification.run());
+        closeButton.setOnAction(event -> {
+            delay.stop(); // Ferma il timer per evitare una doppia chiusura
+            hideNotification.run();
         });
+
+        // Avvia il timer
         delay.play();
     }
 
-    private static VBox getBox(String nomeFarmaco) {
-        Text header = new Text("Intakes Notification 💊");
-        header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-        Text content = new Text("Yesterday you didn’t record all the intakes of " + nomeFarmaco + ".\nRemember to always record them!");
-        VBox notificationContent = new VBox(10, header, content);
-        notificationContent.setPadding(new Insets(15));
-        notificationContent.setStyle("-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 1); -fx-background-radius: 5; -fx-border-radius: 5;");
-        notificationContent.setOpacity(0); // Inizia invisibile per l'animazione
-        return notificationContent;
-    }
+    private static VBox getVBox(String nomeFarmaco, HBox headerBox) {
+        Text content = new Text("Yesterday you didn’t record all the intakes of \"" + nomeFarmaco + "\".\nRemember to always record them!");
 
-    private static VBox getVBox(String nomeFarmaco) {
-        Text header = new Text("Intake Notification 💊");
-        header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-        Text content = new Text("Yesterday you didn’t record all the intakes of " + nomeFarmaco + ".\nRemember to always record them!");
-        VBox notificationContent = new VBox(10, header, content);
+        // Contenitore principale della notifica
+        VBox notificationContent = new VBox(10, headerBox, content);
         notificationContent.setPadding(new Insets(15));
-        notificationContent.setStyle("-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 1); -fx-background-radius: 5; -fx-border-radius: 5;");
+        notificationContent.setStyle("-fx-background-color: #d3d3d3; -fx-border-color: #e0e0e0; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 1); -fx-background-radius: 5; -fx-border-radius: 5;");
+        notificationContent.setOpacity(0); // Inizia invisibile per l'animazione
         return notificationContent;
     }
 

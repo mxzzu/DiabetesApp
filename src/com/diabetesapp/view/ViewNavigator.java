@@ -21,12 +21,24 @@ public class ViewNavigator {
     private static Therapy therapyToEdit = null;
     private static boolean userSaved =  false;
     private static String dataToView = null;
-    
+
     // Current authenticated username
     private static User authenticatedUser = null;
     private static String userType = null;
     private static boolean mustChangePassword = false;
-    
+
+    // Flag per tracciare la notifica della dashboard
+    private static boolean initialDashboardNotificationShown = false;
+
+    // Metodi per gestire il flag
+    public static boolean hasInitialNotificationBeenShown() {
+        return initialDashboardNotificationShown;
+    }
+
+    public static void setInitialNotificationShown(boolean shown) {
+        initialDashboardNotificationShown = shown;
+    }
+
     /**
      * Set the main controller reference
      * @param controller The MainController instance
@@ -50,7 +62,7 @@ public class ViewNavigator {
             System.err.println("Error loading view: " + fxml);
         }
     }
-    
+
     /**
      * Navigate to the home view
      */
@@ -58,7 +70,7 @@ public class ViewNavigator {
         patientToManage = null;
         loadView("HomeView.fxml");
     }
-    
+
     /**
      * Navigate to the login view
      */
@@ -94,7 +106,7 @@ public class ViewNavigator {
             loadView("RegisterView.fxml");
         }
     }
-    
+
     /**
      * Navigate to the profile view (protected)
      * Will redirect to login if not authenticated
@@ -181,7 +193,7 @@ public class ViewNavigator {
             navigateToLogin();
         }
     }
-    
+
     /**
      * Set the authenticated user
      * @param user The authenticated user
@@ -190,6 +202,9 @@ public class ViewNavigator {
         authenticatedUser = user;
         userType = user.getUserType();
         mainController.updateNavBar(isAuthenticated());
+
+        // Resetta lo stato della notifica per la nuova sessione
+        setInitialNotificationShown(false);
     }
 
     public static void setPatientToManage(String username) {
@@ -207,7 +222,7 @@ public class ViewNavigator {
     public static void setMustChangePassword(boolean value) {
         mustChangePassword = value;
     }
-    
+
     /**
      * Get the authenticated user
      * @return The username of the authenticated user, or null if not authenticated
@@ -247,7 +262,7 @@ public class ViewNavigator {
     public static boolean isMustChangePassword() {
         return mustChangePassword;
     }
-    
+
     /**
      * Check if a user is authenticated
      * @return true if a user is authenticated, false otherwise
@@ -257,7 +272,7 @@ public class ViewNavigator {
     }
 
     public static String getUserType() { return userType; }
-    
+
     /**
      * Logout the current user
      */
@@ -269,5 +284,8 @@ public class ViewNavigator {
         mustChangePassword = false;
         mainController.updateNavBar(false);
         navigateToHome();
+
+        // Resetta lo stato della notifica alla fine della sessione
+        setInitialNotificationShown(false);
     }
 }
