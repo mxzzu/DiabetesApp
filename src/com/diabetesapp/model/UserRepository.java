@@ -121,6 +121,20 @@ public class UserRepository {
         return FXCollections.observableList(patients);
     }
 
+    public List<Patient> getPatientsByDoctor(String docUser) {
+        List<Patient> patients = new ArrayList<>();
+        Patient patient;
+        for (User user : users.values()) {
+            if (user.getUserType().equals("patient")) {
+                patient = (Patient) user;
+                if (patient.getDocUser().equals(docUser)) {
+                    patients.add(patient);
+                }
+            }
+        }
+        return patients;
+    }
+
     public ObservableList<Patient> getAllPatients() {
         List<Patient> patients = new ArrayList<>();
         for (User user : users.values()) {

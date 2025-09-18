@@ -72,33 +72,26 @@ public class IntakeRepository {
      * @param username L'utente da controllare.
      * @return Una lista di stringhe con i nomi dei farmaci mancanti. Se è vuota, significa che è tutto a posto.
      */
-    public List<String> getMissingEntriesForYesterday(String username) {
+    public List<String> getMissingEntries(String username, int daysToCheck) {
         List<String> missingDrugs = new ArrayList<>();
 
-        // 1. Recupera il numero di assunzioni PREVISTE dalla terapia
-        TherapyRepository therapyRepository = Main.getTherapyRepository(); // O come ottieni l'istanza
+        TherapyRepository therapyRepository = Main.getTherapyRepository();
         int expectedIntakes = therapyRepository.getExpectedDailyIntakes(username);
 
-        // Se non ci sono assunzioni previste, non può mancare nulla.
         if (expectedIntakes == 0) {
-            return missingDrugs; // Ritorna lista vuota
+            return missingDrugs;
         }
 
-        // 2. Conta le assunzioni EFFETTIVE di ieri
-        LocalDate yesterday = LocalDate.now().minusDays(1);
-        long actualIntakes = countIntakesForDate(username, yesterday);
-
-        // 3. Se le assunzioni effettive sono meno di quelle previste...
-        if (actualIntakes < expectedIntakes) {
-            // ...allora aggiungiamo il nome del farmaco alla lista dei mancanti.
-            // Questa è una semplificazione: assume che ci sia un solo farmaco.
-            // Se la terapia può averne di più, questa logica andrebbe raffinata.
-            Therapy therapy = therapyRepository.getTherapyByPatient(username);
-            if (therapy != null) {
-                missingDrugs.add(therapy.drug());
+        for (int i = 1; i < daysToCheck + 1; i++) {
+            LocalDate dayToCheck = LocalDate.now().minusDays(i);
+            long actualIntakes = countIntakesForDate(username, dayToCheck);
+            if (actualIntakes < expectedIntakes) {
+                Therapy therapy = therapyRepository.getTherapyByPatient(username);
+                if (therapy != null) {
+                    missingDrugs.add(therapy.drug());
+                }
             }
         }
-
         return missingDrugs;
     }
 
@@ -111,16 +104,11 @@ public class IntakeRepository {
      * @return il numero di assunzioni (intake) trovate per quel giorno.
      */
     public long countIntakesForDate(String username, LocalDate date) {
-        // 1. Formatta la data nello stesso modo in cui è salvata nel DB (es. "yyyy-MM-dd")
         String formattedDate = date.format(AppConfig.DATE_FORMAT);
 
-        // 2. Crea il filtro per la query MongoDB, cercando i documenti che
-        //    corrispondono sia all'username che alla data.
         Document filter = new Document("username", username)
                 .append("date", formattedDate);
 
-        // 3. Esegui la query usando il metodo .countDocuments() di MongoDB,
-        //    che è molto efficiente perché conta i risultati senza doverli caricare tutti.
         return intakesCollection.countDocuments(filter);
     }
 }

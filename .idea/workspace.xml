@@ -7,10 +7,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="conc therapies and notifications">
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="fixed patient notification">
+      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/NotificationHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/IntakeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/IntakeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/NotificationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +31,7 @@
         <option value="CSS File" />
         <option value="Interface" />
         <option value="FxmlFile" />
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
@@ -140,6 +149,8 @@
       <workItem from="1758098378224" duration="4139000" />
       <workItem from="1758115456039" duration="9438000" />
       <workItem from="1758182379127" duration="1225000" />
+      <workItem from="1758201343912" duration="632000" />
+      <workItem from="1758212891299" duration="8561000" />
     </task>
     <task id="LOCAL-00001" summary="Detections Level Check">
       <option name="closed" value="true" />

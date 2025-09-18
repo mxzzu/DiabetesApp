@@ -9,35 +9,24 @@ import javafx.scene.Node;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * This class handles navigation between different views in the application.
- * It works as a bridge between controllers and views, allowing for simplified navigation.
- */
 public class ViewNavigator {
     // Reference to the main controller
     private static MainController mainController;
 
-    private static String patientToManage = null;
-    private static Therapy therapyToEdit = null;
-    private static boolean userSaved =  false;
-    private static String dataToView = null;
-
-    // Current authenticated username
+    // Current authenticated user info
     private static User authenticatedUser = null;
     private static String userType = null;
     private static boolean mustChangePassword = false;
 
-    // Flag per tracciare la notifica della dashboard
+    // Notifications flags
     private static boolean initialDashboardNotificationShown = false;
+    private static boolean clearedNotification = false;
 
-    // Metodi per gestire il flag
-    public static boolean hasInitialNotificationBeenShown() {
-        return initialDashboardNotificationShown;
-    }
-
-    public static void setInitialNotificationShown(boolean shown) {
-        initialDashboardNotificationShown = shown;
-    }
+    // Misc Data
+    private static String patientToManage = null;
+    private static Therapy therapyToEdit = null;
+    private static boolean userSaved =  false;
+    private static String dataToView = null;
 
     /**
      * Set the main controller reference
@@ -203,7 +192,6 @@ public class ViewNavigator {
         userType = user.getUserType();
         mainController.updateNavBar(isAuthenticated());
 
-        // Resetta lo stato della notifica per la nuova sessione
         setInitialNotificationShown(false);
     }
 
@@ -221,6 +209,14 @@ public class ViewNavigator {
 
     public static void setMustChangePassword(boolean value) {
         mustChangePassword = value;
+    }
+
+    public static void setClearedNotification(boolean value) {
+        clearedNotification = value;
+    }
+
+    public static void setInitialNotificationShown(boolean shown) {
+        initialDashboardNotificationShown = shown;
     }
 
     /**
@@ -263,6 +259,14 @@ public class ViewNavigator {
         return mustChangePassword;
     }
 
+    public static boolean hasClearedNotification() {
+        return clearedNotification;
+    }
+
+    public static boolean hasInitialNotificationBeenShown() {
+        return initialDashboardNotificationShown;
+    }
+
     /**
      * Check if a user is authenticated
      * @return true if a user is authenticated, false otherwise
@@ -282,6 +286,7 @@ public class ViewNavigator {
         userType = null;
         userSaved = false;
         mustChangePassword = false;
+        clearedNotification = false;
         mainController.updateNavBar(false);
         navigateToHome();
 

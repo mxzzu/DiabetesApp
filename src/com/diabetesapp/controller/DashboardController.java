@@ -2,21 +2,15 @@ package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.config.AppConfig;
+import com.diabetesapp.config.NotificationHelper;
 import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -40,6 +34,7 @@ public class DashboardController {
     private IntakeRepository intakeRepository;
     private NotificationRepository notificationRepository;
     private final String username = ViewNavigator.getAuthenticatedUsername();
+    private List<Notification> notifications;
 
     @FXML
     public void initialize() {
@@ -49,106 +44,32 @@ public class DashboardController {
 
         fetchDailyDetections();
         fetchDailyIntakes();
-        fetchNotifications();
-    }
-
-    private void fetchNotifications() {
-        if (!notificationRepository.notificationExists(username)) {
+        if (!notificationRepository.notificationExists(username) && !ViewNavigator.hasClearedNotification()) {
             updateNotifications();
         }
-        List<Notification> notifications = notificationRepository.getNotificationsByUser(username);
-        if (notifications.isEmpty()) {
-            notificationLabel.setText("No Notifications Found!");
-        } else {
-            notificationLabel.setManaged(false);
-            notificationLabel.setVisible(false);
-            printColoredNotifications(notifications);
-        }
+        notifications = NotificationHelper.fetchNotifications(username, notificationLabel);
+        NotificationHelper.printColoredNotifications(notifications, notificationFlow);
+        NotificationHelper.showPopUp(username, rootPane);
     }
 
     /**
      * Checks yesterday intakes. If missing, add notification to DB and shows pop-up
      */
     private void updateNotifications() {
-        List<String> missingDrugs = intakeRepository.getMissingEntriesForYesterday(username);
+        List<String> missingDrugs = intakeRepository.getMissingEntries(username, 1);
 
         if (!missingDrugs.isEmpty()) {
             String yesterday = LocalDate.now().minusDays(1).format(AppConfig.DATE_FORMAT);
-            LocalDate today = LocalDate.parse(LocalDate.now().format(AppConfig.DATE_FORMAT),  AppConfig.DATE_FORMAT);
+            LocalDate today = LocalDate.parse(LocalDate.now().format(AppConfig.DATE_FORMAT), AppConfig.DATE_FORMAT);
             String message = String.format("Attention: %s you didn’t record the intake of: %s", yesterday, String.join(", ", missingDrugs));
-            Notification newNotification = new Notification(username, today, message, false);
+            Notification newNotification = new Notification(username, today, "Intakes Notification 💊", message, false);
             notificationRepository.saveNotification(newNotification);
-
-            if (!ViewNavigator.hasInitialNotificationBeenShown()) {
-                for (String drug : missingDrugs) {
-                    showPopUp(drug);
-                }
-                ViewNavigator.setInitialNotificationShown(true);
-            }
         }
     }
 
     /**
-     * Crea e mostra una notifica in basso a destra usando i vincoli dell'AnchorPane.
-     * @param drug Il nome del farmaco da mostrare.
+     * Fetch daily detections and list them in a card
      */
-    private void showPopUp(String drug) {
-        Text header = new Text("Intakes Notification 💊");
-        header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
-        FontIcon closeIcon = new FontIcon("bi-x");
-        MFXButton closeButton = new MFXButton("", closeIcon);
-        closeButton.setCursor(Cursor.HAND);
-        closeButton.setStyle("-fx-background-color: transparent;");
-
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-
-        HBox headerBox = new HBox(header, spacer, closeButton);
-        headerBox.setAlignment(Pos.CENTER_LEFT);
-
-        VBox notificationContent = createVBox(drug, headerBox);
-
-        rootPane.getChildren().add(notificationContent);
-        AnchorPane.setBottomAnchor(notificationContent, 20.0);
-        AnchorPane.setRightAnchor(notificationContent, 20.0);
-
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(400), notificationContent);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-        fadeIn.play();
-
-        PauseTransition delay = new PauseTransition(Duration.seconds(15));
-
-        Runnable hideNotification = () -> {
-            if (!rootPane.getChildren().contains(notificationContent)) return;
-
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(400), notificationContent);
-            fadeOut.setFromValue(1);
-            fadeOut.setToValue(0);
-            fadeOut.setOnFinished(_ -> rootPane.getChildren().remove(notificationContent));
-            fadeOut.play();
-        };
-
-        delay.setOnFinished(_ -> hideNotification.run());
-        closeButton.setOnAction(_ -> {
-            delay.stop();
-            hideNotification.run();
-        });
-
-        delay.play();
-    }
-
-    private static VBox createVBox(String drug, HBox headerBox) {
-        Text content = new Text("Yesterday you didn’t record all the intakes of \"" + drug + "\".\nRemember to always record them!");
-
-        VBox notificationContent = new VBox(10, headerBox, content);
-        notificationContent.setPadding(new Insets(15));
-        notificationContent.setStyle("-fx-background-color: #d3d3d3; -fx-border-color: #e0e0e0; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 1); -fx-background-radius: 5; -fx-border-radius: 5;");
-        notificationContent.setOpacity(0);
-        return notificationContent;
-    }
-
     private void fetchDailyDetections() {
         Map<String, Integer> mealOrder = Map.of("Breakfast", 1, "Lunch", 2, "Dinner", 3);
         List<Detection> detections = detectionRepository.getDailyDetections(username);
@@ -164,6 +85,9 @@ public class DashboardController {
         }
     }
 
+    /**
+     * Fetch daily intakes and list them in a card
+     */
     private void fetchDailyIntakes() {
         List<Intake> intakes = intakeRepository.getDailyIntakes(username);
         if (intakes.isEmpty()) {
@@ -174,6 +98,11 @@ public class DashboardController {
         }
     }
 
+    /**
+     * Format a list
+     * @param list List to print
+     * @return Returns a formatted string
+     */
     private <T> String printList(List<T> list) {
         StringBuilder result = new StringBuilder();
         for (T item : list) {
@@ -182,19 +111,10 @@ public class DashboardController {
         return result.toString();
     }
 
-    private void printColoredNotifications(List<Notification> list) {
-        for (Notification  notification : list) {
-            Text newLine = new Text("  " + notification.toString() + "\n");
-            newLine.setStyle("-fx-stroke: #e10c0c;");
-            FontIcon icon = new FontIcon();
-            icon.setIconSize(13);
-            icon.setIconLiteral("bi-exclamation-triangle");
-            icon.setIconColor(Color.web("#e10c0c"));
-            notificationFlow.getChildren().add(icon);
-            notificationFlow.getChildren().add(newLine);
-        }
-    }
-
+    /**
+     * Prints detection list with custom text fill and icon
+     * @param list List to print
+     */
     private void printColoredDetections(List<Detection> list) {
         String level;
         for (Detection item : list) {
@@ -268,6 +188,15 @@ public class DashboardController {
     }
 
     @FXML
+    private void handleClearAll() {
+        for (Notification notification : notifications) {
+            notificationRepository.removeNotifications(notification);
+        }
+        ViewNavigator.setClearedNotification(true);
+        ViewNavigator.navigateToDashboard();
+    }
+
+    @FXML
     private void handleViewProfile() {
         ViewNavigator.navigateToProfile();
     }
@@ -277,6 +206,9 @@ public class DashboardController {
         ViewNavigator.logout();
     }
 
+    /**
+     * Show an error if no therapy was found
+     */
     private void showError() {
         statusLabel.setText("Nessuna terapia attiva!");
         statusLabel.setVisible(true);

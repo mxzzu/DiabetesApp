@@ -37,21 +37,11 @@ public class NotificationRepository {
     }
 
     /**
-     * Add notifications to DB
-     */
-    private void addNotificationToDB(Notification notification) {
-        Document doc = new Document("username", notification.username())
-                .append("date", notification.date().format(AppConfig.DATE_FORMAT)).append("message", notification.message()).append("isAlerted", notification.isAlerted());
-
-        notificationsCollection.insertOne(doc);
-    }
-
-    /**
      * Save notification to the repository
      */
     public void saveNotification(Notification notification) {
         notifications.add(notification);
-        addNotificationToDB(notification);
+        notificationsCollection.insertOne(objToDoc(notification));
     }
 
     public ObservableList<Notification> getNotificationsByUser(String username) {
@@ -68,7 +58,21 @@ public class NotificationRepository {
         return notifications.stream().anyMatch(notification -> notification.date().isEqual(LocalDate.now()));
     }
 
+    public void setIsAlerted(Notification old, Notification newNotification) {
+        removeNotifications(old);
+        saveNotification(newNotification);
+    }
+
+    public void removeNotifications(Notification notification) {
+        notifications.remove(notification);
+        notificationsCollection.deleteOne(objToDoc(notification));
+    }
+
     private Notification docToObj(Document d) {
-        return new Notification(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("message"), d.getBoolean("isAlerted"));
+        return new Notification(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("title"), d.getString("message"), d.getBoolean("isAlerted"));
+    }
+
+    private Document objToDoc(Notification notification) {
+        return new Document("username", notification.username()).append("date", notification.date().format(AppConfig.DATE_FORMAT)).append("title", notification.title()).append("message", notification.message()).append("isAlerted", notification.isAlerted());
     }
 }
