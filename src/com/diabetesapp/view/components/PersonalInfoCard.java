@@ -6,6 +6,7 @@ import com.diabetesapp.config.Validator;
 import com.diabetesapp.model.Patient;
 import com.diabetesapp.model.User;
 import com.diabetesapp.model.UserRepository;
+import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.ButtonType;
@@ -15,13 +16,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
+import org.kordamp.ikonli.javafx.FontIcon;
 import java.util.List;
 import static io.github.palexdev.materialfx.validation.Validated.INVALID_PSEUDO_CLASS;
 
@@ -53,22 +58,38 @@ public class PersonalInfoCard extends VBox {
     }
 
     private void fetchInformation(boolean mailUpdatable) {
-        String userType = userRepository.getUser(username).getUserType();
-        String name = userRepository.getUser(username).getName();
-        String surname =  userRepository.getUser(username).getSurname();
-        String birthDate = userRepository.getUser(username).getBirthDate();
-        String email = userRepository.getUser(username).getEmail();
-        createHBox("Name: ", name);
-        createHBox("Surname: ", surname);
-        createHBox("Date of Birth: ", birthDate);
-        createHBox("Email: ", email);
-        if (userType.equals("patient")) {
-            createSeparator();
-            String docUser = ((Patient) userRepository.getUser(username)).getDocUser();
-            User doc = userRepository.getUser(docUser);
-            createHBox("Doctor:", String.format("%s %s", doc.getName(), doc.getSurname()));
-            createHBox("Doctor Mail:", doc.getEmail());
+
+        User userToDisplay = userRepository.getUser(username);
+        User viewer = ViewNavigator.getAuthenticatedUser();
+
+        createHBox("Name: ", userToDisplay.getName());
+        createHBox("Surname: ", userToDisplay.getSurname());
+        createHBox("Date of Birth: ", userToDisplay.getBirthDate());
+
+        // Logica per l'email del profilo visualizzato
+        // L'icona per inviare l'email appare SOLO SE chi guarda non è il proprietario del profilo.
+        if (viewer != null && !viewer.getUsername().equals(userToDisplay.getUsername())) {
+            // Crea un HBox contenente la Label e l'icona cliccabile
+            createRow("Email:", createEmailNode(userToDisplay));
+        } else {
+            createHBox("Email: ", userToDisplay.getEmail());
         }
+
+        if (userToDisplay.getUserType().equals("patient")) {
+            createSeparator();
+            Patient patient = (Patient) userToDisplay;
+            User doctor = userRepository.getUser(patient.getDocUser());
+            createHBox("Doctor:", String.format("%s %s", doctor.getName(), doctor.getSurname()));
+
+            // Logica per l'email del dottore
+            // L'icona per inviare l'email al dottore appare SOLO SE a guardare è il paziente.
+            if (viewer != null && viewer.getUsername().equals(patient.getUsername())) {
+                createRow("Doctor Mail:", createEmailNode(doctor));
+            } else {
+                createHBox("Doctor Mail:", doctor.getEmail());
+            }
+        }
+
         if (mailUpdatable) {
             createSeparator();
             newField = new MFXTextField();
@@ -97,21 +118,57 @@ public class PersonalInfoCard extends VBox {
         }
     }
 
+    /**
+     * Crea un HBox contenente una Label con l'email e un'icona cliccabile per inviarla.
+     * @param user L'utente (paziente o dottore) a cui inviare l'email.
+     * @return un HBox con Label e icona.
+     */
+    private HBox createEmailNode(User user) {
+        Label emailLabel = new Label(user.getEmail());
+        FontIcon icon = getIcon(user);
+        HBox emailBox = new HBox(5, emailLabel, icon);
+        emailBox.setAlignment(Pos.CENTER_LEFT);
+        return emailBox;
+    }
+
+    private static FontIcon getIcon(User user) {
+        FontIcon mailIcon = new FontIcon("bi-box-arrow-up-right");
+        mailIcon.setIconColor(Color.web("#780dd7"));
+        mailIcon.setIconSize(18);
+        mailIcon.setCursor(Cursor.HAND);
+
+        mailIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, _ -> {
+            if (Main.getHostServicesInstance() != null) {
+                Main.getHostServicesInstance().showDocument("mailto:" + user.getEmail());
+            }
+        });
+
+        return mailIcon;
+    }
+
     private void createSeparator() {
         Separator sep = new Separator();
         sep.getStyleClass().add("separator");
         infoContainer.getChildren().add(sep);
     }
 
+    // Metodo originale, ora delega al nuovo metodo più flessibile
     private void createHBox(String title, String value) {
+        createRow(title, new Label(value));
+    }
+
+    /**
+     * Crea una riga (HBox) con un'etichetta e un qualsiasi componente a destra (Label, Hyperlink, etc.).
+     * @param title Il testo dell'etichetta a sinistra.
+     * @param valueNode Il componente (Nodo) da visualizzare a destra.
+     */
+    private void createRow(String title, Node valueNode) {
         HBox hBox = new HBox();
         hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER_LEFT);
         Label titleLabel = new Label(title);
         titleLabel.getStyleClass().add("bold-text");
-        Label valueLabel = new Label(value);
-        hBox.getChildren().add(titleLabel);
-        hBox.getChildren().add(valueLabel);
+        hBox.getChildren().addAll(titleLabel, valueNode);
         infoContainer.getChildren().add(hBox);
     }
 

@@ -6,6 +6,7 @@ import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.net.URL;
 
 public class Main extends Application {
@@ -25,9 +25,12 @@ public class Main extends Application {
     private static final ChangeRepository changeRepository = new ChangeRepository();
     private static final ConcTherapyRepository concTherapyRepository = new ConcTherapyRepository();
     private static final NotificationRepository notificationRepository = new NotificationRepository();
+    private static HostServices hostServices;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        hostServices = getHostServices();
 
         UserAgentBuilder.builder()
                 .themes(JavaFXThemes.MODENA)
@@ -57,6 +60,10 @@ public class Main extends Application {
         primaryStage.show();
 
         //System.out.println(BCrypt.hashpw("Mazzu105", BCrypt.gensalt())); //DEV
+    }
+
+    public static HostServices getHostServicesInstance() {
+        return hostServices;
     }
     
     /**
