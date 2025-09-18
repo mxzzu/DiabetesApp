@@ -3,17 +3,18 @@ package com.diabetesapp.controller;
 import com.diabetesapp.view.ViewNavigator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 
 public class DoctorDashboardController {
     @FXML
-    private Label welcomeLabel;
+    private Label notificationLabel;
 
-    private final String userName = ViewNavigator.getAuthenticatedUser().getName();
+    @FXML
+    private Text therapyLabel, patientsLabel;
 
     @FXML
     public void initialize() {
-        // This is a protected view, so we should always have an authenticated user
-        welcomeLabel.setText("Welcome to your doctor dashboard, " + userName + "!");
+
     }
 
     @FXML
