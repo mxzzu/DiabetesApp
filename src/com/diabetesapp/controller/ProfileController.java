@@ -121,6 +121,11 @@ public class ProfileController {
         ViewNavigator.navigateToDashboard();
     }
 
+    @FXML
+    private void handleLogout() {
+        ViewNavigator.logout();
+    }
+
     /**
      * Show a success message in the status label.
      */

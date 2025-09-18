@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.scene.layout.HBox?>
-
 <?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.ProfileController">
@@ -69,7 +69,15 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </padding>
                   </VBox>
-                  <MFXButton fx:id="backToDashboardBtn" buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" />
+                   <HBox spacing="10.0" alignment="CENTER">
+                       <VBox.margin>
+                           <Insets top="10.0"/>
+                       </VBox.margin>
+                       <children>
+                           <MFXButton fx:id="backToDashboardBtn" buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" />
+                           <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleLogout" text="Log Out" styleClass="button-danger" />
+                       </children>
+                   </HBox>
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

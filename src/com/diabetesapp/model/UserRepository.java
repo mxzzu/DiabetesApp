@@ -107,11 +107,15 @@ public class UserRepository {
         return new HashMap<>(users);
     }
 
-    public ObservableList<String> getAllDataPatients() {
+    public ObservableList<String> getAllDataPatients(String docUser) {
         List<String> patients = new ArrayList<>();
+        Patient patient;
         for (User user : users.values()) {
             if (user.getUserType().equals("patient")) {
-                patients.add(String.format("%s %s (%s)",  user.getName(), user.getSurname(), user.getUsername()));
+                patient = (Patient) user;
+                if (patient.getDocUser().equals(docUser)) {
+                    patients.add(String.format("%s %s (%s)",  user.getName(), user.getSurname(), user.getUsername()));
+                }
             }
         }
         return FXCollections.observableList(patients);
@@ -122,6 +126,20 @@ public class UserRepository {
         for (User user : users.values()) {
             if (user.getUserType().equals("patient")) {
                 patients.add((Patient) user);
+            }
+        }
+        return FXCollections.observableList(patients);
+    }
+
+    public ObservableList<Patient> getAllDocPatients(String docUser) {
+        List<Patient> patients = new ArrayList<>();
+        Patient patient;
+        for (User user : users.values()) {
+            if (user.getUserType().equals("patient")) {
+                patient = (Patient) user;
+                if (patient.getDocUser().equals(docUser)) {
+                    patients.add(patient);
+                }
             }
         }
         return FXCollections.observableList(patients);

@@ -7,10 +7,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="conc therapies and notifications">
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="doctor dashboard layout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/UserDropDown.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/PatientsView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +147,7 @@
       <workItem from="1758032860045" duration="2882000" />
       <workItem from="1758098378224" duration="4139000" />
       <workItem from="1758115456039" duration="9438000" />
-      <workItem from="1758182379127" duration="1225000" />
+      <workItem from="1758182379127" duration="5827000" />
     </task>
     <task id="LOCAL-00001" summary="Detections Level Check">
       <option name="closed" value="true" />
@@ -181,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758124925879</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="doctor dashboard layout">
+      <option name="closed" value="true" />
+      <created>1758183619788</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1758183619788</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +210,8 @@
     <MESSAGE value="Check on duplicate detection" />
     <MESSAGE value="intakes and detections tables" />
     <MESSAGE value="conc therapies and notifications" />
-    <option name="LAST_COMMIT_MESSAGE" value="conc therapies and notifications" />
+    <MESSAGE value="doctor dashboard layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="doctor dashboard layout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

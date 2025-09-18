@@ -10,6 +10,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.PatientsController">
@@ -33,21 +34,21 @@
 
                   <VBox spacing="10.0" styleClass="card">
                      <children>
-                        <Label text="Patient Management" styleClass="card-header">
+                         <Label text="Patient Management" styleClass="card-header">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
-                        </Label>
-                          <VBox spacing="10.0">
-                              <MFXTableView fx:id="table" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
-                                            prefWidth="800.0" />
+                         </Label>
+                         <VBox spacing="10.0">
+                             <MFXTableView fx:id="table" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+                                           prefWidth="800.0" />
+                             <MFXToggleButton fx:id="toggleCheckBox" onAction="#handleToggle" text="View All Patients" />
                              <padding>
                                 <Insets top="5.0" bottom="5.0" />
                              </padding>
-                          </VBox>
+                         </VBox>
                      </children>
                   </VBox>
-
                   <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" />
                </children>
                <padding>

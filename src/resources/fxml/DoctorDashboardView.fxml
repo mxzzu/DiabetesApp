@@ -8,6 +8,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 
 <?import io.github.palexdev.mfxcore.controls.Text?>
+<?import javafx.scene.text.TextFlow?>
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.DoctorDashboardController">
@@ -30,7 +31,7 @@
                                 <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
                                     <children>
                                         <Label styleClass="card-header" text="Create therapy" />
-                                        <Text fx:id="therapyLabel" text="This card contains daily intakes." >
+                                        <Text text="This card can create a therapy for your patients." >
                                             <VBox.margin>
                                                 <Insets bottom="10.0" top="10.0"/>
                                             </VBox.margin>
@@ -45,11 +46,11 @@
                                 <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
                                     <children>
                                         <Label styleClass="card-header" text="My Patients" />
-                                        <Text fx:id="patientsLabel" text="This card contains daily intakes." >
+                                        <TextFlow fx:id="patientsLabel" textAlignment="CENTER">
                                             <VBox.margin>
                                                 <Insets bottom="10.0" top="10.0"/>
                                             </VBox.margin>
-                                        </Text>
+                                        </TextFlow>
                                         <Region VBox.vgrow="ALWAYS" />
                                         <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Go to my patients" onAction="#handlePatients" />
                                     </children>

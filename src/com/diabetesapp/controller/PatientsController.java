@@ -4,6 +4,7 @@ import com.diabetesapp.Main;
 import com.diabetesapp.model.Patient;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.ObservableList;
@@ -20,13 +21,18 @@ public class PatientsController {
     @FXML
     private MFXTableView<Patient> table;
 
+    @FXML
+    private MFXToggleButton toggleCheckBox;
+
     private UserRepository userRepository;
-    private ObservableList<Patient> patients;
+    private ObservableList<Patient> allPatients;
+    private ObservableList<Patient> docPatients;
 
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
-        patients = userRepository.getAllPatients();
+        allPatients = userRepository.getAllPatients();
+        docPatients = userRepository.getAllDocPatients(ViewNavigator.getAuthenticatedUsername());
         createTable();
         table.getTableColumns().getFirst().setPrefWidth(200);
         table.getTableColumns().get(1).setPrefWidth(200);
@@ -91,7 +97,12 @@ public class PatientsController {
                 new StringFilter<>("Username", Patient::getUsername)
         );
 
-        table.setItems(patients);
+        table.setItems(docPatients);
+    }
+
+    @FXML
+    private void handleToggle() {
+        table.setItems(toggleCheckBox.isSelected() ? allPatients : docPatients);
     }
 
     /**

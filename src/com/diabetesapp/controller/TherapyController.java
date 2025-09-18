@@ -34,7 +34,7 @@ public class TherapyController {
     public void initialize() {
         therapyRepository = Main.getTherapyRepository();
         userRepository = Main.getUserRepository();
-        patientBox.setItems(userRepository.getAllDataPatients());
+        patientBox.setItems(userRepository.getAllDataPatients(ViewNavigator.getAuthenticatedUsername()));
 
         if (ViewNavigator.getPatientToManage() != null) {
             fillPatientBox();
