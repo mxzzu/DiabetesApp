@@ -24,6 +24,7 @@ public class Main extends Application {
     private static final TherapyRepository therapyRepository = new TherapyRepository();
     private static final ChangeRepository changeRepository = new ChangeRepository();
     private static final ConcTherapyRepository concTherapyRepository = new ConcTherapyRepository();
+    private static final NotificationRepository notificationRepository = new NotificationRepository();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -69,6 +70,7 @@ public class Main extends Application {
     public static TherapyRepository getTherapyRepository() { return therapyRepository; }
     public static ChangeRepository getChangeRepository() { return changeRepository; }
     public static ConcTherapyRepository getConcTherapyRepository() { return concTherapyRepository; }
+    public static NotificationRepository getNotificationRepository() { return notificationRepository; }
 
     public static void main(String[] args) {
         launch(args);

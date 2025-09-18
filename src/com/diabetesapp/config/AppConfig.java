@@ -33,6 +33,7 @@ public class AppConfig {
     public static final String USERS_COLLECTION_NAME = "users";
     public static final String CHANGES_COLLECTION_NAME = "changes";
     public static final String CONCTHERAPY_COLLECTION_NAME = "concTherapies";
+    public static final String NOTIFICATIONS_COLLECTION_NAME = "notifications";
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final Function<Detection, String> DETECTION_DATE_PARSE_FUNCTION = detection ->  detection.date().format(DATE_FORMAT);
     public static final Function<Intake, String> INTAKE_DATE_PARSE_FUNCTION = intake ->  intake.date().format(DATE_FORMAT);

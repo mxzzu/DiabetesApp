@@ -58,12 +58,12 @@
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                             </padding>
                             <Label styleClass="card-header" text="Daily Detection"/>
-                            <Label fx:id="detectionLabel" text="This card contains daily detections." wrapText="true" >
+                            <Text fx:id="detectionLabel" text="This card contains daily detections.">
                                 <VBox.margin>
                                     <Insets bottom="10.0" top="10.0"/>
                                 </VBox.margin>
-                            </Label>
-                            <TextFlow fx:id="flowContainer" lineSpacing="5.0">
+                            </Text>
+                            <TextFlow fx:id="detectionFlow" lineSpacing="5.0" textAlignment="CENTER">
                                 <VBox.margin>
                                     <Insets top="10.0"/>
                                 </VBox.margin>
@@ -81,11 +81,16 @@
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                             </padding>
                             <Label styleClass="card-header" text="Notifications"/>
-                            <Label fx:id="notificationLabel" text="This card could list user notifications." wrapText="true">
+                            <Text fx:id="notificationLabel" text="This card contains notifications.">
                                 <VBox.margin>
                                     <Insets bottom="10.0" top="10.0"/>
                                 </VBox.margin>
-                            </Label>
+                            </Text>
+                            <TextFlow fx:id="notificationFlow" lineSpacing="5.0" textAlignment="CENTER">
+                                <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0"/>
+                                </VBox.margin>
+                            </TextFlow>
                             <Region VBox.vgrow="ALWAYS"/>
                             <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Clear All"/>
                         </VBox>
