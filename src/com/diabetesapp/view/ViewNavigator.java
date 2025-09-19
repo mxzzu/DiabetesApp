@@ -2,12 +2,15 @@ package com.diabetesapp.view;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.controller.MainController;
+import com.diabetesapp.model.Notification;
 import com.diabetesapp.model.Therapy;
 import com.diabetesapp.model.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewNavigator {
     // Reference to the main controller
@@ -19,8 +22,8 @@ public class ViewNavigator {
     private static boolean mustChangePassword = false;
 
     // Notifications flags
-    private static boolean initialDashboardNotificationShown = false;
     private static boolean clearedNotification = false;
+    private static List<Notification> clearedNotifications = new ArrayList<>();
 
     // Misc Data
     private static String patientToManage = null;
@@ -191,8 +194,6 @@ public class ViewNavigator {
         authenticatedUser = user;
         userType = user.getUserType();
         mainController.updateNavBar(isAuthenticated());
-
-        setInitialNotificationShown(false);
     }
 
     public static void setPatientToManage(String username) {
@@ -215,8 +216,8 @@ public class ViewNavigator {
         clearedNotification = value;
     }
 
-    public static void setInitialNotificationShown(boolean shown) {
-        initialDashboardNotificationShown = shown;
+    public static void addClearedNotification(Notification notification) {
+        clearedNotifications.add(notification);
     }
 
     /**
@@ -263,8 +264,8 @@ public class ViewNavigator {
         return clearedNotification;
     }
 
-    public static boolean hasInitialNotificationBeenShown() {
-        return initialDashboardNotificationShown;
+    public static List<Notification> getClearedNotifications() {
+        return clearedNotifications;
     }
 
     /**
@@ -287,10 +288,8 @@ public class ViewNavigator {
         userSaved = false;
         mustChangePassword = false;
         clearedNotification = false;
+        clearedNotifications = new ArrayList<>();
         mainController.updateNavBar(false);
         navigateToHome();
-
-        // Resetta lo stato della notifica alla fine della sessione
-        setInitialNotificationShown(false);
     }
 }

@@ -5,6 +5,8 @@ import com.diabetesapp.config.AppConfig;
 import com.diabetesapp.config.Validator;
 import com.diabetesapp.model.Detection;
 import com.diabetesapp.model.DetectionRepository;
+import com.diabetesapp.model.Notification;
+import com.diabetesapp.model.NotificationRepository;
 import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -24,10 +26,12 @@ public class DetectionController {
     private MFXComboBox<String> mealBox, periodBox;
 
     private DetectionRepository detectionRepository;
+    private NotificationRepository notificationRepository;
 
     @FXML
     public void initialize() {
         detectionRepository = Main.getDetectionRepository();
+        notificationRepository = Main.getNotificationRepository();
         levelField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
         Validator.createDetectionConstraints(mealBox, periodBox, validationLabel1);
         Validator.createDetectionConstraints(periodBox, mealBox, validationLabel2);
@@ -47,11 +51,22 @@ public class DetectionController {
         int level = Integer.parseInt(levelField.getText());
         String meal = mealBox.getValue();
         String period = periodBox.getValue();
+        sendNotification(level, meal, period);
 
         Detection newDetection = new Detection(ViewNavigator.getAuthenticatedUsername(), LocalDate.now(), meal, period, level);
         detectionRepository.saveDetection(newDetection);
 
         ViewNavigator.navigateToDashboard();
 
+    }
+
+    private void sendNotification(int level, String meal, String period) {
+        if ((period.equals("Before eating") && (level > 180 || level < 70)) || (period.equals("After eating") && (level > 250 || level < 70))) {
+            String username = ViewNavigator.getAuthenticatedUsername();
+            String today = LocalDate.now().format(AppConfig.DATE_FORMAT);
+            String message = String.format("(%s) Attention: %s registered a glucose detection of %s at %s (%s)", today, username, level, meal, period);
+            Notification notification = new Notification("All Doctors", LocalDate.parse(today, AppConfig.DATE_FORMAT), "Glucose Alert", message, false);
+            notificationRepository.saveNotification(notification);
+        }
     }
 }

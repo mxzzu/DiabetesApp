@@ -52,9 +52,9 @@ public class TherapyController {
 
         intakeNumberField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
         quantityField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
+        patientBox.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> Validator.createTherapyConstraints(patientBox, drugField, validationLabel2));
 
         Validator.emptyFieldConstraints(patientBox, validationLabel1);
-        Validator.emptyFieldConstraints(drugField, validationLabel2);
         Validator.emptyFieldConstraints(intakeNumberField, validationLabel3);
         Validator.emptyFieldConstraints(quantityField, validationLabel4);
         Validator.emptyFieldConstraints(indicationsField, validationLabel5);
@@ -75,17 +75,11 @@ public class TherapyController {
         Therapy newTherapy = getNewTherapy();
         therapyRepository.saveTherapy(newTherapy);
 
-        back();
+        handleBack();
     }
-
-
 
     @FXML
     private void handleBack() {
-        back();
-    }
-
-    private void back() {
         if (ViewNavigator.getPatientToManage() != null) {
             ViewNavigator.navigateToManagePatient();
         } else {

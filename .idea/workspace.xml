@@ -7,18 +7,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="fixed patient notification">
-      <change afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/NotificationHelper.java" afterDir="false" />
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="doctor notifications">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/NotificationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/NotificationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/Validator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/IntakeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/IntakeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/NotificationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/TherapyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/TherapyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/DoctorDashboardView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +150,8 @@
       <workItem from="1758115456039" duration="9438000" />
       <workItem from="1758182379127" duration="1225000" />
       <workItem from="1758201343912" duration="632000" />
-      <workItem from="1758212891299" duration="8561000" />
+      <workItem from="1758212891299" duration="8651000" />
+      <workItem from="1758268016988" duration="11482000" />
     </task>
     <task id="LOCAL-00001" summary="Detections Level Check">
       <option name="closed" value="true" />
@@ -192,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758124925879</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="doctor notifications">
+      <option name="closed" value="true" />
+      <created>1758221538606</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1758221538606</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,15 +214,25 @@
     <MESSAGE value="Check on duplicate detection" />
     <MESSAGE value="intakes and detections tables" />
     <MESSAGE value="conc therapies and notifications" />
-    <option name="LAST_COMMIT_MESSAGE" value="conc therapies and notifications" />
+    <MESSAGE value="doctor notifications" />
+    <option name="LAST_COMMIT_MESSAGE" value="doctor notifications" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/diabetesapp/config/Validator.java</url>
-          <line>108</line>
+          <line>110</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java</url>
+          <line>218</line>
+          <properties class="com.diabetesapp.view.ViewNavigator" method="addClearedNotification">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

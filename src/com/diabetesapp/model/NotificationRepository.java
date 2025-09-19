@@ -37,13 +37,19 @@ public class NotificationRepository {
     }
 
     /**
-     * Save notification to the repository
+     * Save notification to the repository and DB
+     * @param notification Notification to save
      */
     public void saveNotification(Notification notification) {
         notifications.add(notification);
         notificationsCollection.insertOne(objToDoc(notification));
     }
 
+    /**
+     * Fetches all notifications for given username
+     * @param username Username to fetch
+     * @return Returns an ObservableList of notifications
+     */
     public ObservableList<Notification> getNotificationsByUser(String username) {
         List<Notification> notifications = new ArrayList<>();
         FindIterable<Document> docs = notificationsCollection.find(new  Document("username", username));
@@ -53,25 +59,49 @@ public class NotificationRepository {
         return FXCollections.observableList(notifications);
     }
 
+    /**
+     * Checks whether exists a notification for that user today
+     * @param username Username to check
+     * @return Returns a boolean based on notification existance
+     */
     public boolean notificationExists(String username) {
         List<Notification> notifications = getNotificationsByUser(username);
         return notifications.stream().anyMatch(notification -> notification.date().isEqual(LocalDate.now()));
     }
 
+    /**
+     * Swaps an old notification with a new one, used to change the value of isAlerted field
+     * @param old Old notification object to delete
+     * @param newNotification New notification to insert
+     */
     public void setIsAlerted(Notification old, Notification newNotification) {
         removeNotifications(old);
         saveNotification(newNotification);
     }
 
+    /**
+     * Removes a specified notification from repository and DB
+     * @param notification Old notification object to delete
+     */
     public void removeNotifications(Notification notification) {
         notifications.remove(notification);
         notificationsCollection.deleteOne(objToDoc(notification));
     }
 
+    /**
+     * Transform a JSON Document into a Notification object
+     * @param d Document to change
+     * @return Returns the notification object
+     */
     private Notification docToObj(Document d) {
         return new Notification(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("title"), d.getString("message"), d.getBoolean("isAlerted"));
     }
 
+    /**
+     * Transform Notification object into a JSON Document
+     * @param notification Object to change
+     * @return Returns the JSON Document
+     */
     private Document objToDoc(Notification notification) {
         return new Document("username", notification.username()).append("date", notification.date().format(AppConfig.DATE_FORMAT)).append("title", notification.title()).append("message", notification.message()).append("isAlerted", notification.isAlerted());
     }

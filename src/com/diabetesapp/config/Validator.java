@@ -3,6 +3,8 @@ package com.diabetesapp.config;
 import com.diabetesapp.Main;
 import com.diabetesapp.model.Detection;
 import com.diabetesapp.model.DetectionRepository;
+import com.diabetesapp.model.Therapy;
+import com.diabetesapp.model.TherapyRepository;
 import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -252,6 +254,41 @@ public class Validator {
                 comboBox1.delegateFocusedProperty(),
                 comboBox1::validate,
                 state -> comboBox1.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, state),
+                msg -> {
+                    errorLabel.setText(msg);
+                    errorLabel.setVisible(true);
+                    errorLabel.setManaged(true);
+                },
+                () -> {
+                    errorLabel.setVisible(false);
+                    errorLabel.setManaged(false);
+                }
+        );
+    }
+
+    public static void createTherapyConstraints(MFXComboBox<String> patientBox, MFXTextField drugField, Label errorLabel) {
+        TherapyRepository therapyRepository = Main.getTherapyRepository();
+        String patientString = patientBox.getValue();
+        int start = patientString.indexOf('(') + 1;
+        int end = patientString.indexOf(')');
+        String patient = patientString.substring(start, end);
+        List<Therapy> therapies = therapyRepository.getTherapiesByPatient(patient);
+
+        BooleanBinding blankBinding = drugField.textProperty().isNotEmpty();
+        Constraint blankConstraint = createConstraint("Field can't be empty", blankBinding);
+
+        BooleanBinding alredyPresent = Bindings.createBooleanBinding(() -> therapies.stream().noneMatch(therapy -> therapy.patient().equals(patient) && therapy.drug().equals(drugField.getText())), patientBox.textProperty(), drugField.textProperty());
+        Constraint alreadyPresentConstraint = createConstraint("Therapy already present", alredyPresent);
+
+        drugField.getValidator()
+                .constraint(alreadyPresentConstraint)
+                .constraint(blankConstraint);
+
+        setupValidationListeners(
+                drugField.getValidator().validProperty(),
+                drugField.delegateFocusedProperty(),
+                drugField::validate,
+                state -> drugField.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, state),
                 msg -> {
                     errorLabel.setText(msg);
                     errorLabel.setVisible(true);

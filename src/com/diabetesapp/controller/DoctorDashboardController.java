@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +40,14 @@ public class DoctorDashboardController {
         if (!notificationRepository.notificationExists(username) && !ViewNavigator.hasClearedNotification()) {
             updateNotifications();
         }
-        notifications = NotificationHelper.fetchNotifications(username, notificationLabel);
+        notifications = NotificationHelper.fetchNotifications(username, notificationLabel, true);
         NotificationHelper.printColoredNotifications(notifications, notificationFlow);
-        NotificationHelper.showPopUp(username, rootPane);
+        NotificationHelper.showPopUpSequentially(username, rootPane, true);
     }
 
+    /**
+     * Fetches number of patients of the logged in doctor
+     */
     private void fetchPatientsNumber() {
         myPatients = userRepository.getPatientsByDoctor(ViewNavigator.getAuthenticatedUsername());
         if (myPatients.isEmpty()) {
@@ -63,6 +65,9 @@ public class DoctorDashboardController {
         }
     }
 
+    /**
+     * Checks patients' intakes. If missing for more than 3 days, add notification to DB
+     */
     private void updateNotifications() {
         List<String> missingDrugs;
         List<Patient> patients = new ArrayList<>();
@@ -70,8 +75,9 @@ public class DoctorDashboardController {
             missingDrugs = intakeRepository.getMissingEntries(patient.getUsername(), 4);
 
             if (missingDrugs.size() > 3) {
-                LocalDate today = LocalDate.parse(LocalDate.now().format(AppConfig.DATE_FORMAT), AppConfig.DATE_FORMAT);
-                String message = String.format("Attention: %s %s didn’t record the intake of: %s for more than 3 days", patient.getName(), patient.getSurname(), missingDrugs.getFirst());
+                String todayStr = LocalDate.now().format(AppConfig.DATE_FORMAT);
+                LocalDate today = LocalDate.parse(todayStr, AppConfig.DATE_FORMAT);
+                String message = String.format("(%s) Attention: %s %s didn’t record the intake of: %s for more than 3 days", todayStr, patient.getName(), patient.getSurname(), missingDrugs.getFirst());
 
                 Notification newNotification = new Notification(username, today, "Patient Alert", message, false);
                 notificationRepository.saveNotification(newNotification);
@@ -98,6 +104,10 @@ public class DoctorDashboardController {
     @FXML
     private void handleClearAll() {
         for (Notification notification : notifications) {
+            if (notification.username().equals("All Doctors")) {
+                ViewNavigator.addClearedNotification(notification);
+                continue;
+            }
             notificationRepository.removeNotifications(notification);
         }
         ViewNavigator.setClearedNotification(true);

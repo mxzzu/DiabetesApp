@@ -3,6 +3,7 @@ package com.diabetesapp.config;
 import com.diabetesapp.Main;
 import com.diabetesapp.model.Notification;
 import com.diabetesapp.model.NotificationRepository;
+import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -16,6 +17,7 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NotificationHelper {
 
@@ -23,11 +25,23 @@ public class NotificationHelper {
      * Fetch notifications and list them in a card
      * @param username Fetch notifications by this username
      * @param notificationLabel Text item to diasble if no notifications found
+     * @param allDoctors Boolean value to fetch the all doctors notification too
      * @return Returns a List object with notifications fetched
      */
-    public static List<Notification> fetchNotifications(String username, Text notificationLabel) {
+    public static List<Notification> fetchNotifications(String username, Text notificationLabel, boolean allDoctors) {
         NotificationRepository notificationRepository = Main.getNotificationRepository();
         List<Notification> notifications = notificationRepository.getNotificationsByUser(username);
+        if (allDoctors) {
+            List<Notification> doctorsNotification = notificationRepository.getNotificationsByUser("All Doctors");
+            if (!doctorsNotification.isEmpty()) {
+                List<Notification> clearedNotifications = ViewNavigator.getClearedNotifications();
+                for (Notification notification : doctorsNotification) {
+                    if (!clearedNotifications.contains(notification)) {
+                        notifications.add(notification);
+                    }
+                }
+            }
+        }
         if (notifications.isEmpty()) {
             notificationLabel.setText("No Notifications Found!");
         } else {
@@ -56,64 +70,94 @@ public class NotificationHelper {
     }
 
     /**
-     * Create and show pop-up
+     * Shows sequentially the notifications pop-ups
      * @param username User of which notifications should show
      * @param rootPane AnchorPane where to show pop-up
+     * @param allDoctors Flag to include All Doctors notifications.
      */
-    public static void showPopUp(String username, AnchorPane rootPane) {
+    public static void showPopUpSequentially(String username, AnchorPane rootPane, boolean allDoctors) {
         NotificationRepository notificationRepository = Main.getNotificationRepository();
-        List<Notification> notifications = notificationRepository.getNotificationsByUser(username);
+        List<Notification> notificationsToShow =notificationRepository.getNotificationsByUser(username);
 
-        for (Notification  notification : notifications) {
-            if (!notification.isAlerted()) {
-                Text header = new Text(notification.title());
-                header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
-                FontIcon closeIcon = new FontIcon("bi-x");
-                MFXButton closeButton = new MFXButton("", closeIcon);
-                closeButton.setCursor(Cursor.HAND);
-                closeButton.setStyle("-fx-background-color: transparent;");
-
-                Region spacer = new Region();
-                HBox.setHgrow(spacer, Priority.ALWAYS);
-
-                HBox headerBox = new HBox(header, spacer, closeButton);
-                headerBox.setAlignment(Pos.CENTER_LEFT);
-
-                VBox notificationContent = createVBox(notification.message(), headerBox);
-
-                rootPane.getChildren().add(notificationContent);
-                AnchorPane.setBottomAnchor(notificationContent, 20.0);
-                AnchorPane.setRightAnchor(notificationContent, 20.0);
-
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(400), notificationContent);
-                fadeIn.setFromValue(0);
-                fadeIn.setToValue(1);
-                fadeIn.play();
-
-                PauseTransition delay = new PauseTransition(Duration.seconds(15));
-
-                Runnable hideNotification = () -> {
-                    if (!rootPane.getChildren().contains(notificationContent)) return;
-
-                    FadeTransition fadeOut = new FadeTransition(Duration.millis(400), notificationContent);
-                    fadeOut.setFromValue(1);
-                    fadeOut.setToValue(0);
-                    fadeOut.setOnFinished(_ -> rootPane.getChildren().remove(notificationContent));
-                    fadeOut.play();
-                };
-
-                delay.setOnFinished(_ -> hideNotification.run());
-                closeButton.setOnAction(_ -> {
-                    delay.stop();
-                    hideNotification.run();
-                });
-
-                delay.play();
-                Notification newNotification = new Notification(notification.username(), notification.date(), notification.title(), notification.message(), true);
-                notificationRepository.setIsAlerted(notification, newNotification);
+        if (allDoctors) {
+            List<Notification> doctorsNotification = notificationRepository.getNotificationsByUser("All Doctors");
+            if (!doctorsNotification.isEmpty()) {
+                notificationsToShow.addAll(doctorsNotification);
             }
         }
+
+        List<Notification> unalertedNotifications = notificationsToShow.stream()
+                .filter(n -> !n.isAlerted())
+                .collect(Collectors.toList());
+
+        if (!unalertedNotifications.isEmpty()) {
+            displayNextNotification(unalertedNotifications, rootPane, notificationRepository);
+        }
+    }
+
+    /**
+     * Recursive method that shows a pop-up and removes it from the list
+     * @param notifications List of notifications to show
+     * @param rootPane AnchorPane where to show pop-up
+     * @param notificationRepository Notification Repository
+     */
+    private static void displayNextNotification(List<Notification> notifications, AnchorPane rootPane, NotificationRepository notificationRepository) {
+        if (notifications.isEmpty()) {
+            return;
+        }
+
+        Notification notification = notifications.removeFirst();
+
+        Text header = new Text(notification.title());
+        header.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        FontIcon closeIcon = new FontIcon("bi-x");
+        MFXButton closeButton = new MFXButton("", closeIcon);
+        closeButton.setCursor(Cursor.HAND);
+        closeButton.setStyle("-fx-background-color: transparent;");
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        HBox headerBox = new HBox(header, spacer, closeButton);
+        headerBox.setAlignment(Pos.CENTER_LEFT);
+
+        VBox notificationContent = createVBox(notification.message(), headerBox);
+
+        rootPane.getChildren().add(notificationContent);
+        AnchorPane.setBottomAnchor(notificationContent, 20.0);
+        AnchorPane.setRightAnchor(notificationContent, 20.0);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(400), notificationContent);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(10));
+
+        Runnable hideAndShowNext = () -> {
+            if (!rootPane.getChildren().contains(notificationContent)) return;
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(400), notificationContent);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.setOnFinished(_ -> {
+                rootPane.getChildren().remove(notificationContent);
+                displayNextNotification(notifications, rootPane, notificationRepository);
+            });
+            fadeOut.play();
+        };
+
+        delay.setOnFinished(_ -> hideAndShowNext.run());
+        closeButton.setOnAction(_ -> {
+            delay.stop();
+            hideAndShowNext.run();
+        });
+
+        Notification newNotification = new Notification(notification.username(), notification.date(), notification.title(), notification.message(), true);
+        notificationRepository.setIsAlerted(notification, newNotification);
+
+        delay.play();
     }
 
     /**

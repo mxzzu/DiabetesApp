@@ -47,13 +47,13 @@ public class DashboardController {
         if (!notificationRepository.notificationExists(username) && !ViewNavigator.hasClearedNotification()) {
             updateNotifications();
         }
-        notifications = NotificationHelper.fetchNotifications(username, notificationLabel);
+        notifications = NotificationHelper.fetchNotifications(username, notificationLabel, false);
         NotificationHelper.printColoredNotifications(notifications, notificationFlow);
-        NotificationHelper.showPopUp(username, rootPane);
+        NotificationHelper.showPopUpSequentially(username, rootPane, false);
     }
 
     /**
-     * Checks yesterday intakes. If missing, add notification to DB and shows pop-up
+     * Checks yesterday intakes. If missing, add notification to DB
      */
     private void updateNotifications() {
         List<String> missingDrugs = intakeRepository.getMissingEntries(username, 1);
@@ -61,7 +61,7 @@ public class DashboardController {
         if (!missingDrugs.isEmpty()) {
             String yesterday = LocalDate.now().minusDays(1).format(AppConfig.DATE_FORMAT);
             LocalDate today = LocalDate.parse(LocalDate.now().format(AppConfig.DATE_FORMAT), AppConfig.DATE_FORMAT);
-            String message = String.format("Attention: %s you didn’t record the intake of: %s", yesterday, String.join(", ", missingDrugs));
+            String message = String.format("(%s) Attention: you didn’t record the intake of: %s", yesterday, String.join(", ", missingDrugs));
             Notification newNotification = new Notification(username, today, "Intakes Notification 💊", message, false);
             notificationRepository.saveNotification(newNotification);
         }
@@ -163,8 +163,8 @@ public class DashboardController {
     @FXML
     private void handleIntake() {
         TherapyRepository therapyRepository = Main.getTherapyRepository();
-        Therapy therapy = therapyRepository.getTherapyByPatient(username);
-        if (therapy == null) {
+        List<Therapy> therapies = therapyRepository.getTherapiesByPatient(username);
+        if (therapies.isEmpty()) {
             showError();
             return;
         }
@@ -210,7 +210,7 @@ public class DashboardController {
      * Show an error if no therapy was found
      */
     private void showError() {
-        statusLabel.setText("Nessuna terapia attiva!");
+        statusLabel.setText("No active therapy!");
         statusLabel.setVisible(true);
         statusLabel.setManaged(true);
     }

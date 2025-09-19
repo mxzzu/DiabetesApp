@@ -64,24 +64,34 @@ public class TherapyRepository {
      * Save therapy to the repository
      */
     public void saveTherapy(Therapy therapy) {
-        for (Therapy a : therapies) {
+        /*for (Therapy a : therapies) {
             if (a.patient().equals(therapy.patient())) {
                 therapies.remove(a);
                 therapies.add(therapy);
                 modifyTherapyOnDB(therapy);
                 return;
             }
-        }
+        }*/
         therapies.add(therapy);
         addTherapyToDB(therapy);
     }
 
+    // dovrebbe non servire
     public Therapy getTherapyByPatient(String patient) {
         Document doc = therapiesCollection.find(new Document("patient", patient)).first();
         if (doc == null) {
             return null;
         }
         return new Therapy(doc.getString("patient"), doc.getString("drug"), doc.getString("intakeNumber"), doc.getString("quantity"), doc.getString("indications"));
+    }
+
+    public List<Therapy> getTherapiesByPatient(String patient) {
+        List<Therapy> therapiesByPatient = new ArrayList<>();
+        FindIterable<Document> docs = therapiesCollection.find(new Document("patient", patient));
+        for (Document d : docs) {
+            therapiesByPatient.add(new Therapy(d.getString("patient"), d.getString("drug"), d.getString("intakeNumber"), d.getString("quantity"), d.getString("indications")));
+        }
+        return therapiesByPatient;
     }
 
     /**
