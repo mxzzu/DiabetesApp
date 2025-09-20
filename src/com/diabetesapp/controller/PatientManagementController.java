@@ -1,7 +1,7 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.config.AppConfig;
+import com.diabetesapp.config.TableUtils;
 import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import com.diabetesapp.view.components.PersonalInfoCard;
@@ -64,7 +64,7 @@ public class PatientManagementController {
         personalInfoContainer.getChildren().add(personalInfoCard);
         fetchMedicalInformation();
         createTherapyTable();
-        AppConfig.setTableSize(therapyTable);
+        TableUtils.setTableSize(therapyTable);
         addListener();
     }
 

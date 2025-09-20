@@ -168,7 +168,7 @@ public class ViewNavigator {
 
     public static void navigateToData() {
         if (isAuthenticated()) {
-            loadView("DataView.fxml");
+            loadView("DoctorDataView.fxml");
         } else {
             navigateToLogin();
         }
@@ -176,7 +176,7 @@ public class ViewNavigator {
 
     public static void navigateToAllData() {
         if (isAuthenticated()) {
-            loadView("AllDataView.fxml");
+            loadView("PatientDataView.fxml");
         }  else {
             navigateToLogin();
         }

@@ -171,4 +171,9 @@ public class RegisterController {
         statusLabel.setManaged(true);
     }
 
+    @FXML
+    private void handleLogout() {
+        ViewNavigator.logout();
+    }
+
 }

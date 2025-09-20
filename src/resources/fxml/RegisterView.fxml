@@ -138,12 +138,12 @@
                         </VBox>
                     </GridPane>
 
-                    <HBox alignment="CENTER">
-                        <MFXButton onAction="#handleRegister" styleClass="button-success" text="Register User" buttonType="RAISED">
-                            <HBox.margin>
-                                <Insets top="10.0" bottom="10.0" />
-                            </HBox.margin>
-                        </MFXButton>
+                    <HBox spacing="10.0" alignment="CENTER">
+                        <MFXButton onAction="#handleRegister" styleClass="button-success" text="Register User" buttonType="RAISED" />
+                        <MFXButton onAction="#handleLogout" styleClass="button-danger" text="Log Out" buttonType="RAISED" />
+                        <HBox.margin>
+                            <Insets top="10.0" bottom="10.0" />
+                        </HBox.margin>
                     </HBox>
                 </VBox>
             </VBox>

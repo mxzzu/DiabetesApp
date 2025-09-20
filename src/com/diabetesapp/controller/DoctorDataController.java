@@ -1,7 +1,7 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.config.AppConfig;
+import com.diabetesapp.config.TableUtils;
 import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
@@ -33,22 +33,28 @@ import java.util.Comparator;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 
-public class DataController {
+public class DoctorDataController {
 
     @FXML
     private MFXTableView<Detection> table;
     @FXML
+    private MFXTableView<Intake> intakeTable;
+    @FXML
     private MFXTableView<ConcTherapy> concTherapiesTable;
     @FXML
-    private Label cardTitle;
+    private Label detectionCardTitle, intakeCardTitle;
     @FXML
     private VBox container;
+
+    private String patientToManage;
 
     private DetectionRepository detectionRepository;
     private UserRepository userRepository;
     private ConcTherapyRepository concTherapyRepository;
+    private IntakeRepository intakeRepository;
     private ObservableList<Detection> detections;
     private ObservableList<ConcTherapy> concTherapies;
+    private ObservableList<Intake> intakes;
     private MFXGenericDialog dialogContent;
     private MFXStageDialog chartDialog;
     private VBox chartsContainer;
@@ -60,20 +66,27 @@ public class DataController {
 
     @FXML
     public void initialize() {
+        patientToManage = ViewNavigator.getPatientToManage();
         detectionRepository = Main.getDetectionRepository();
+        intakeRepository = Main.getIntakeRepository();
         concTherapyRepository = Main.getConcTherapyRepository();
         userRepository = Main.getUserRepository();
-        detections = detectionRepository.getAllDetectionsByPatient(ViewNavigator.getPatientToManage());
-        concTherapies = concTherapyRepository.getConcTherapiesByUser(ViewNavigator.getPatientToManage());
-        User patient = userRepository.getUser(ViewNavigator.getPatientToManage());
-        String title = String.format("Data Table of: %s %s (%s)", patient.getName(), patient.getSurname(), patient.getUsername());
-        cardTitle.setText(title);
+        detections = detectionRepository.getAllDetectionsByPatient(patientToManage);
+        intakes = intakeRepository.getAllIntakesByUser(patientToManage);
+        concTherapies = concTherapyRepository.getConcTherapiesByUser(patientToManage);
+        User patient = userRepository.getUser(patientToManage);
+        String detectionTitle = String.format("Detection Table of: %s %s (%s)", patient.getName(), patient.getSurname(), patient.getUsername());
+        String intakeTitle = String.format("Intake Table of: %s %s (%s)", patient.getName(), patient.getSurname(), patient.getUsername());
+        detectionCardTitle.setText(detectionTitle);
+        intakeCardTitle.setText(intakeTitle);
 
-        AppConfig.createDetectionTable(table, detections);
-        AppConfig.createConcTherapyTable(concTherapiesTable, concTherapies);
+        TableUtils.createDetectionTable(table, detections);
+        TableUtils.createIntakesTable(intakeTable, intakes);
+        TableUtils.createConcTherapyTable(concTherapiesTable, concTherapies);
 
-        AppConfig.setTableSize(table);
-        AppConfig.setTableSize(concTherapiesTable);
+        TableUtils.setTableSize(table);
+        TableUtils.setTableSize(intakeTable);
+        TableUtils.setTableSize(concTherapiesTable);
 
         setupChartDialog();
     }

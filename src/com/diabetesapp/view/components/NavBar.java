@@ -54,15 +54,24 @@ public class NavBar extends HBox {
     private void createAuthenticatedNavButtons() {
         Button homeBtn = createNavButton("Home", _ -> ViewNavigator.navigateToHome());
         Button dashboardBtn = createNavButton("Dashboard", _ -> ViewNavigator.navigateToDashboard());
-        Button userBtn = createNavButton("Hello, " + username, _ -> ViewNavigator.navigateToProfile());
-
+        Button userBtn;
         FontIcon icon = new FontIcon();
         icon.setIconSize(16);
         icon.setIconLiteral("bi-person");
         icon.setIconColor(Color.WHITE);
-        userBtn.setGraphic(icon);
 
-        this.getChildren().addAll(homeBtn, dashboardBtn, userBtn);
+        this.getChildren().addAll(homeBtn, dashboardBtn);
+
+        if (!username.equals("admin")) {
+            userBtn = createNavButton("Hello, " + username, _ -> ViewNavigator.navigateToProfile());
+            userBtn.setGraphic(icon);
+            this.getChildren().addAll(userBtn);
+        } else {
+            Label label = new Label("Hello, " + username);
+            label.setStyle("-fx-text-fill: white; -fx-font-weight: bold");
+            label.setGraphic(icon);
+            this.getChildren().addAll(label);
+        }
     }
 
     /**
@@ -82,12 +91,12 @@ public class NavBar extends HBox {
         Button button = new Button(text);
         button.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;");
         button.setOnAction(handler);
-        
+
         button.setOnMouseEntered(_ ->
-            button.setStyle("-fx-background-color: #622f81; -fx-text-fill: white; -fx-cursor: hand;"));
+                button.setStyle("-fx-background-color: #622f81; -fx-text-fill: white; -fx-cursor: hand;"));
         button.setOnMouseExited(_ ->
-            button.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;"));
-        
+                button.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;"));
+
         return button;
     }
     
