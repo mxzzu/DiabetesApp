@@ -60,6 +60,11 @@ public class DetectionController {
 
     }
 
+    @FXML
+    private void handleBack() {
+        ViewNavigator.navigateToDashboard();
+    }
+
     private void sendNotification(int level, String meal, String period) {
         if ((period.equals("Before eating") && (level > 180 || level < 70)) || (period.equals("After eating") && (level > 250 || level < 70))) {
             String username = ViewNavigator.getAuthenticatedUsername();

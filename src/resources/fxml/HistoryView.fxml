@@ -12,19 +12,19 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.HistoryController">
 
-    <MFXScrollPane fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
+    <MFXScrollPane styleClass="root" fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <content>
             <HBox alignment="TOP_CENTER">
                 <VBox spacing="20.0" maxWidth="800" styleClass="container" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label text="Changes History" textAlignment="CENTER">
-                            <font>
-                                <Font name="System Bold" size="24.0" />
-                            </font>
-                        </Label>
 
-                        <VBox fx:id="container" styleClass="card" >
+                        <VBox fx:id="container" spacing="10" styleClass="card" >
+                            <Label text="Changes History" textAlignment="CENTER">
+                                <font>
+                                    <Font name="System Bold" size="24.0" />
+                                </font>
+                            </Label>
                             <Label fx:id="errorLabel" text="No changes found for this patient!" textAlignment="CENTER" managed="false" >
                                 <VBox.margin>
                                     <Insets top="10.0" />

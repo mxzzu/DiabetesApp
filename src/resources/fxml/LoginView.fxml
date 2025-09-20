@@ -4,51 +4,56 @@
 <?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.LoginController">
-   <VBox spacing="20" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
-      <children>
+<AnchorPane styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.LoginController">
+    <VBox alignment="CENTER" styleClass="login-root" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER" styleClass="login-container" VBox.vgrow="NEVER">
+            <VBox styleClass="login-info-panel" HBox.hgrow="ALWAYS">
+                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/logo.png" />
+                    </image>
+                </ImageView>
+                <Label styleClass="login-info-title" text="DiabetesApp" wrapText="true"/>
+                <TextFlow styleClass="login-info-text-wrapper">
+                    <Text styleClass="login-info-text" text="Monitor your health, connect with your doctor. A new approach to managing diabetes."/>
+                </TextFlow>
+            </VBox>
 
-         <!-- TITLE -->
-         <Label text="LOGIN" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="28.0" />
-            </font>
-            <VBox.margin>
-               <Insets bottom="50.0" />
-            </VBox.margin>
-         </Label>
+            <VBox styleClass="login-form-panel" HBox.hgrow="ALWAYS">
+                <Label styleClass="login-title" text="Welcome!" wrapText="true"/>
+                <TextFlow styleClass="login-subtitle-wrapper">
+                    <Text styleClass="login-subtitle" text="Enter your credentials to log in."/>
+                </TextFlow>
 
-         <!-- USERNAME FIELD -->
-         <MFXTextField styleClass="validatedField" fx:id="usernameField" floatMode="BORDER" floatingText="Enter Email or Tax Code" prefHeight="40.0" prefWidth="700.0" />
-         <Label styleClass="validationLabel" fx:id="validationLabel1" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" >
-            <VBox.margin>
-               <Insets bottom="10.0" />
-            </VBox.margin>
-         </Label>
+                <VBox.margin>
+                    <Insets bottom="10.0"/>
+                </VBox.margin>
 
-         <!-- PASSWORD FIELD -->
-         <MFXPasswordField styleClass="validatedField" fx:id="passwordField" floatMode="BORDER" floatingText="Enter Password" prefHeight="40.0" prefWidth="700.0" />
-         <Label styleClass="validationLabel" fx:id="validationLabel2" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" >
-            <VBox.margin>
-               <Insets bottom="20.0" />
-            </VBox.margin>
-         </Label>
+                <MFXTextField fx:id="usernameField" floatMode="BORDER" floatingText="Email or Tax Code" prefHeight="40.0" prefWidth="700.0" styleClass="validatedField"/>
+                <Label fx:id="validationLabel1" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true">
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                </Label>
 
-         <!-- LOGIN BUTTON -->
-         <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="260.0" text="Login">
-            <rotationAxis>
-               <Point3D />
-            </rotationAxis>
-         </MFXButton>
-      </children>
-   </VBox>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
+                <MFXPasswordField fx:id="passwordField" floatMode="BORDER" floatingText="Password" prefHeight="40.0" prefWidth="700.0" styleClass="validatedField"/>
+                <Label fx:id="validationLabel2" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true">
+                    <VBox.margin>
+                        <Insets bottom="20.0"/>
+                    </VBox.margin>
+                </Label>
+
+                <MFXButton buttonType="RAISED" defaultButton="true" onAction="#handleLogin" prefHeight="40.0" prefWidth="260.0" styleClass="button" text="Login"/>
+            </VBox>
+        </HBox>
+    </VBox>
 </AnchorPane>

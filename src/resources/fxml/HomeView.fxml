@@ -1,54 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox spacing="20.0" styleClass="container" xmlns="http://javafx.com/javafx/16"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.diabetesapp.controller.HomeController">
-   <children>
-      <Label text="Welcome to the DiabetesApp" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Label text="This is a template for a multi-page JavaFX application with authentication." wrapText="true" />
-      <VBox spacing="10.0">
-         <children>
-            <Label text="Features:">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <ListView prefHeight="200.0" mouseTransparent="true"
-                      focusTraversable="false" style="-fx-background-color: transparent;">
-               <items>
-                  <javafx.collections.FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Multiple pages with navigation" />
-                     <String fx:value="User authentication with login/logout" />
-                     <String fx:value="Dynamic navigation based on login status" />
-                     <String fx:value="Protected routes for authenticated users only" />
-                     <String fx:value="Model-View-Controller architecture" />
-                     <String fx:value="CSV-based user data storage" />
-                  </javafx.collections.FXCollections>
-               </items>
-            </ListView>
-         </children>
-      </VBox>
-      <HBox spacing="10.0">
-         <children>
-            <MFXButton buttonType="RAISED" fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin" text="Login" styleClass="button-success" />
-            <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleDashboard" text="Go to Dashboard" />
-         </children>
-      </HBox>
-   </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<MFXScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="root" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.HomeController">
+    <content>
+        <BorderPane>
+            <top>
+                <VBox styleClass="hero-section-professional" alignment="CENTER">
+                    <padding>
+                        <Insets top="40.0" bottom="60.0" left="20.0" right="20.0" />
+                    </padding>
+                    <Label styleClass="hero-title-professional" text="Your Digital Partner for Diabetes Management" wrapText="true" />
+                    <TextFlow styleClass="hero-subtitle-wrapper">
+                        <Text styleClass="hero-subtitle" text="An integrated solution for patients and doctors, designed to simplify daily diabetes monitoring, improve communication, and offer a personalized and proactive care path." />
+                    </TextFlow>
+                    <MFXButton fx:id="loginButton" onAction="#handleLogin" styleClass="home-hero-button" text="Start Your Journey">
+                        <VBox.margin>
+                            <Insets top="30.0" />
+                        </VBox.margin>
+                    </MFXButton>
+                </VBox>
+            </top>
+            <center>
+                <VBox styleClass="features-section-split" alignment="TOP_CENTER">
+                    <HBox styleClass="features-hbox-split" alignment="CENTER">
+                        <VBox styleClass="feature-vbox" maxWidth="380.0" prefWidth="380.0">
+                            <Label styleClass="feature-title-split" text="For the Patient" />
+                            <VBox spacing="15.0">
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-droplet-half" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Record and monitor daily blood glucose readings." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-clipboard-check" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Add and easily track your daily drugs intake." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-emoji-dizzy" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Add any concurrent symptoms and therapies." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-bell" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Receive automatic alerts for proactive management." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-envelope" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Communicate easily with your doctor via email." />
+                                    </TextFlow>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                        <VBox styleClass="feature-vbox" maxWidth="380.0" prefWidth="380.0">
+                            <Label styleClass="feature-title-split" text="For the Doctor" />
+                            <VBox spacing="15.0">
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-file-earmark-medical" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Prescribe and modify therapies for your patients." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-graph-up" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="View patient data in summary and graphical form." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-person-lines-fill" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Update medical information and therapies for your patients." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-bell" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Receive automatic alerts for proactive management." />
+                                    </TextFlow>
+                                </HBox>
+                                <HBox styleClass="feature-list-item" prefHeight="45.0">
+                                    <FontIcon iconLiteral="bi-envelope" iconSize="24" styleClass="feature-list-icon" />
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                        <Text styleClass="feature-list-text" text="Communicate easily with your patients via email." />
+                                    </TextFlow>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </center>
+        </BorderPane>
+    </content>
+</MFXScrollPane>

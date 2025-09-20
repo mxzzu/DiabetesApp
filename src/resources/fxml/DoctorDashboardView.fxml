@@ -14,7 +14,7 @@
             fx:controller="com.diabetesapp.controller.DoctorDashboardController"
             fx:id="rootPane">
 
-    <MFXScrollPane fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
+    <MFXScrollPane styleClass="root" fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <content>
             <HBox alignment="TOP_CENTER">
@@ -22,43 +22,43 @@
                     <children>
                         <Label text="Doctor Dashboard" textAlignment="CENTER">
                             <font>
-                                <Font name="System Bold" size="24.0" />
+                                <Font name="System Bold" size="30.0" />
                             </font>
                         </Label>
                         <Label text="This is a protected dashboard page. Only doctors can see this."
                                wrapText="true" />
                         <HBox spacing="20.0">
                             <children>
-                                <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
-                                    <children>
-                                        <Label styleClass="card-header" text="Create therapy" />
-                                        <Text text="This card can create a therapy for your patients." >
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0"/>
-                                            </VBox.margin>
-                                        </Text>
-                                        <Region VBox.vgrow="ALWAYS" />
-                                        <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Create therapy" onAction="#createTherapy" />
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                    </padding>
-                                </VBox>
-                                <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER">
-                                    <children>
-                                        <Label styleClass="card-header" text="My Patients" />
-                                        <TextFlow fx:id="patientsLabel" textAlignment="CENTER">
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0"/>
-                                            </VBox.margin>
-                                        </TextFlow>
-                                        <Region VBox.vgrow="ALWAYS" />
-                                        <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Go to my patients" onAction="#handlePatients" />
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                    </padding>
-                                </VBox>
+                                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="400.0">
+                                        <children>
+                                            <Label styleClass="card-header" text="Create therapy" />
+                                            <Text text="This card can create a therapy for your patients." >
+                                                <VBox.margin>
+                                                    <Insets bottom="10.0" top="10.0"/>
+                                                </VBox.margin>
+                                            </Text>
+                                            <Region VBox.vgrow="ALWAYS" />
+                                            <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Create therapy" onAction="#createTherapy" />
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                        </padding>
+                                    </VBox>
+                                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="400.0">
+                                        <children>
+                                            <Label styleClass="card-header" text="My Patients" />
+                                            <TextFlow fx:id="patientsLabel" textAlignment="CENTER">
+                                                <VBox.margin>
+                                                    <Insets bottom="10.0" top="10.0"/>
+                                                </VBox.margin>
+                                            </TextFlow>
+                                            <Region VBox.vgrow="ALWAYS" />
+                                            <MFXButton buttonType="RAISED" mnemonicParsing="false" text="Go to my patients" onAction="#handlePatients" />
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                        </padding>
+                                    </VBox>
                             </children>
                         </HBox>
                         <HBox spacing="20.0">

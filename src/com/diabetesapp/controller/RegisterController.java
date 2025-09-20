@@ -12,11 +12,14 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.others.dates.DateStringConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import org.mindrot.jbcrypt.BCrypt;
 
 import static io.github.palexdev.materialfx.utils.RandomUtils.random;
 
 public class RegisterController {
+
+    public VBox medicalInfoCard;
 
     @FXML
     private Label userTypeLabel, genderLabel, taxCodeLabel,nameLabel, surnameLabel, birthDateLabel, emailLabel, docUserLabel, statusLabel;

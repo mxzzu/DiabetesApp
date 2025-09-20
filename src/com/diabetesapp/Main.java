@@ -13,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.mindrot.jbcrypt.BCrypt;
+
 import java.net.URL;
 
 public class Main extends Application {
@@ -55,7 +55,7 @@ public class Main extends Application {
         
         // Configure and show the stage
         primaryStage.setTitle(AppConfig.APP_TITLE);
-        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/resources/image/gio.png")));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/image/logo.png")));
         primaryStage.setScene(scene);
         primaryStage.show();
 

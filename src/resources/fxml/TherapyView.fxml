@@ -1,58 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 
-<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
-<?import javafx.scene.layout.HBox?>
-<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.TherapyController">
-    <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
-        <children>
+<AnchorPane styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.TherapyController">
+    <children>
+        <VBox alignment="center" spacing="10" styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox maxWidth="800.0" spacing="20.0" styleClass="card">
+                    <children>
+                        <Label text="Patient Therapy" textAlignment="center">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </Label>
 
-            <!-- TITLE -->
-            <Label text="Patient Therapy" textAlignment="CENTER">
-                <font>
-                    <Font name="System Bold" size="28.0" />
-                </font>
-                <VBox.margin>
-                    <Insets bottom="50.0" />
-                </VBox.margin>
-            </Label>
+                        <MFXFilterComboBox fx:id="patientBox" floatMode="BORDER" floatingText="Patient" prefHeight="40.0" prefWidth="700.0" />
+                        <Label fx:id="validationLabel1" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- PATIENT BOX -->
-            <MFXFilterComboBox fx:id="patientBox" floatMode="BORDER" floatingText="Patient" prefHeight="40.0" prefWidth="700.0" />
-            <Label styleClass="validationLabel" fx:id="validationLabel1" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                        <MFXTextField fx:id="drugField" floatMode="BORDER" floatingText="Drug" prefHeight="40.0" prefWidth="700.0" />
+                        <Label fx:id="validationLabel2" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- DRUG FIELD -->
-            <MFXTextField floatMode="BORDER" floatingText="Drug" fx:id="drugField" prefHeight="40.0" prefWidth="700.0" />
-            <Label styleClass="validationLabel" fx:id="validationLabel2" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                        <MFXTextField fx:id="intakeNumberField" floatMode="BORDER" floatingText="Intake Number (p/die)" prefHeight="40.0" prefWidth="700.0" />
+                        <Label fx:id="validationLabel3" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- INTAKE FIELD -->
-            <MFXTextField floatMode="BORDER" floatingText="Intake Number (p/die)" fx:id="intakeNumberField" prefHeight="40.0" prefWidth="700.0" />
-            <Label styleClass="validationLabel" fx:id="validationLabel3" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                        <MFXTextField fx:id="quantityField" floatMode="BORDER" floatingText="Quantity (mg)" prefHeight="40.0" prefWidth="700.0" />
+                        <Label fx:id="validationLabel4" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- QUANTITY FIELD -->
-            <MFXTextField floatMode="BORDER" floatingText="Quantity (mg)" fx:id="quantityField" prefHeight="40.0" prefWidth="700.0" />
-            <Label styleClass="validationLabel" fx:id="validationLabel4" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                        <MFXTextField fx:id="indicationsField" floatMode="BORDER" floatingText="Any Indications" prefHeight="40.0" prefWidth="700.0" />
+                        <Label fx:id="validationLabel5" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- INDICATIONS FIELD -->
-            <MFXTextField floatMode="BORDER" floatingText="Any Indications" fx:id="indicationsField" prefHeight="40.0" prefWidth="700.0" />
-            <Label styleClass="validationLabel" fx:id="validationLabel5" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
-
-            <!-- BUTTONS -->
-            <HBox spacing="10.0" alignment="CENTER">
-                <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleBack" text="Back" styleClass="button-secondary" />
-                <MFXButton fx:id="therapyButton" buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addTherapy" text="Add Therapy" />
-            </HBox>
-
-        </children>
-    </VBox>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+                        <HBox alignment="center" spacing="20.0">
+                            <MFXButton onAction="#handleBack" styleClass="button-secondary" text="Back To Dashboard" />
+                            <MFXButton fx:id="therapyButton" onAction="#addTherapy" text="Add Therapy" />
+                            <HBox.margin>
+                                <Insets top="20.0" />
+                            </HBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -4,7 +4,7 @@
 .root {
     -fx-font-family: 'Segoe UI', Arial, sans-serif;
     -fx-font-size: 14px;
-    -fx-background-color: #f8f9fa;
+    -fx-background-color: "#ede7f6";
 }
 
 /* Button Styles */
@@ -102,6 +102,7 @@
 .card {
     -fx-background-color: white;
     -fx-padding: 15px;
+    -fx-alignment: center;
     -fx-background-radius: 8px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 3);
 }
@@ -149,6 +150,7 @@
     -fx-padding: 20;
     -fx-spacing: 20;
     -fx-pref-width: Infinity;
+    -fx-alignment: center;
 }
 
 .section {
@@ -203,9 +205,72 @@
 .glucose-chart .default-color1.chart-line {
     -fx-stroke: #8E44AD; /* Colore della linea */
 }
+
 .glucose-chart .chart-legend-item-symbol.default-color1 {
     -fx-background-color: #8E44AD; /* Colore del simbolo nella legenda */
     -fx-background-radius: 0;
     -fx-pref-width: 25px;
     -fx-pref-height: 4px;
 }
+
+/* ==========================================================================
+   Stili "Wow" per Home e Login
+   ========================================================================== */
+.hero-section-professional {
+    -fx-alignment: center;
+    -fx-padding: 80px 40px 60px 40px; /* Più spazio verticale */
+    -fx-spacing: 25px;
+    -fx-background-color: "#ede7f6";
+}
+
+.hero-title-professional {
+    -fx-font-size: 35px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #311B92;
+    -fx-text-alignment: center;
+}
+
+.hero-subtitle-wrapper {
+    -fx-text-alignment: center;
+    -fx-max-width: 700px;
+}
+
+.hero-subtitle {
+    -fx-font-size: 18px;
+    -fx-fill: #4527A0;
+    -fx-line-spacing: 2px;
+}
+
+.home-hero-button {
+    -fx-background-color: #673AB7; -fx-text-fill: white; -fx-font-weight: bold;
+    -fx-padding: 12px 28px; -fx-background-radius: 30px; -fx-cursor: hand;
+    -fx-font-size: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
+    -fx-transition: all 0.2s ease-in-out;
+}
+.home-hero-button:hover { -fx-background-color: #512DA8; -fx-scale-x: 1.05; -fx-scale-y: 1.05; }
+
+.features-section-split {
+    -fx-padding: 20px 40px 50px 40px; /* Padding superiore ridotto */
+    -fx-spacing: 40px;
+    -fx-alignment: top-center;
+    -fx-background-color: "#ede7f6";
+}
+
+.features-hbox-split { -fx-spacing: 40px; -fx-alignment: center; -fx-padding: 0 20px; }
+.feature-vbox { -fx-alignment: top-center; -fx-spacing: 20px; -fx-padding: 30px; -fx-background-color: white; -fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 5); -fx-min-width: 300px; -fx-max-width: 450px; -fx-border-color: #673AB7; -fx-border-width: 2px; -fx-border-radius: 20px; }
+.feature-title-split { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #4527A0; }
+.feature-list-item { -fx-alignment: center-left; -fx-spacing: 10px; }
+.feature-list-icon { -mfx-color: #673AB7; }
+.feature-list-text { -fx-font-size: 15px; -fx-fill: #555555; }
+
+/* Stili Pagina di Login */
+.login-root { -fx-alignment: center; -fx-padding: 40px; -fx-background-color: linear-gradient(to top right, #d1c4e9, #ede7f6);}
+.login-container { -fx-background-color: linear-gradient(to top right, #d1c4e9, #ede7f6); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 25, 0, 0, 8); -fx-max-width: 850px; -fx-max-height: 550px;}
+.login-info-panel { -fx-background-color: linear-gradient(to top, #673AB7, #8E6CEF); -fx-alignment: center; -fx-padding: 40px; -fx-spacing: 20px; -fx-min-width: 350px; }
+.login-info-title { -fx-font-size: 26px; -fx-text-fill: white; -fx-font-weight: bold; -fx-text-alignment: center; }
+.login-info-text-wrapper { -fx-text-alignment: center; }
+.login-info-text { -fx-font-size: 16px; -fx-fill: white; }
+.login-form-panel { -fx-background-color: white; -fx-alignment: center; -fx-padding: 40px; -fx-spacing: 15px; }
+.login-title { -fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #4A148C; }
+.login-subtitle-wrapper { -fx-text-alignment: center; }
+.login-subtitle { -fx-font-size: 14px; -fx-fill: #6A1B9A; }

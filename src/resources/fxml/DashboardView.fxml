@@ -16,7 +16,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.DashboardController">
 
-    <MFXScrollPane fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
+    <MFXScrollPane styleClass="root" fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <content>
             <HBox alignment="TOP_CENTER">
@@ -24,9 +24,9 @@
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
                     </padding>
-                    <Label text="Dashboard" textAlignment="CENTER">
+                    <Label text="Patient Dashboard" textAlignment="CENTER">
                         <font>
-                            <Font name="System Bold" size="24.0"/>
+                            <Font name="System Bold" size="30.0"/>
                         </font>
                     </Label>
                     <Label text="This is a protected dashboard page. Only logged-in users can see this."

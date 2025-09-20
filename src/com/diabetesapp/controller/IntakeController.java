@@ -79,6 +79,11 @@ public class IntakeController {
         ViewNavigator.navigateToDashboard();
     }
 
+    @FXML
+    private void handleBack() {
+        ViewNavigator.navigateToDashboard();
+    }
+
     private void addConcTherapy() {
         String symptoms = otherSymptoms.getText();
         String drugs = otherDrugs.getText();
@@ -105,6 +110,16 @@ public class IntakeController {
         start.setManaged(isChecked);
         end.setVisible(isChecked);
         end.setManaged(isChecked);
+
+        // Se i campi vengono nascosti, nascondi anche le loro etichette di errore
+        if (!isChecked) {
+            validationLabel3.setVisible(false);
+            validationLabel3.setManaged(false);
+            validationLabel4.setVisible(false);
+            validationLabel4.setManaged(false);
+            validationLabel5.setVisible(false);
+            validationLabel5.setManaged(false);
+        }
 
     }
 }

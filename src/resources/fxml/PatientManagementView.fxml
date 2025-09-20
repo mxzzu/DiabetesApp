@@ -11,7 +11,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.PatientManagementController">
 
-    <MFXScrollPane fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
+    <MFXScrollPane styleClass="root" fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <content>
             <HBox alignment="TOP_CENTER">
@@ -24,7 +24,7 @@
                         </Label>
                         <VBox fx:id="personalInfoContainer">
                         </VBox>
-                        <VBox styleClass="card">
+                        <VBox spacing="15.0" styleClass="card">
                             <children>
                                 <Label styleClass="card-header" text="Therapy" />
                                 <Label fx:id="therapyError" styleClass="alert-danger" text="No therapy found!"
@@ -34,11 +34,13 @@
                                     </VBox.margin>
                                 </Label>
                                 <VBox fx:id="therapyContainer" />
-                                <MFXButton fx:id="therapyButton" buttonType="RAISED" mnemonicParsing="false" onAction="#handleTherapyButton" styleClass="button-success" text="Modify Therapy">
-                                    <VBox.margin>
-                                        <Insets top="20.0" />
-                                    </VBox.margin>
-                                </MFXButton>
+                                <HBox spacing="10.0">
+                                    <MFXButton fx:id="therapyButton" buttonType="RAISED" mnemonicParsing="false" onAction="#handleTherapyButton" styleClass="button-success" text="Modify Therapy">
+                                        <VBox.margin>
+                                            <Insets top="20.0" />
+                                        </VBox.margin>
+                                    </MFXButton>
+                                </HBox>
                             </children>
                         </VBox>
                         <VBox styleClass="card">
@@ -59,7 +61,7 @@
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                             </padding>
                         </VBox>
-                        <HBox spacing="10.0">
+                        <HBox alignment="center" spacing="10.0">
                             <children>
                                 <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToPatients" text="Back to Patients" />
                                 <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleBackToDashboard" text="Back to Dashboard" styleClass="button-secondary" />

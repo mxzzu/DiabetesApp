@@ -14,7 +14,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.AllDataController">
 
-    <MFXScrollPane fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
+    <MFXScrollPane styleClass="root" fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.topAnchor="0.0"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <content>
             <HBox alignment="TOP_CENTER">
@@ -63,8 +63,10 @@
                                         <Insets top="5.0" bottom="5.0" />
                                     </padding>
                                 </VBox>
-                                <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleDeleteConcTherapy" text="Delete Therapy"
-                                           styleClass="button-danger" disable="true" fx:id="deleteButton" />
+                                <HBox spacing="10.0">
+                                    <MFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleDeleteConcTherapy" text="Delete Therapy"
+                                               styleClass="button-danger" disable="true" fx:id="deleteButton" />
+                                </HBox>
                             </children>
                         </VBox>
 

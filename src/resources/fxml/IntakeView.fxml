@@ -1,56 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 
-<AnchorPane styleClass="card, container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.IntakeController">
-    <VBox spacing="10" styleClass="form-card" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
-        <children>
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.IntakeController">
+    <children>
+        <MFXScrollPane styleClass="root" fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox alignment="TOP_CENTER" styleClass="container">
+                    <VBox spacing="20.0" maxWidth="800" styleClass="card" alignment="TOP_CENTER">
+                        <padding>
+                            <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                        </padding>
+                        <children>
+                            <Label text="Drug Intake" textAlignment="CENTER">
+                                <font>
+                                    <Font name="System Bold" size="28.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets bottom="30.0" />
+                                </VBox.margin>
+                            </Label>
 
-            <!-- TITLE -->
-            <Label text="Drug Intake" textAlignment="CENTER">
-                <font>
-                    <Font name="System Bold" size="28.0" />
-                </font>
-                <VBox.margin>
-                    <Insets bottom="50.0" />
-                </VBox.margin>
-            </Label>
+                            <MFXTextField fx:id="drugField" floatMode="BORDER" floatingText="Drug" prefHeight="40.0" prefWidth="700.0" disable="true" />
 
-            <!-- DRUG BOX -->
-            <MFXTextField floatMode="BORDER" floatingText="Drug" fx:id="drugField" prefHeight="40.0" prefWidth="700.0" disable="true" />
+                            <MFXTextField fx:id="hourTaken" floatMode="BORDER" floatingText="Hour (hh:mm)" prefHeight="40.0" prefWidth="700.0" />
+                            <Label fx:id="validationLabel1" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- HOUR FIELD -->
-            <MFXTextField floatMode="BORDER" floatingText="Hour (hh:mm)" fx:id="hourTaken" prefHeight="40.0" prefWidth="700.0" />
-            <Label styleClass="validationLabel" fx:id="validationLabel1" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                            <MFXTextField fx:id="quantityTaken" floatMode="BORDER" floatingText="Quantity Taken (mg)" prefHeight="40.0" prefWidth="700.0" />
+                            <Label fx:id="validationLabel2" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- QUANTITY FIELD -->
-            <MFXTextField floatMode="BORDER" floatingText="Quantity Taken (mg)" fx:id="quantityTaken" prefHeight="40.0" prefWidth="700.0" />
-            <Label styleClass="validationLabel" fx:id="validationLabel2" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                            <MFXToggleButton fx:id="toggleCheckBox" onAction="#handleToggle" text="Concomitant Therapies" />
 
-            <!-- TOGGLE THERAPIES -->
-            <MFXToggleButton fx:id="toggleCheckBox" onAction="#handleToggle" text="Concomitant Therapies" />
+                            <MFXTextField fx:id="otherSymptoms" managed="false" floatMode="BORDER" floatingText="Other Symptoms" prefHeight="40.0" prefWidth="700.0" visible="false" />
+                            <Label fx:id="validationLabel3" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
-            <!-- CONCOMITANT THERAPIES -->
-            <MFXTextField floatMode="BORDER" floatingText="Other Symptoms" fx:id="otherSymptoms" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
-            <Label styleClass="validationLabel" fx:id="validationLabel3" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
-            <MFXTextField floatMode="BORDER" floatingText="Drugs Taken" fx:id="otherDrugs" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
-            <MFXTextField floatMode="BORDER" floatingText="Start" fx:id="start" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
-            <Label styleClass="validationLabel" fx:id="validationLabel4" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
-            <MFXTextField floatMode="BORDER" floatingText="End" fx:id="end" managed="false" prefHeight="40.0" prefWidth="700.0" visible="false" />
-            <Label styleClass="validationLabel" fx:id="validationLabel5" textFill="#ef6e6b" visible="false" managed="false" wrapText="true" />
+                            <MFXTextField fx:id="otherDrugs" managed="false" floatMode="BORDER" floatingText="Drugs Taken" prefHeight="40.0" prefWidth="700.0" visible="false" />
 
-            <!-- ADD INTAKE -->
-            <MFXButton buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addIntake" text="Add Intake" />
-        </children>
-    </VBox>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+                            <MFXTextField fx:id="start" managed="false" floatMode="BORDER" floatingText="Start Date (dd/MM/yyyy)" prefHeight="40.0" prefWidth="700.0" visible="false" />
+                            <Label fx:id="validationLabel4" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
+
+                            <MFXTextField fx:id="end" managed="false" floatMode="BORDER" floatingText="End Date (dd/MM/yyyy)" prefHeight="40.0" prefWidth="700.0" visible="false" />
+                            <Label fx:id="validationLabel5" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
+
+                            <HBox alignment="CENTER" spacing="10.0">
+                                <children>
+                                    <MFXButton onAction="#handleBack" styleClass="button-secondary" text="Back To Dashboard" />
+                                    <MFXButton onAction="#addIntake" text="Add Intake" />
+                                </children>
+                                <VBox.margin>
+                                    <Insets top="20.0" bottom="10.0" />
+                                </VBox.margin>
+                            </HBox>
+                        </children>
+                    </VBox>
+                </VBox>
+            </content>
+        </MFXScrollPane>
+    </children>
 </AnchorPane>
