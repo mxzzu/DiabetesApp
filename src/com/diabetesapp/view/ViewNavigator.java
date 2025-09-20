@@ -13,19 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewNavigator {
-    // Reference to the main controller
     private static MainController mainController;
 
-    // Current authenticated user info
     private static User authenticatedUser = null;
     private static String userType = null;
     private static boolean mustChangePassword = false;
 
-    // Notifications flags
     private static boolean clearedNotification = false;
     private static List<Notification> clearedNotifications = new ArrayList<>();
 
-    // Misc Data
     private static String patientToManage = null;
     private static Therapy therapyToEdit = null;
     private static boolean userSaved =  false;

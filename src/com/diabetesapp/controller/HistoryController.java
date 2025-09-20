@@ -130,7 +130,6 @@ public class HistoryController {
                 c = c.substring(1);
             }
             String prevText = changes.getText();
-            // Se removed -> colorato rosso, Se addedd -> colorato verde
             changes.setText(prevText + "-  " + c + "\n");
         }
         TextFlow changeTextFlow = new TextFlow(changeTitle, changes);

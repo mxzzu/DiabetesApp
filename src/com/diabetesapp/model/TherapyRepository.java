@@ -103,30 +103,23 @@ public class TherapyRepository {
      * o se il dato non è valido.
      */
     public int getExpectedDailyIntakes(String username) {
-        // 1. Trova il documento della terapia per il paziente specificato.
         Document therapyDoc = therapiesCollection.find(eq("patient", username)).first();
 
-        // 2. Se non esiste una terapia per questo paziente, non ci sono assunzioni previste.
         if (therapyDoc == null) {
             return 0;
         }
 
-        // 3. Estrai il numero di assunzioni (che è salvato come Stringa).
         String intakeNumberStr = therapyDoc.getString("intakeNumber");
 
-        // 4. Converti la stringa in un numero intero.
         try {
-            // Assicurati che la stringa non sia nulla o vuota prima di convertirla.
             if (intakeNumberStr != null && !intakeNumberStr.isEmpty()) {
                 return Integer.parseInt(intakeNumberStr);
             }
         } catch (NumberFormatException e) {
-            // Se il dato nel DB non è un numero valido, logga l'errore e ritorna 0 per sicurezza.
             System.err.println("Errore: il valore di 'intakeNumber' per il paziente " + username + " non è un numero valido: " + intakeNumberStr);
             return 0;
         }
 
-        // 5. Se il campo 'intakeNumber' è vuoto o nullo, ritorna 0.
         return 0;
     }
 }

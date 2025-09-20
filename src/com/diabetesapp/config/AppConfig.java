@@ -21,10 +21,8 @@ import java.util.Comparator;
 import java.util.function.Function;
 
 public class AppConfig {
-    // Application settings
     public static final String APP_TITLE = "Diabetes App";
-    
-    // Data storage settings
+
     public static final String DATA_DIR = "src/resources/data";
     public static final String DB_NAME = "DiabetesApp";
     public static final String DETECTIONS_COLLECTION_NAME = "detections";
@@ -58,16 +56,13 @@ public class AppConfig {
         return event -> {
             String character = event.getCharacter();
 
-            // Consenti solo cifre
             if (!character.matches("[0-9]")) {
                 event.consume();
                 return;
             }
 
-            // Rimuovi i due punti per gestire solo le cifre
             String currentText = textField.getText().replace(":", "");
 
-            // Impedisci l’inserimento di più di 4 cifre
             if (currentText.length() >= 4) {
                 event.consume();
                 return;
@@ -87,17 +82,15 @@ public class AppConfig {
                 return;
             }
 
-            // Aggiungi la cifra digitata
             currentText += character;
 
-            // Costruisci il nuovo testo con il formato hh:mm
             StringBuilder formatted = new StringBuilder();
             for (int i = 0; i < currentText.length(); i++) {
                 formatted.append(currentText.charAt(i));
                 if (i == 1) formatted.append(':');
             }
 
-            event.consume(); // blocca inserimento automatico
+            event.consume();
             textField.setText(formatted.toString());
             textField.positionCaret(formatted.length());
         };
@@ -130,7 +123,6 @@ public class AppConfig {
         ViewNavigator.navigateToProfile();
     }
 
-    // Create a data directory if it doesn't exist
     static {
         File dataDir = new File(DATA_DIR);
         if (!dataDir.exists()) {

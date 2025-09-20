@@ -8,8 +8,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
-
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.AllDataController">

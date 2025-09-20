@@ -79,14 +79,12 @@ public class ProfileController {
 
         String hashedPassword = PasswordUtil.hashPassword(newPassword);
         
-        // Update the user with the new password
         User currentUser = userRepository.getUser(currentUsername);
         User updatedUser = getUser(currentUser, hashedPassword);
         userRepository.modifyUser(updatedUser);
 
         showSuccess();
         
-        // Clear fields
         newPasswordField.clear();
         confirmPasswordField.clear();
 

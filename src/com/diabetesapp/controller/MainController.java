@@ -18,14 +18,9 @@ public class MainController {
     
     @FXML
     public void initialize() {
-        // Set up the navigation bar
         navBar = new NavBar();
         navBarContainer.getChildren().add(navBar);
-        
-        // Register this controller with the ViewNavigator
         ViewNavigator.setMainController(this);
-        
-        // Load the home view by default
         ViewNavigator.navigateToHome();
     }
     

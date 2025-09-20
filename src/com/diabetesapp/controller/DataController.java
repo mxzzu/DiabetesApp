@@ -55,9 +55,8 @@ public class DataController {
     private ComboBox<Month> monthPicker;
     private ComboBox<Integer> yearPicker;
 
-    // COSTANTI PER I COLORI
-    private static final String BEFORE_EATING_COLOR = "#1E88E5"; // Blu
-    private static final String AFTER_EATING_COLOR = "#8E44AD";  // Viola
+    private static final String BEFORE_EATING_COLOR = "#1E88E5";
+    private static final String AFTER_EATING_COLOR = "#8E44AD";
 
     @FXML
     public void initialize() {
@@ -138,14 +137,11 @@ public class DataController {
         mainLayout.getChildren().addAll(pickerContainer, colorLegend, rangesLegend, scrollPane);
         dialogContent.setContent(mainLayout);
 
-        // --- LOGICA DI SELEZIONE MESE/ANNO CORRENTE ---
         if (!yearPicker.getItems().isEmpty()) {
             int currentYear = LocalDate.now().getYear();
-            // Se l'anno corrente è presente tra gli anni disponibili, selezionalo.
             if (yearPicker.getItems().contains(currentYear)) {
                 yearPicker.setValue(currentYear);
             } else {
-                // Altrimenti, seleziona l'anno più recente disponibile
                 yearPicker.setValue(yearPicker.getItems().getFirst());
             }
         } else {
@@ -165,16 +161,12 @@ public class DataController {
 
         monthPicker.getItems().setAll(sortedMonths);
 
-        // --- LOGICA DI SELEZIONE MESE CORRENTE ---
         Month currentMonth = LocalDate.now().getMonth();
-        // Se l'anno selezionato è l'anno corrente E il mese corrente è tra quelli disponibili...
         if (year == LocalDate.now().getYear() && sortedMonths.contains(currentMonth)) {
-            // ...seleziona il mese corrente.
             monthPicker.setValue(currentMonth);
         } else if (sortedMonths.contains(previouslySelectedMonth)) {
             monthPicker.setValue(previouslySelectedMonth);
         } else if (!sortedMonths.isEmpty()) {
-            // Altrimenti, seleziona il primo mese disponibile
             monthPicker.setValue(sortedMonths.getFirst());
         } else {
             monthPicker.setValue(null);
@@ -229,7 +221,6 @@ public class DataController {
 
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 
-        //Applica il foglio di stile CSS
         lineChart.getStyleClass().add("glucose-chart");
         String cssPath = getClass().getResource("/css/styles.css").toExternalForm();
         lineChart.getStylesheets().add(cssPath);
@@ -276,13 +267,11 @@ public class DataController {
 
     private void styleChartLines(XYChart.Series<Number, Number> beforeSeries, XYChart.Series<Number, Number> afterSeries) {
         Platform.runLater(() -> {
-            // Stile per la linea "Before Eating"
             Node beforeLine = beforeSeries.getNode().lookup(".chart-series-line");
             if (beforeLine != null) {
                 beforeLine.setStyle("-fx-stroke: " + BEFORE_EATING_COLOR + ";");
             }
 
-            // Stile per la linea "After Eating"
             Node afterLine = afterSeries.getNode().lookup(".chart-series-line");
             if (afterLine != null) {
                 afterLine.setStyle("-fx-stroke: " + AFTER_EATING_COLOR + ";");
@@ -318,7 +307,7 @@ public class DataController {
         if (period.equals("Before eating")) {
             if (parsedLevel >= 80 && parsedLevel <= 130) return "#4CAF50";
             if ((parsedLevel > 130 && parsedLevel <= 180) || (parsedLevel >= 70 && parsedLevel < 80)) return "#FF9800";
-        } else { //after eating
+        } else {
             if (parsedLevel >= 80 && parsedLevel <= 180) return "#4CAF50";
             if ((parsedLevel > 180 && parsedLevel <= 250) || (parsedLevel >= 70 && parsedLevel < 80)) return "#FF9800";
         }

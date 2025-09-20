@@ -31,19 +31,16 @@ public class NavBar extends HBox {
         this.setSpacing(10);
         this.setPadding(new Insets(10));
         this.setStyle("-fx-background-color: #780dd7;");
-        //allineamento verticale scritta DiabetesApp (Navbar)
         this.setAlignment(Pos.CENTER);
         
         Label brandLabel = new Label("DiabetesApp");
         brandLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;");
         this.getChildren().add(brandLabel);
         
-        // Spacer
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         this.getChildren().add(spacer);
         
-        // Create buttons based on authentication status
         if (isAuthenticated) {
             createAuthenticatedNavButtons();
         } else {
@@ -86,7 +83,6 @@ public class NavBar extends HBox {
         button.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;");
         button.setOnAction(handler);
         
-        // Hover effect
         button.setOnMouseEntered(_ ->
             button.setStyle("-fx-background-color: #622f81; -fx-text-fill: white; -fx-cursor: hand;"));
         button.setOnMouseExited(_ ->

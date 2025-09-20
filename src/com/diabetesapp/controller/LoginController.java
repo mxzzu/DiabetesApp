@@ -30,13 +30,11 @@ public class LoginController {
         userRepository = Main.getUserRepository();
 
         Validator.createUsernameConstraints(usernameField, validationLabel1);
-        //Validator.createPasswordConstraints(passwordField, null, validationLabel2);
     }
     
     @FXML
     private void handleLogin() {
         boolean check1 = Validator.checkConstraints(usernameField, validationLabel1);
-        //boolean check2 = Validator.checkConstraints(passwordField, validationLabel2);
 
         if (!check1) {
             return;
@@ -55,7 +53,6 @@ public class LoginController {
         }
 
         if (user != null && PasswordUtil.checkPassword(password, user.getPassword())) {
-            // Login successful
             ViewNavigator.setAuthenticatedUser(user);
             ViewNavigator.setMustChangePassword(user.isMustChangePassword());
             ViewNavigator.navigateToDashboard();

@@ -9,8 +9,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+
 <MFXScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="root" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.HomeController">
     <content>
         <BorderPane>

@@ -66,10 +66,7 @@ public class PersonalInfoCard extends VBox {
         createHBox("Surname: ", userToDisplay.getSurname());
         createHBox("Date of Birth: ", userToDisplay.getBirthDate());
 
-        // Logica per l'email del profilo visualizzato
-        // L'icona per inviare l'email appare SOLO SE chi guarda non è il proprietario del profilo.
         if (viewer != null && !viewer.getUsername().equals(userToDisplay.getUsername())) {
-            // Crea un HBox contenente la Label e l'icona cliccabile
             createRow("Email:", createEmailNode(userToDisplay));
         } else {
             createHBox("Email: ", userToDisplay.getEmail());
@@ -81,8 +78,6 @@ public class PersonalInfoCard extends VBox {
             User doctor = userRepository.getUser(patient.getDocUser());
             createHBox("Doctor:", String.format("%s %s", doctor.getName(), doctor.getSurname()));
 
-            // Logica per l'email del dottore
-            // L'icona per inviare l'email al dottore appare SOLO SE a guardare è il paziente.
             if (viewer != null && viewer.getUsername().equals(patient.getUsername())) {
                 createRow("Doctor Mail:", createEmailNode(doctor));
             } else {
@@ -152,7 +147,6 @@ public class PersonalInfoCard extends VBox {
         infoContainer.getChildren().add(sep);
     }
 
-    // Metodo originale, ora delega al nuovo metodo più flessibile
     private void createHBox(String title, String value) {
         createRow(title, new Label(value));
     }

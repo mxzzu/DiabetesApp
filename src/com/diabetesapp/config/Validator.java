@@ -341,7 +341,6 @@ public class Validator {
             Consumer<String> errorMessageSetter,
             Runnable hideError) {
 
-        // Listener sulla validProperty (campo valido → nascondi errore)
         validProperty.addListener((_, _, newValue) -> {
             if (newValue) {
                 hideError.run();
@@ -349,9 +348,8 @@ public class Validator {
             }
         });
 
-        // Listener su perdita di focus → mostra errore se necessario
         focusedProperty.addListener((_, oldValue, newValue) -> {
-            if (oldValue && !newValue) { // Quando il focus si perde
+            if (oldValue && !newValue) {
                 List<Constraint> constraints = validatorFunction.get();
                 if (!constraints.isEmpty()) {
                     pseudoClassUpdater.accept(true);

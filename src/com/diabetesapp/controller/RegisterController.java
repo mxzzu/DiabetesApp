@@ -139,14 +139,10 @@ public class RegisterController {
 
         StringBuilder password = new StringBuilder(8);
 
-        // At least one uppercase letter
         password.append(UPPER.charAt(random.nextInt(UPPER.length())));
-        // At least one lowercase letter
         password.append(LOWER.charAt(random.nextInt(LOWER.length())));
-        // At least one digit
         password.append(DIGITS.charAt(random.nextInt(DIGITS.length())));
 
-        // Remaining characters randomly selected from all characters
         for (int i = 3; i < 8; i++) {
             password.append(ALL_CHARS.charAt(random.nextInt(ALL_CHARS.length())));
         }

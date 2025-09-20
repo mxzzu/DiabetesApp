@@ -96,27 +96,22 @@ public class Patient extends User {
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toSet());
 
-        // 2. Calcola le differenze usando la logica degli insiemi.
-        // Aggiunti: elementi presenti nel nuovo set ma non nel vecchio.
         Set<String> added = new HashSet<>(newSet);
         added.removeAll(oldSet);
 
-        // Rimossi: elementi presenti nel vecchio set ma non nel nuovo.
         Set<String> removed = new HashSet<>(oldSet);
         removed.removeAll(newSet);
 
         if (added.isEmpty() && removed.isEmpty()) {
-            return ""; // Se non ci sono differenze, restituisce una stringa vuota.
+            return "";
         }
 
         List<String> changes = new ArrayList<>();
 
-        // Aggiunge alla stringa tutti gli elementi rimossi.
         for (String factor : removed) {
             changes.add(factor + " removed");
         }
 
-        // Aggiunge alla stringa tutti gli elementi aggiunti.
         for (String factor : added) {
             changes.add(factor + " added");
         }

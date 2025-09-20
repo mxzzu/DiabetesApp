@@ -1,13 +1,11 @@
 @import "MFXColors.css";
 
-/* Global Styles */
 .root {
     -fx-font-family: 'Segoe UI', Arial, sans-serif;
     -fx-font-size: 14px;
     -fx-background-color: "#ede7f6";
 }
 
-/* Button Styles */
 .button {
     -fx-background-color: #780dd7;
     -fx-text-fill: white;
@@ -49,7 +47,6 @@
     -fx-background-color: #218838;
 }
 
-/* Form Styles */
 .form-control {
     -fx-padding: 8px;
     -fx-background-radius: 4px;
@@ -76,7 +73,7 @@
 
 .label-title {
     -fx-font-weight: bold;
-    -fx-min-width: 150px; /* Larghezza fissa per allineare tutte le seconde label */
+    -fx-min-width: 150px;
 }
 
 .label-value {
@@ -84,8 +81,8 @@
     -fx-border-width: 1px;
     -fx-border-radius: 3px;
     -fx-padding: 5px;
-    -fx-hgrow: always; /* Importante: questa proprietà fa espandere la label */
-    -fx-max-width: infinity; /* Permette alla label di espandersi al massimo */
+    -fx-hgrow: always;
+    -fx-max-width: infinity;
 }
 
 .empty-value {
@@ -93,12 +90,11 @@
     -fx-border-width: 1px;
     -fx-border-radius: 3px;
     -fx-padding: 5px;
-    -fx-hgrow: always; /* Importante: questa proprietà fa espandere la label */
-    -fx-max-width: infinity; /* Permette alla label di espandersi al massimo */
+    -fx-hgrow: always;
+    -fx-max-width: infinity;
     -fx-text-fill: #ef6e6b;
 }
 
-/* Card Styles */
 .card {
     -fx-background-color: white;
     -fx-padding: 15px;
@@ -120,13 +116,11 @@
     -fx-border-width: 0 0 1px 0;
 }
 
-/* Navigation */
 .nav-container {
     -fx-background-color: #780dd7;
     -fx-padding: 10px;
 }
 
-/* Alert Styles */
 .alert-success {
     -fx-text-fill: #155724;
     -fx-background-color: #d4edda;
@@ -145,7 +139,6 @@
     -fx-border-radius: 4px;
 }
 
-/* Container and Layout */
 .container {
     -fx-padding: 20;
     -fx-spacing: 20;
@@ -184,41 +177,30 @@
     -fx-font-size: 11;
 }
 
-/* GRAFICI */
-/*
- * Usiamo la classe .glucose-chart per rendere queste regole
- * più specifiche di quelle di default di MaterialFX.
- */
-
-/* Stile per la prima serie (Before Eating - Blu) */
 .glucose-chart .default-color0.chart-line {
-    -fx-stroke: #1E88E5; /* Colore della linea */
+    -fx-stroke: #1E88E5;
 }
 .glucose-chart .chart-legend-item-symbol.default-color0 {
-    -fx-background-color: #1E88E5; /* Colore del simbolo nella legenda */
+    -fx-background-color: #1E88E5;
     -fx-background-radius: 0;
     -fx-pref-width: 25px;
     -fx-pref-height: 4px;
 }
 
-/* Stile per la seconda serie (After Eating - Viola) */
 .glucose-chart .default-color1.chart-line {
-    -fx-stroke: #8E44AD; /* Colore della linea */
+    -fx-stroke: #8E44AD;
 }
 
 .glucose-chart .chart-legend-item-symbol.default-color1 {
-    -fx-background-color: #8E44AD; /* Colore del simbolo nella legenda */
+    -fx-background-color: #8E44AD;
     -fx-background-radius: 0;
     -fx-pref-width: 25px;
     -fx-pref-height: 4px;
 }
 
-/* ==========================================================================
-   Stili "Wow" per Home e Login
-   ========================================================================== */
 .hero-section-professional {
     -fx-alignment: center;
-    -fx-padding: 80px 40px 60px 40px; /* Più spazio verticale */
+    -fx-padding: 80px 40px 60px 40px;
     -fx-spacing: 25px;
     -fx-background-color: "#ede7f6";
 }
@@ -250,7 +232,7 @@
 .home-hero-button:hover { -fx-background-color: #512DA8; -fx-scale-x: 1.05; -fx-scale-y: 1.05; }
 
 .features-section-split {
-    -fx-padding: 20px 40px 50px 40px; /* Padding superiore ridotto */
+    -fx-padding: 20px 40px 50px 40px;
     -fx-spacing: 40px;
     -fx-alignment: top-center;
     -fx-background-color: "#ede7f6";
@@ -263,7 +245,6 @@
 .feature-list-icon { -mfx-color: #673AB7; }
 .feature-list-text { -fx-font-size: 15px; -fx-fill: #555555; }
 
-/* Stili Pagina di Login */
 .login-root { -fx-alignment: center; -fx-padding: 40px; -fx-background-color: linear-gradient(to top right, #d1c4e9, #ede7f6);}
 .login-container { -fx-background-color: linear-gradient(to top right, #d1c4e9, #ede7f6); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 25, 0, 0, 8); -fx-max-width: 850px; -fx-max-height: 550px;}
 .login-info-panel { -fx-background-color: linear-gradient(to top, #673AB7, #8E6CEF); -fx-alignment: center; -fx-padding: 40px; -fx-spacing: 20px; -fx-min-width: 350px; }

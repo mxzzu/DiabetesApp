@@ -40,20 +40,16 @@ public class Main extends Application {
                 .build()
                 .setGlobal();
 
-        // Load the main application view
-
         URL mainViewUrl = getClass().getResource("/resources/fxml/MainView.fxml");
         FXMLLoader loader = new FXMLLoader(mainViewUrl);
     
         Parent root = loader.load();
         
-        // Set up the scene
         Scene scene = new Scene(root, 1000, 800);
         URL cssUrl = getClass().getResource("/resources/css/styles.css");
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(cssUrl.toExternalForm());
         
-        // Configure and show the stage
         primaryStage.setTitle(AppConfig.APP_TITLE);
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/image/logo.png")));
         primaryStage.setScene(scene);
