@@ -22,7 +22,7 @@ public class TherapyController {
     private MFXTextField drugField, intakeNumberField, quantityField, indicationsField;
 
     @FXML
-    private MFXButton therapyButton;
+    private MFXButton therapyButton, backButton;
 
     @FXML
     MFXFilterComboBox<String> patientBox;
@@ -47,13 +47,16 @@ public class TherapyController {
             quantityField.setText(ViewNavigator.getTherapyToEdit().quantity());
             indicationsField.setText(ViewNavigator.getTherapyToEdit().indications());
             therapyButton.setText("Modify Therapy");
+            backButton.setText("Back to Patient");
 
         }
 
         intakeNumberField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
         quantityField.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
-        patientBox.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> Validator.createTherapyConstraints(patientBox, drugField, validationLabel2));
+        if (ViewNavigator.getTherapyToEdit() == null) {
+            patientBox.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> Validator.createTherapyConstraints(patientBox, drugField, validationLabel2));
 
+        }
         Validator.emptyFieldConstraints(patientBox, validationLabel1);
         Validator.emptyFieldConstraints(intakeNumberField, validationLabel3);
         Validator.emptyFieldConstraints(quantityField, validationLabel4);
@@ -67,15 +70,25 @@ public class TherapyController {
         boolean check3 = Validator.checkConstraints(intakeNumberField, validationLabel3);
         boolean check4 = Validator.checkConstraints(quantityField, validationLabel4);
         boolean check5 = Validator.checkConstraints(indicationsField, validationLabel5);
-        
-        if (!check1 || !check2 || !check3 || !check4 || !check5) {
-            return;
+
+        if (ViewNavigator.getTherapyToEdit() == null) {
+            if (!check1 || !check2 || !check3 || !check4 || !check5) {
+                return;
+            }
+
+            Therapy newTherapy = getNewTherapy();
+            therapyRepository.saveTherapy(newTherapy);
+            handleBack();
+        } else {
+            if (!check1 || !check3 || !check4 || !check5) {
+                return;
+            }
+
+            Therapy newTherapy = getNewTherapy();
+            therapyRepository.modifyTherapy(newTherapy);
+            handleBack();
         }
 
-        Therapy newTherapy = getNewTherapy();
-        therapyRepository.saveTherapy(newTherapy);
-
-        handleBack();
     }
 
     @FXML

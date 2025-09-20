@@ -59,9 +59,9 @@ public class DashboardController {
         List<String> missingDrugs = intakeRepository.getMissingEntries(username, 1);
 
         if (!missingDrugs.isEmpty()) {
-            String yesterday = LocalDate.now().minusDays(1).format(AppConfig.DATE_FORMAT);
-            LocalDate today = LocalDate.parse(LocalDate.now().format(AppConfig.DATE_FORMAT), AppConfig.DATE_FORMAT);
-            String message = String.format("(%s) Attention: you didn’t record the intake of: %s", yesterday, String.join(", ", missingDrugs));
+            String todayStr = LocalDate.now().format(AppConfig.DATE_FORMAT);
+            LocalDate today = LocalDate.parse(todayStr,  AppConfig.DATE_FORMAT);
+            String message = String.format("(%s) Attention: yesterday you didn’t record the intake of: %s", todayStr, String.join(", ", missingDrugs));
             Notification newNotification = new Notification(username, today, "Intakes Notification 💊", message, false);
             notificationRepository.saveNotification(newNotification);
         }

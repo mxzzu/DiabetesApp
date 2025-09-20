@@ -41,7 +41,7 @@
                         <Label fx:id="validationLabel5" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
                         <HBox alignment="center" spacing="20.0">
-                            <MFXButton onAction="#handleBack" styleClass="button-secondary" text="Back To Dashboard" />
+                            <MFXButton fx:id="backButton" onAction="#handleBack" styleClass="button-secondary" text="Back To Dashboard" />
                             <MFXButton fx:id="therapyButton" onAction="#addTherapy" text="Add Therapy" />
                             <HBox.margin>
                                 <Insets top="20.0" />

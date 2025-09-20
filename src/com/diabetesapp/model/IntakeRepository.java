@@ -14,6 +14,7 @@ import org.bson.Document;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class IntakeRepository {
     private final List<Intake> intakes = new ArrayList<>();
@@ -76,19 +77,18 @@ public class IntakeRepository {
         List<String> missingDrugs = new ArrayList<>();
 
         TherapyRepository therapyRepository = Main.getTherapyRepository();
-        int expectedIntakes = therapyRepository.getExpectedDailyIntakes(username);
+        Map<Integer, String> expectedIntakes = therapyRepository.getExpectedDailyIntakes(username);
 
-        if (expectedIntakes == 0) {
+        if (expectedIntakes.isEmpty()) {
             return missingDrugs;
         }
 
         for (int i = 1; i < daysToCheck + 1; i++) {
             LocalDate dayToCheck = LocalDate.now().minusDays(i);
-            long actualIntakes = countIntakesForDate(username, dayToCheck);
-            if (actualIntakes < expectedIntakes) {
-                Therapy therapy = therapyRepository.getTherapyByPatient(username);
-                if (therapy != null) {
-                    missingDrugs.add(therapy.drug());
+            for (Map.Entry<Integer, String> entry : expectedIntakes.entrySet()) {
+                long actualIntakes = countIntakesForDate(username, dayToCheck, entry.getValue());
+                if (actualIntakes < entry.getKey()) {
+                    missingDrugs.add(entry.getValue());
                 }
             }
         }
@@ -103,11 +103,11 @@ public class IntakeRepository {
      * @param date     La data per cui contare le assunzioni.
      * @return il numero di assunzioni (intake) trovate per quel giorno.
      */
-    public long countIntakesForDate(String username, LocalDate date) {
+    public long countIntakesForDate(String username, LocalDate date, String drug) {
         String formattedDate = date.format(AppConfig.DATE_FORMAT);
 
         Document filter = new Document("username", username)
-                .append("date", formattedDate);
+                .append("date", formattedDate).append("drugs", drug);
 
         return intakesCollection.countDocuments(filter);
     }

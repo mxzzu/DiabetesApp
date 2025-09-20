@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.diabetesapp.controller.IntakeController">
     <children>
         <MFXScrollPane styleClass="root" fitToWidth="true" fitToHeight="true" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -30,7 +31,8 @@
                                 </VBox.margin>
                             </Label>
 
-                            <MFXTextField fx:id="drugField" floatMode="BORDER" floatingText="Drug" prefHeight="40.0" prefWidth="700.0" disable="true" />
+                            <MFXComboBox fx:id="drugBox" floatMode="BORDER" floatingText="Drug" prefHeight="40.0" prefWidth="700.0" />
+                            <Label fx:id="validationLabel6" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />
 
                             <MFXTextField fx:id="hourTaken" floatMode="BORDER" floatingText="Hour (hh:mm)" prefHeight="40.0" prefWidth="700.0" />
                             <Label fx:id="validationLabel1" managed="false" styleClass="validationLabel" textFill="#ef6e6b" visible="false" wrapText="true" />

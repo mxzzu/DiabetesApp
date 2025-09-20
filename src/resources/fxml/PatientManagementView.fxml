@@ -7,6 +7,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.PatientManagementController">
@@ -33,9 +34,11 @@
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </Label>
-                                <VBox fx:id="therapyContainer" />
+                                <MFXTableView fx:id="therapyTable" maxWidth="-Infinity" minHeight="-Infinity"
+                                              minWidth="-Infinity" prefHeight="300.0"
+                                              prefWidth="800.0"/>
                                 <HBox spacing="10.0">
-                                    <MFXButton fx:id="therapyButton" buttonType="RAISED" mnemonicParsing="false" onAction="#handleTherapyButton" styleClass="button-success" text="Modify Therapy">
+                                    <MFXButton fx:id="therapyButton" buttonType="RAISED" mnemonicParsing="false" onAction="#handleTherapyButton" styleClass="button-success" text="Modify Therapy" disable="true">
                                         <VBox.margin>
                                             <Insets top="20.0" />
                                         </VBox.margin>

@@ -4,6 +4,7 @@ import com.diabetesapp.config.AppConfig;
 import com.diabetesapp.config.Validator;
 import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.fxml.FXML;
@@ -15,28 +16,30 @@ import java.time.LocalDate;
 public class IntakeController {
 
     @FXML
-    private Label validationLabel1, validationLabel2, validationLabel3,  validationLabel4, validationLabel5;
+    private Label validationLabel1, validationLabel2, validationLabel3,  validationLabel4, validationLabel5, validationLabel6;
 
     @FXML
-    private MFXTextField drugField, hourTaken, quantityTaken, otherSymptoms, otherDrugs, start, end;
+    private MFXTextField hourTaken, quantityTaken, otherSymptoms, otherDrugs, start, end;
+
+    @FXML
+    private MFXComboBox<String> drugBox;
 
     @FXML
     private MFXToggleButton toggleCheckBox;
 
     private IntakeRepository intakeRepository;
     private ConcTherapyRepository concTherapyRepository;
-    private String drug = null;
 
     public void initialize() {
         intakeRepository = Main.getIntakeRepository();
         concTherapyRepository = Main.getConcTherapyRepository();
         TherapyRepository therapyRepository = Main.getTherapyRepository();
-        drug = therapyRepository.getTherapyByPatient(ViewNavigator.getAuthenticatedUser().getUsername()).drug();
-        drugField.setText(drug);
+        drugBox.setItems(therapyRepository.getDrugsFromTherapy(ViewNavigator.getAuthenticatedUsername()));
 
         quantityTaken.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.digitsOnly());
         hourTaken.addEventFilter(KeyEvent.KEY_TYPED, AppConfig.timeFormatOnly(hourTaken));
 
+        Validator.emptyFieldConstraints(drugBox, validationLabel6);
         Validator.emptyFieldConstraints(hourTaken, validationLabel1);
         Validator.emptyFieldConstraints(quantityTaken, validationLabel2);
         Validator.emptyFieldConstraints(otherSymptoms, validationLabel3);
@@ -48,28 +51,30 @@ public class IntakeController {
     private void addIntake() {
         boolean check1 = Validator.checkConstraints(hourTaken, validationLabel1);
         boolean check2 = Validator.checkConstraints(quantityTaken, validationLabel2);
+        boolean check3 = Validator.checkConstraints(drugBox, validationLabel6);
 
-        if (!check1 || !check2) {
+        if (!check1 || !check2 || !check3) {
             return;
         }
 
         if (toggleCheckBox.isSelected()) {
-            boolean check3 =  Validator.checkConstraints(otherSymptoms, validationLabel3);
-            boolean check4 = Validator.checkConstraints(start, validationLabel3);
+            boolean check4 =  Validator.checkConstraints(otherSymptoms, validationLabel3);
+            boolean check5 = Validator.checkConstraints(start, validationLabel3);
             if (otherDrugs.getText().isEmpty() && end.getText().isEmpty()) {
                 Validator.removeConstraints(end, validationLabel4);
-                if (!check3 ||  !check4) {
+                if (!check4 || !check5) {
                     return;
                 }
             } else {
-                boolean check5 = Validator.checkConstraints(end, validationLabel4);
-                if (!check3 || !check4 || !check5) {
+                boolean check6 = Validator.checkConstraints(end, validationLabel4);
+                if (!check4 || !check5 || !check6) {
                     return;
                 }
             }
             addConcTherapy();
         }
 
+        String drug = drugBox.getSelectedItem();
         String hour = hourTaken.getText();
         String quantity = quantityTaken.getText();
 
@@ -111,7 +116,6 @@ public class IntakeController {
         end.setVisible(isChecked);
         end.setManaged(isChecked);
 
-        // Se i campi vengono nascosti, nascondi anche le loro etichette di errore
         if (!isChecked) {
             validationLabel3.setVisible(false);
             validationLabel3.setManaged(false);

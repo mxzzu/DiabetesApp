@@ -1,33 +1,44 @@
 package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
-import com.diabetesapp.model.Patient;
-import com.diabetesapp.model.Therapy;
-import com.diabetesapp.model.TherapyRepository;
-import com.diabetesapp.model.UserRepository;
+import com.diabetesapp.config.AppConfig;
+import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import com.diabetesapp.view.components.PersonalInfoCard;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.MFXTableRow;
+import io.github.palexdev.materialfx.controls.MFXTableView;
+import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import java.util.Comparator;
+import java.util.Map;
 
 public class PatientManagementController {
     @FXML
     private Label therapyError;
 
     @FXML
-    private VBox personalInfoContainer, therapyContainer, informationContainer;
+    private VBox personalInfoContainer, informationContainer;
+
+    @FXML
+    private MFXTableView<Therapy> therapyTable;
 
     @FXML
     private MFXButton therapyButton;
 
     private UserRepository userRepository;
     private TherapyRepository therapyRepository;
+    private ObservableList<Therapy> therapies;
     private String patientToManage;
-    private Therapy therapy;
     private Patient patient;
 
     /**
@@ -40,10 +51,21 @@ public class PatientManagementController {
         therapyRepository = Main.getTherapyRepository();
         patientToManage = ViewNavigator.getPatientToManage();
         PersonalInfoCard personalInfoCard = new PersonalInfoCard(patientToManage, false);
+        therapies = FXCollections.observableList(therapyRepository.getTherapiesByPatient(patientToManage));
+
+        if (therapies.isEmpty()) {
+            therapyError.setVisible(true);
+            therapyError.setManaged(true);
+            therapyButton.setText("Add Therapy");
+            therapyButton.getStyleClass().clear();
+            therapyButton.getStyleClass().add("button");
+        }
 
         personalInfoContainer.getChildren().add(personalInfoCard);
         fetchMedicalInformation();
-        fetchTherapy();
+        createTherapyTable();
+        AppConfig.setTableSize(therapyTable);
+        addListener();
     }
 
     private void fetchMedicalInformation() {
@@ -57,28 +79,43 @@ public class PatientManagementController {
         createHBoxContainer(informationContainer,  "Comorbidities: ", coms);
     }
 
-    private void fetchTherapy() {
-        if (!patient.getDocUser().equals(ViewNavigator.getAuthenticatedUsername())) {
-            therapyButton.setDisable(true);
-        }
+    private void createTherapyTable() {
+        MFXTableColumn<Therapy> drugColumn = new MFXTableColumn<>("Drug", false, Comparator.comparing(Therapy::drug));
+        MFXTableColumn<Therapy> intakeColumn = new MFXTableColumn<>("Intake Number", false, Comparator.comparing(Therapy::intakeNumber));
+        MFXTableColumn<Therapy> quantityColumn = new MFXTableColumn<>("Quantity", false, Comparator.comparing(Therapy::quantity));
+        MFXTableColumn<Therapy> indicationsColumn = new MFXTableColumn<>("Indications", false, Comparator.comparing(Therapy::indications));
 
-        therapy = therapyRepository.getTherapyByPatient(patientToManage);
-        if (therapy == null) {
-            therapyError.setVisible(true);
-            therapyError.setManaged(true);
-            therapyButton.setText("Add Therapy");
-            therapyButton.getStyleClass().clear();
-            therapyButton.getStyleClass().add("button");
-            return;
-        }
-        String[] drug = {therapy.drug()};
-        String[] intakeNumber = {therapy.intakeNumber()};
-        String[] quantity = {therapy.quantity()};
-        String[] indications = {therapy.indications()};
-        createHBoxContainer(therapyContainer, "Drug: " , drug);
-        createHBoxContainer(therapyContainer, "Intake Number: ", intakeNumber);
-        createHBoxContainer(therapyContainer, "Quantity: ", quantity);
-        createHBoxContainer(therapyContainer, "Indications: ", indications);
+        drugColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::drug));
+        intakeColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::intakeNumber));
+        quantityColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::quantity));
+        indicationsColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::indications) {{
+            setAlignment(Pos.CENTER_RIGHT);
+        }});
+
+        indicationsColumn.setAlignment(Pos.CENTER_RIGHT);
+
+        drugColumn.getStyleClass().add("bold-text");
+        intakeColumn.getStyleClass().add("bold-text");
+        quantityColumn.getStyleClass().add("bold-text");
+        indicationsColumn.getStyleClass().add("bold-text");
+
+        therapyTable.getTableColumns().addAll(drugColumn, intakeColumn, quantityColumn, indicationsColumn);
+        therapyTable.getFilters().addAll(
+                new StringFilter<>("Drug", Therapy::drug),
+                new StringFilter<>("Intake Number", Therapy::intakeNumber),
+                new StringFilter<>("Quantity", Therapy::quantity),
+                new StringFilter<>("Indications", Therapy::indications)
+        );
+
+        therapyTable.setItems(therapies);
+    }
+
+    private void addListener() {
+        therapyTable.getSelectionModel().selectionProperty().addListener((_, _, newSelection) -> {
+            if (patient.getDocUser().equals(ViewNavigator.getAuthenticatedUsername()) && (newSelection != null || !newSelection.isEmpty())) {
+                therapyButton.setDisable(false);
+            }
+        });
     }
 
     private void createHBoxContainer(VBox container, String title, String[] values) {
@@ -140,6 +177,11 @@ public class PatientManagementController {
 
     @FXML
     private void handleTherapyButton() {
-        ViewNavigator.navigateToTherapy(therapy);
+        Map<Integer, MFXTableRow<Therapy>> rows = therapyTable.getCells();
+        for (Map.Entry<Integer, MFXTableRow<Therapy>> entry : rows.entrySet()) {
+            if (entry.getValue().isSelected()) {
+                ViewNavigator.navigateToTherapy(entry.getValue().getData());
+            }
+        }
     }
 }
