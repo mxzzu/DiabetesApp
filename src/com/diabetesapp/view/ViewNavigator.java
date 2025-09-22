@@ -28,7 +28,7 @@ public class ViewNavigator {
     private static String dataToView = null;
 
     /**
-     * Set the main controller reference
+     * Sets the main controller reference
      * @param controller The MainController instance
      */
     public static void setMainController(MainController controller) {
@@ -36,7 +36,7 @@ public class ViewNavigator {
     }
 
     /**
-     * Load and switch to a view
+     * Loads and switch to a view
      * @param fxml The name of the FXML file to load
      */
     public static void loadView(String fxml) {
@@ -51,25 +51,15 @@ public class ViewNavigator {
         }
     }
 
-    /**
-     * Navigate to the home view
-     */
     public static void navigateToHome() {
         patientToManage = null;
         loadView("HomeView.fxml");
     }
 
-    /**
-     * Navigate to the login view
-     */
     public static void navigateToLogin() {
         loadView("LoginView.fxml");
     }
 
-    /**
-     * Navigate to the dashboard view (protected)
-     * Will redirect to login if not authenticated
-     */
     public static void navigateToDashboard() {
         if (isAuthenticated() && isMustChangePassword()) {
             navigateToProfile();
@@ -95,10 +85,6 @@ public class ViewNavigator {
         }
     }
 
-    /**
-     * Navigate to the profile view (protected)
-     * Will redirect to login if not authenticated
-     */
     public static void navigateToProfile() {
         if (isAuthenticated()) {
             patientToManage = null;
@@ -182,10 +168,6 @@ public class ViewNavigator {
         }
     }
 
-    /**
-     * Set the authenticated user
-     * @param user The authenticated user
-     */
     public static void setAuthenticatedUser(User user) {
         authenticatedUser = user;
         userType = user.getUserType();
@@ -216,10 +198,6 @@ public class ViewNavigator {
         clearedNotifications.add(notification);
     }
 
-    /**
-     * Get the authenticated user
-     * @return The username of the authenticated user, or null if not authenticated
-     */
     public static String getAuthenticatedUsername() {
         return authenticatedUser.getUsername();
     }
@@ -264,10 +242,6 @@ public class ViewNavigator {
         return clearedNotifications;
     }
 
-    /**
-     * Check if a user is authenticated
-     * @return true if a user is authenticated, false otherwise
-     */
     public static boolean isAuthenticated() {
         return authenticatedUser != null;
     }

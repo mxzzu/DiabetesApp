@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class NotificationHelper {
 
     /**
-     * Fetch notifications and list them in a card
+     * Fetches notifications and list them in a card
      * @param username Fetch notifications by this username
      * @param notificationLabel Text item to diasble if no notifications found
      * @param allDoctors Boolean value to fetch the all doctors notification too
@@ -161,7 +161,7 @@ public class NotificationHelper {
     }
 
     /**
-     * Create vbox for notification pop-up
+     * Creates vbox for notification pop-up
      * @param message Message to be shown in pop-up
      * @param headerBox HBox used for pop-up header
      * @return Returns the content of the pop-up

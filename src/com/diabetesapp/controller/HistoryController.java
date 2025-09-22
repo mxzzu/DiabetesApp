@@ -72,6 +72,9 @@ public class HistoryController {
         }
     }
 
+    /**
+     * Sets up the change table to view changes history of the medical information
+     */
     private void setupTable() {
         MFXTableColumn<Change> docColumn = new MFXTableColumn<>("Doctor", false, Comparator.comparing(Change::docName));
         MFXTableColumn<Change> changeColumn = new MFXTableColumn<>("Change", false, Comparator.comparing(Change::change));
@@ -112,6 +115,10 @@ public class HistoryController {
         table.setItems(changesHistory);
     }
 
+    /**
+     * Creates pop-up to view additional info of the change selected
+     * @param change Change object selected
+     */
     private void createDialogContent(Change change) {
         VBox container = new VBox();
         container.setSpacing(10.0);

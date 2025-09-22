@@ -14,6 +14,11 @@ import java.util.Comparator;
 
 public class TableUtils {
 
+    /**
+     * Creates and populate the intakes table
+     * @param table MFXTableView object to populate
+     * @param intakes ObservableList object used to populate the table
+     */
     public static void createIntakesTable(MFXTableView<Intake> table, ObservableList<Intake> intakes) {
         MFXTableColumn<Intake> dateColumn = new MFXTableColumn<>("Date", false, Comparator.comparing(Intake::date));
         MFXTableColumn<Intake> drugColumn = new MFXTableColumn<>("Drug", false, Comparator.comparing(Intake::drugs));
@@ -45,6 +50,11 @@ public class TableUtils {
         table.setItems(intakes);
     }
 
+    /**
+     * Creates and populate the detections table
+     * @param table MFXTableView object to populate
+     * @param detections ObservableList object used to populate the table
+     */
     public static void createDetectionTable(MFXTableView<Detection> table, ObservableList<Detection> detections) {
         MFXTableColumn<Detection> dateColumn = new MFXTableColumn<>("Date", false, Comparator.comparing(Detection::date));
         MFXTableColumn<Detection> mealColumn = new MFXTableColumn<>("Meal", false, Comparator.comparing(Detection::meal));
@@ -75,6 +85,11 @@ public class TableUtils {
         table.setItems(detections);
     }
 
+    /**
+     * Creates and populate the concurrent therapies table
+     * @param table MFXTableView object to populate
+     * @param concTherapyList ObservableList object used to populate the table
+     */
     public static void createConcTherapyTable(MFXTableView<ConcTherapy> table, ObservableList<ConcTherapy> concTherapyList) {
         MFXTableColumn<ConcTherapy> symptomsColumn = new MFXTableColumn<>("Symptoms", false, Comparator.comparing(ConcTherapy::symptoms));
         MFXTableColumn<ConcTherapy> drugsColumn = new MFXTableColumn<>("Drugs", false, Comparator.comparing(ConcTherapy::drugs));
@@ -106,6 +121,10 @@ public class TableUtils {
         table.setItems(concTherapyList);
     }
 
+    /**
+     * Sets the columns' size for tables with 4 columns
+     * @param table Table object to size
+     */
     public static void setTableSize(MFXTableView<?> table) {
         table.getTableColumns().getFirst().setPrefWidth(200);
         table.getTableColumns().get(1).setPrefWidth(200);

@@ -46,7 +46,7 @@ public class DoctorDashboardController {
     }
 
     /**
-     * Fetches number of patients of the logged in doctor
+     * Fetches the number of patients of the logged in doctor
      */
     private void fetchPatientsNumber() {
         myPatients = userRepository.getPatientsByDoctor(ViewNavigator.getAuthenticatedUsername());
@@ -66,7 +66,7 @@ public class DoctorDashboardController {
     }
 
     /**
-     * Checks patients' intakes. If missing for more than 3 days, add notification to DB
+     * Checks patients' intakes. If missing for more than 3 days, adds notification to database
      */
     private void updateNotifications() {
         List<String> missingDrugs;

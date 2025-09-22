@@ -17,6 +17,9 @@ public class ConcTherapyRepository {
     private final List<ConcTherapy> concTherapies = new ArrayList<>();
     private final MongoCollection<Document> concTherapyCollection;
 
+    /**
+     * Repository for storing concurrent therapies for patients
+     */
     public ConcTherapyRepository() {
         MongoClient client = DBConfig.getClient();
         MongoDatabase db = client.getDatabase(AppConfig.DB_NAME);
@@ -25,7 +28,7 @@ public class ConcTherapyRepository {
     }
 
     /**
-     * Load concomitant therapies from DB
+     * Loads concurrent therapies from database
      */
     private void loadConcTherapies() {
         FindIterable<Document> docs = concTherapyCollection.find();
@@ -35,7 +38,8 @@ public class ConcTherapyRepository {
     }
 
     /**
-     * Save concomitant therapy to the repository
+     * Save a concurrent therapy to the repository and to the database
+     * @param therapy Concurrent therapy to save
      */
     public void saveConcTherapy(ConcTherapy therapy) {
         concTherapies.add(therapy);
@@ -43,13 +47,19 @@ public class ConcTherapyRepository {
     }
 
     /**
-     * Delete concomitant therapy from the repository
+     * Delete a concurrent therapy from the repository and database
+     * @param therapy Concurrent therapy to delete
      */
     public void removeConcTherapy(ConcTherapy therapy) {
         concTherapies.remove(therapy);
         concTherapyCollection.deleteOne(objToDoc(therapy));
     }
 
+    /**
+     * Fetches all concurrent therapies for a specified patient
+     * @param username Username of the patient
+     * @return Returns an ObservableList containing all the concurrent therapies
+     */
     public ObservableList<ConcTherapy> getConcTherapiesByUser(String username) {
         List<ConcTherapy> concTherapies = new ArrayList<>();
         FindIterable<Document> docs = concTherapyCollection.find(new  Document("username", username));
@@ -59,6 +69,11 @@ public class ConcTherapyRepository {
         return FXCollections.observableList(concTherapies);
     }
 
+    /**
+     * Parses a JSON Document object into a Concurrent Therapy
+     * @param d Document to parse
+     * @return Returns the parsed ConcTherapy object
+     */
     private ConcTherapy docToObj(Document d) {
         String username = d.getString("username");
         String symptoms = d.getString("symptoms");
@@ -73,6 +88,11 @@ public class ConcTherapyRepository {
         return new ConcTherapy(username, symptoms, drugs, start, end);
     }
 
+    /**
+     * Parses a ConcTherapy object into a JSON Document
+     * @param therapy Therapy object to parse
+     * @return Returns the parsed JSON Document object
+     */
     private Document objToDoc(ConcTherapy therapy) {
         Document doc = new Document("username", therapy.username())
                 .append("symptoms", therapy.symptoms()).append("drugs", therapy.drugs()).append("start", therapy.start().format(AppConfig.DATE_FORMAT));

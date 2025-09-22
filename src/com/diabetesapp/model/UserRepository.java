@@ -22,6 +22,9 @@ public class UserRepository {
     private final Map<String, User> users = new HashMap<>();
     private final MongoCollection<Document> usersCollection;
 
+    /**
+     * Repository for storing all the users' information
+     */
     public UserRepository() {
         MongoClient client = DBConfig.getClient();
         MongoDatabase db = client.getDatabase(AppConfig.DB_NAME);
@@ -30,7 +33,7 @@ public class UserRepository {
     }
 
     /**
-     * Load users from DB
+     * Loads users from the database
      */
     private void loadUsers() {
         FindIterable<Document> docs = usersCollection.find();
@@ -45,6 +48,10 @@ public class UserRepository {
         }
     }
 
+    /**
+     * Adds a User to the database
+     * @param user User to add
+     */
     private void addUserToDB(User user) {
         Document doc = new Document("username", user.getUsername()).append("password", user.getPassword()).append("userType", user.getUserType()).append("name", user.getName()).append("surname", user.getSurname()).append("birthDate", user.getBirthDate()).append("gender", user.getGender()).append("email", user.getEmail()).append("gender", user.getGender()).append("mustChangePassword", true);
         if (user.getUserType().equals("patient")) {
@@ -55,6 +62,10 @@ public class UserRepository {
         usersCollection.insertOne(doc);
     }
 
+    /**
+     * Updates user on the database
+     * @param user User to update
+     */
     private void updateOnDB(User user) {
         Bson filter = eq("username", user.getUsername());
         Bson pswUpdate = set("password", user.getPassword());
@@ -72,13 +83,18 @@ public class UserRepository {
     }
     
     /**
-     * Save a user to the repository
+     * Modifies a user to the repository
+     * @param user User to modify
      */
     public void modifyUser(User user) {
         users.put(user.getUsername(), user);
         updateOnDB(user);
     }
 
+    /**
+     * Adds a user to the repository
+     * @param user User to add
+     */
     public void addUser(User user) {
         users.put(user.getUsername(), user);
         addUserToDB(user);
@@ -86,11 +102,18 @@ public class UserRepository {
     
     /**
      * Get a user by username
+     * @param username Username of the user to fetch
+     * @return Returns the User object
      */
     public User getUser(String username) {
         return users.get(username);
     }
 
+    /**
+     * Gets a user by email
+     * @param email Email of the user
+     * @return Returns the User object. Returns null if none found
+     */
     public User getUserByEmail(String email) {
         for (User user : users.values()) {
             if (user.getEmail().equals(email)) {
@@ -101,12 +124,10 @@ public class UserRepository {
     }
 
     /**
-     * Get all users
+     * Fetches the name, surname and username of all the patients of a specified doctor
+     * @param docUser Username of the doctor
+     * @return Returns an ObservableList of String formatted with name, surname and username of the patients
      */
-    public Map<String, User> getAllUsers() {
-        return new HashMap<>(users);
-    }
-
     public ObservableList<String> getAllDataPatients(String docUser) {
         List<String> patients = new ArrayList<>();
         Patient patient;
@@ -121,6 +142,11 @@ public class UserRepository {
         return FXCollections.observableList(patients);
     }
 
+    /**
+     * Fetches all the patients of a specified doctor
+     * @param docUser Username of the doctor
+     * @return Returns a List of all the Patients
+     */
     public List<Patient> getPatientsByDoctor(String docUser) {
         List<Patient> patients = new ArrayList<>();
         Patient patient;
@@ -135,25 +161,15 @@ public class UserRepository {
         return patients;
     }
 
+    /**
+     * Fetches all the patients in the database
+     * @return Returns an ObservableList of Patient
+     */
     public ObservableList<Patient> getAllPatients() {
         List<Patient> patients = new ArrayList<>();
         for (User user : users.values()) {
             if (user.getUserType().equals("patient")) {
                 patients.add((Patient) user);
-            }
-        }
-        return FXCollections.observableList(patients);
-    }
-
-    public ObservableList<Patient> getAllDocPatients(String docUser) {
-        List<Patient> patients = new ArrayList<>();
-        Patient patient;
-        for (User user : users.values()) {
-            if (user.getUserType().equals("patient")) {
-                patient = (Patient) user;
-                if (patient.getDocUser().equals(docUser)) {
-                    patients.add(patient);
-                }
             }
         }
         return FXCollections.observableList(patients);

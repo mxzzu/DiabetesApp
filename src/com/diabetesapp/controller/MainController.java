@@ -26,6 +26,7 @@ public class MainController {
     
     /**
      * Set the content of the main area
+     * @param content Node object of the content to show
      */
     public void setContent(Node content) {
         mainContainer.setCenter(content);
@@ -33,6 +34,7 @@ public class MainController {
     
     /**
      * Update the navigation bar based on authentication status
+     * @param isAuthenticated Boolean value that represents whether the user is authenticated
      */
     public void updateNavBar(boolean isAuthenticated) {
         String authUser;

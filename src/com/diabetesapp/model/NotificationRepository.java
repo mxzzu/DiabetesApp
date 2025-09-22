@@ -19,6 +19,9 @@ public class NotificationRepository {
     private final List<Notification> notifications = new ArrayList<>();
     private final MongoCollection<Document> notificationsCollection;
 
+    /**
+     * Repository for storing notifications for all users
+     */
     public NotificationRepository() {
         MongoClient client = DBConfig.getClient();
         MongoDatabase db = client.getDatabase(AppConfig.DB_NAME);
@@ -27,7 +30,7 @@ public class NotificationRepository {
     }
 
     /**
-     * Load notifications from DB
+     * Loads notifications from the database
      */
     private void loadNotifications() {
         FindIterable<Document> docs = notificationsCollection.find();
@@ -37,7 +40,7 @@ public class NotificationRepository {
     }
 
     /**
-     * Save notification to the repository and DB
+     * Saves a notification to the repository and the database
      * @param notification Notification to save
      */
     public void saveNotification(Notification notification) {
@@ -89,18 +92,18 @@ public class NotificationRepository {
     }
 
     /**
-     * Transform a JSON Document into a Notification object
-     * @param d Document to change
-     * @return Returns the notification object
+     * Parses a JSON Document into a Notification object
+     * @param d Document to parse
+     * @return Returns the parsed notification object
      */
     private Notification docToObj(Document d) {
         return new Notification(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("title"), d.getString("message"), d.getBoolean("isAlerted"));
     }
 
     /**
-     * Transform Notification object into a JSON Document
+     * Parses Notification object into a JSON Document
      * @param notification Object to change
-     * @return Returns the JSON Document
+     * @return Returns the parsed JSON Document
      */
     private Document objToDoc(Notification notification) {
         return new Document("username", notification.username()).append("date", notification.date().format(AppConfig.DATE_FORMAT)).append("title", notification.title()).append("message", notification.message()).append("isAlerted", notification.isAlerted());

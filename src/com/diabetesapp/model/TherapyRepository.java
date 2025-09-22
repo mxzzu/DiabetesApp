@@ -24,6 +24,9 @@ public class TherapyRepository {
     private final List<Therapy> therapies = new ArrayList<>();
     private final MongoCollection<Document> therapiesCollection;
 
+    /**
+     * Repository for storing therapies of the patients
+     */
     public TherapyRepository() {
         MongoClient client = DBConfig.getClient();
         MongoDatabase db = client.getDatabase(AppConfig.DB_NAME);
@@ -32,17 +35,18 @@ public class TherapyRepository {
     }
 
     /**
-     * Load therapies from DB
+     * Loads therapies from the database
      */
     private void loadTherapies() {
         FindIterable<Document> docs = therapiesCollection.find();
         for (Document d : docs) {
-            therapies.add(new Therapy(d.getString("patient"), d.getString("drug"), d.getString("intakeNumber"), d.getString("quantity"), d.getString("indications")));
+            therapies.add(docToObj(d));
         }
     }
 
     /**
-     * Add therapy to DB
+     * Adds a therapy to the database
+     * @param therapy Therapy to add
      */
     private void addTherapyToDB(Therapy therapy) {
         Document doc = new Document("patient", therapy.patient())
@@ -52,7 +56,8 @@ public class TherapyRepository {
     }
 
     /**
-     * Modify therapy on DB
+     * Modifies a therapy on the database
+     * @param therapy Therapy to modify
      */
     private void modifyTherapyOnDB(Therapy therapy) {
         Bson filter = eq("patient", therapy.patient());
@@ -66,12 +71,17 @@ public class TherapyRepository {
 
     /**
      * Save therapy to the repository
+     * @param therapy Therapy to save
      */
     public void saveTherapy(Therapy therapy) {
         therapies.add(therapy);
         addTherapyToDB(therapy);
     }
 
+    /**
+     * Modifies a therapy on the repository
+     * @param therapy Therapy to modify
+     */
     public void modifyTherapy(Therapy therapy) {
         for (Therapy a : therapies) {
             if (a.patient().equals(therapy.patient()) && a.drug().equals(therapy.drug())) {
@@ -83,15 +93,25 @@ public class TherapyRepository {
         }
     }
 
+    /**
+     * Fetches all therapies based on the patient
+     * @param patient Username of the patient to search
+     * @return Returns a List containing all the Therpies
+     */
     public List<Therapy> getTherapiesByPatient(String patient) {
         List<Therapy> therapiesByPatient = new ArrayList<>();
         FindIterable<Document> docs = therapiesCollection.find(new Document("patient", patient));
         for (Document d : docs) {
-            therapiesByPatient.add(new Therapy(d.getString("patient"), d.getString("drug"), d.getString("intakeNumber"), d.getString("quantity"), d.getString("indications")));
+            therapiesByPatient.add(docToObj(d));
         }
         return therapiesByPatient;
     }
 
+    /**
+     * Fetches all the drugs from a patient's therapies
+     * @param username Username of the patient
+     * @return Returns an ObservableList of String containing the drugs' names
+     */
     public ObservableList<String> getDrugsFromTherapy(String username) {
         List<String> drugs = new ArrayList<>();
         for  (Therapy therapy : getTherapiesByPatient(username)) {
@@ -118,5 +138,14 @@ public class TherapyRepository {
         }
 
         return count;
+    }
+
+    /**
+     * Parses a JSON Document object into a Therapy
+     * @param d Document to parse
+     * @return Returns the parsed Therapy object
+     */
+    private Therapy docToObj(Document d) {
+        return new Therapy(d.getString("patient"), d.getString("drug"), d.getString("intakeNumber"), d.getString("quantity"), d.getString("indications"));
     }
 }

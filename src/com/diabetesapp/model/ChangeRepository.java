@@ -16,6 +16,9 @@ public class ChangeRepository {
     private final List<Change> changes = new ArrayList<>();
     private final MongoCollection<Document> changesCollection;
 
+    /**
+     * Repository for storing medical information changes
+     */
     public ChangeRepository() {
         MongoClient client = DBConfig.getClient();
         MongoDatabase db = client.getDatabase(AppConfig.DB_NAME);
@@ -24,17 +27,18 @@ public class ChangeRepository {
     }
 
     /**
-     * Load changes from DB
+     * Loads changes from database
      */
     private void loadChanges() {
         FindIterable<Document> docs = changesCollection.find();
         for (Document d : docs) {
-            changes.add(new Change(d.getString("patientUser"), d.getString("docName"), d.getString("docUser"), d.getString("change"), d.getString("changeDate")));
+            changes.add(docToObj(d));
         }
     }
 
     /**
-     * Add changes to DB
+     * Adds a change to the database
+     * @param change Change object to add
      */
     private void addChangeToDB(Change change) {
         Document doc = new Document("patientUser", change.patientUser())
@@ -44,19 +48,34 @@ public class ChangeRepository {
     }
 
     /**
-     * Save change to the repository
+     * Saves a change to the repository
+     * @param change Change object to save
      */
     public void saveChange(Change change) {
         changes.add(change);
         addChangeToDB(change);
     }
 
+    /**
+     * Fetches all changes for a specified user
+     * @param patientUser Username of the patient
+     * @return Returns an ObservableList object containing all the changes
+     */
     public ObservableList<Change> getChangesByUser(String patientUser) {
         List<Change> changes = new ArrayList<>();
         FindIterable<Document> docs = changesCollection.find(new  Document("patientUser", patientUser));
         for (Document d : docs) {
-            changes.add(new Change(d.getString("patientUser"), d.getString("docName"), d.getString("docUser"), d.getString("change"), d.getString("changeDate")));
+            changes.add(docToObj(d));
         }
         return FXCollections.observableList(changes);
+    }
+
+    /**
+     * Parses a JSON Document object into a Change
+     * @param d Document to parse
+     * @return Returns the parsed Change object
+     */
+    private Change docToObj(Document d) {
+        return new Change(d.getString("patientUser"), d.getString("docName"), d.getString("docUser"), d.getString("change"), d.getString("changeDate"));
     }
 }

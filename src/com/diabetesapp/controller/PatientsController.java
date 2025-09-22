@@ -7,6 +7,7 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -32,7 +33,7 @@ public class PatientsController {
     public void initialize() {
         userRepository = Main.getUserRepository();
         allPatients = userRepository.getAllPatients();
-        docPatients = userRepository.getAllDocPatients(ViewNavigator.getAuthenticatedUsername());
+        docPatients = FXCollections.observableList(userRepository.getPatientsByDoctor(ViewNavigator.getAuthenticatedUsername()));
         createTable();
         table.getTableColumns().getFirst().setPrefWidth(200);
         table.getTableColumns().get(1).setPrefWidth(200);
@@ -41,6 +42,9 @@ public class PatientsController {
         table.getTableColumns().getLast().setPrefWidth(70);
     }
 
+    /**
+     * Creates the patients table
+     */
     private void createTable() {
         MFXTableColumn<Patient> nameColumn = new MFXTableColumn<>("Name", false, Comparator.comparing(Patient::getName));
         MFXTableColumn<Patient> surnameColumn = new MFXTableColumn<>("Surname", false, Comparator.comparing(Patient::getSurname));
@@ -105,9 +109,6 @@ public class PatientsController {
         table.setItems(toggleCheckBox.isSelected() ? allPatients : docPatients);
     }
 
-    /**
-     * Handle navigating back to the dashboard
-     */
     @FXML
     private void handleBackToDashboard() {
         ViewNavigator.navigateToDashboard();

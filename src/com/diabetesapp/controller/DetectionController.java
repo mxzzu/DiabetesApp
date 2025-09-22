@@ -65,6 +65,12 @@ public class DetectionController {
         ViewNavigator.navigateToDashboard();
     }
 
+    /**
+     * Sends a notification to all doctors if the detection level is dangerously high
+     * @param level Level of the detection
+     * @param meal Meal where the detection was take on
+     * @param period Period of the meal where the detection was take on
+     */
     private void sendNotification(int level, String meal, String period) {
         if ((period.equals("Before eating") && (level > 180 || level < 70)) || (period.equals("After eating") && (level > 250 || level < 70))) {
             String username = ViewNavigator.getAuthenticatedUsername();

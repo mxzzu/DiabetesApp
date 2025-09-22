@@ -61,6 +61,9 @@ public class LoginController {
         }
     }
 
+    /**
+     * Shows error label if the username or password are wrong
+     */
     private void showError() {
         passwordField.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, true);
         validationLabel2.setText("Invalid username or password");

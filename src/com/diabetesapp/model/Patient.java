@@ -53,6 +53,10 @@ public class Patient extends User {
         return docUser;
     }
 
+    /**
+     * Method used as comparator for serving icons inside the Patients' table
+     * @return Returns an empty string
+     */
     public String getButtonLabel() {
         return "";
     }
@@ -61,6 +65,11 @@ public class Patient extends User {
         return String.format("%s, %s, %s, %s, %s", super.toString(), riskFactors, prevPats, comorbidities, docUser);
     }
 
+    /**
+     * Checks for differences between two Patient objects, looking at risk factors, prevpats and comorbidities
+     * @param p2 Second Patient object
+     * @return Returns a String with all the differences joined by ';'
+     */
     public String diff(Patient p2) {
         List<String> allDiffs = new ArrayList<>();
         String oldFactors = this.getRiskFactors();
@@ -85,6 +94,13 @@ public class Patient extends User {
         return String.join("; ", allDiffs);
     }
 
+    /**
+     * Check difference between old attribute and new attribute
+     * @param oldItems Old items to check
+     * @param newItems New items to check
+     * @param title Title of the difference string
+     * @return Returns a String with the differences joined by ','
+     */
     private String checkDiff(String oldItems, String newItems, String title) {
         Set<String> oldSet = Arrays.stream(oldItems.split(","))
                 .map(String::trim)

@@ -41,10 +41,6 @@ public class PatientManagementController {
     private String patientToManage;
     private Patient patient;
 
-    /**
-     * Initialize the controller.
-     * This method is automatically called after the FXML file has been loaded.
-     */
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
@@ -68,6 +64,9 @@ public class PatientManagementController {
         addListener();
     }
 
+    /**
+     * Fetches medical information of the patient and fills the card
+     */
     private void fetchMedicalInformation() {
         patient = (Patient) userRepository.getUser(patientToManage);
         String[] riskFactors = patient.getSplittedRiskFactors();
@@ -79,6 +78,9 @@ public class PatientManagementController {
         createHBoxContainer(informationContainer,  "Comorbidities: ", coms);
     }
 
+    /**
+     * Creates therapies table with the therapies of the selected patient
+     */
     private void createTherapyTable() {
         MFXTableColumn<Therapy> drugColumn = new MFXTableColumn<>("Drug", false, Comparator.comparing(Therapy::drug));
         MFXTableColumn<Therapy> intakeColumn = new MFXTableColumn<>("Intake Number", false, Comparator.comparing(Therapy::intakeNumber));
@@ -110,6 +112,10 @@ public class PatientManagementController {
         therapyTable.setItems(therapies);
     }
 
+    /**
+     * Adds listener to the therapies table to enable modify button when selecting a therapy
+     * if the logged in doctor is the actual doctor of the patient
+     */
     private void addListener() {
         therapyTable.getSelectionModel().selectionProperty().addListener((_, _, newSelection) -> {
             if (patient.getDocUser().equals(ViewNavigator.getAuthenticatedUsername()) && (newSelection != null || !newSelection.isEmpty())) {
@@ -118,6 +124,12 @@ public class PatientManagementController {
         });
     }
 
+    /**
+     * Creates HBox container for the medical informations
+     * @param container VBox that will contain the HBox
+     * @param title Title string of the category
+     * @param values Values string array of the values for that category
+     */
     private void createHBoxContainer(VBox container, String title, String[] values) {
         HBox hBox = new HBox();
         hBox.setSpacing(10);
@@ -132,6 +144,11 @@ public class PatientManagementController {
         container.getChildren().add(hBox);
     }
 
+    /**
+     * Creates the Label item for the title
+     * @param container HBox container of the label
+     * @param title Title to show
+     */
     private void createTitleLabel(HBox container, String title) {
         container.getChildren().clear();
         Label titleLabel = new Label(title);
@@ -139,6 +156,11 @@ public class PatientManagementController {
         container.getChildren().add(titleLabel);
     }
 
+    /**
+     * Creates the Label items for the values
+     * @param container HBox container of the Labels
+     * @param values Values array to show
+     */
     private void createValueLabel(HBox container, String[] values) {
         for (String value : values) {
             Label newLabel = new Label(value);
@@ -147,6 +169,10 @@ public class PatientManagementController {
         }
     }
 
+    /**
+     * Creates an empty label if there are no values to show
+     * @param container HBox container of the empty labels
+     */
     private void createEmptyValueLabel(HBox container) {
         Label newLabel = new Label("No data found!");
         newLabel.getStyleClass().add("empty-value");
@@ -161,10 +187,6 @@ public class PatientManagementController {
     @FXML
     private void seeChangesHistory() { ViewNavigator.navigateToHistory(); }
 
-    /**
-     * Handle navigating back to the dashboard.
-     * This method is called when the user clicks the "Back to Dashboard" button.
-     */
     @FXML
     private void handleBackToDashboard() {
         ViewNavigator.navigateToDashboard();

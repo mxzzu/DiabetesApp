@@ -16,6 +16,11 @@ public class DateFilter<T> extends AbstractFilter<T, LocalDate> {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    /**
+     * Constructor for the DateFilter object
+     * @param name Name of the filter
+     * @param extractor Extractor function used to access the LocalDate object
+     */
     public DateFilter(String name, Function<T, LocalDate> extractor) {
         this(name, extractor, new StringConverter<>() {
             @Override
@@ -36,12 +41,18 @@ public class DateFilter<T> extends AbstractFilter<T, LocalDate> {
                     return LocalDate.parse(string, FORMATTER);
                 } catch (DateTimeParseException e) {
                     System.err.println("Formato data non valido per '" + string + "'. Usare il formato dd/MM/yyyy.");
-                    return null; // Ritorna null se il parsing fallisce
+                    return null;
                 }
             }
         });
     }
 
+    /**
+     * Constructor for the DateFilter object
+     * @param name Name of the filter
+     * @param extractor Extractor function used to access the LocalDate object
+     * @param dateStringConverter Converter used to parse a String to a LocalDate and vice versa
+     */
     public DateFilter(String name, Function<T, LocalDate> extractor, StringConverter<LocalDate> dateStringConverter) {
         super(name, extractor, dateStringConverter);
     }

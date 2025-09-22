@@ -35,6 +35,10 @@ public class AppConfig {
         return "No end date";
     };
 
+    /**
+     * Creates a handler for the fields that only accepts digits
+     * @return Returns the EventHandler object
+     */
     public static EventHandler<KeyEvent> digitsOnly() {
         return event -> {
             String character = event.getCharacter();
@@ -44,6 +48,11 @@ public class AppConfig {
         };
     }
 
+    /**
+     * Creates a handler for the fields that only accepts a time format
+     * @param textField Text field used to build the time format string
+     * @return Returns the EventHandler object
+     */
     public static EventHandler<KeyEvent> timeFormatOnly(MFXTextField textField) {
         return event -> {
             String character = event.getCharacter();
@@ -88,6 +97,14 @@ public class AppConfig {
         };
     }
 
+    /**
+     * Creates a handler for the field used to update the user email.
+     * Used to allow the user to confirm pressing the ENTER key.
+     * @param username Username of the authenticated user
+     * @param textField Mail field to which apply the handler
+     * @param errorLabel Label where to show any error
+     * @return Returns the EventHandler object
+     */
     public static EventHandler<KeyEvent> updateMail(String username, MFXTextField textField, Label errorLabel) {
         return event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -101,6 +118,11 @@ public class AppConfig {
         };
     }
 
+    /**
+     * Extracts and builds the user info to update when changing the email.
+     * @param username Username of the authenticated user
+     * @param mail Updated email to change
+     */
     public static void changeMail(String username, String mail) {
         UserRepository userRepository = Main.getUserRepository();
         User currentUser = userRepository.getUser(username);

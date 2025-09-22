@@ -25,7 +25,7 @@ public class NavBar extends HBox {
     }
     
     /**
-     * Initialize the navigation bar
+     * Initializes the navigation bar
      */
     private void initialize() {
         this.setSpacing(10);
@@ -49,7 +49,7 @@ public class NavBar extends HBox {
     }
     
     /**
-     * Create navigation buttons for authenticated users
+     * Creates navigation buttons for authenticated users
      */
     private void createAuthenticatedNavButtons() {
         Button homeBtn = createNavButton("Home", _ -> ViewNavigator.navigateToHome());
@@ -75,7 +75,7 @@ public class NavBar extends HBox {
     }
 
     /**
-     * Create navigation buttons for unauthenticated users
+     * Creates navigation buttons for unauthenticated users
      */
     private void createUnauthenticatedNavButtons() {
         Button homeBtn = createNavButton("Home", _ -> ViewNavigator.navigateToHome());
@@ -85,7 +85,10 @@ public class NavBar extends HBox {
     }
     
     /**
-     * Create a styled navigation button
+     * Creates a styled navigation button
+     * @param text Text of the button
+     * @param handler Event Handler to assing at the button
+     * @return Returns the Button object
      */
     private Button createNavButton(String text, javafx.event.EventHandler<javafx.event.ActionEvent> handler) {
         Button button = new Button(text);
@@ -101,7 +104,9 @@ public class NavBar extends HBox {
     }
     
     /**
-     * Update the navigation bar based on authentication status
+     * Updates the navigation bar based on authentication status
+     * @param isAuthenticated Boolean value to indicate whether the user is authenticated
+     * @param username Username
      */
     public void updateAuthStatus(boolean isAuthenticated, String username) {
         this.isAuthenticated = isAuthenticated;

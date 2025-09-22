@@ -100,6 +100,10 @@ public class TherapyController {
         }
     }
 
+    /**
+     * Creates the new Therapy object with the forms inputs
+     * @return Returns the created Therapy object to add to the database
+     */
     private Therapy getNewTherapy() {
         String patientString = patientBox.getValue();
         int start = patientString.indexOf('(') + 1;
@@ -113,6 +117,9 @@ public class TherapyController {
         return new Therapy(patient, drug, intakeNumber, quantity, indications);
     }
 
+    /**
+     * Fills the patient ComboBox if the page was loaded from the PatientManagement view
+     */
     private void fillPatientBox() {
         String patientName = userRepository.getUser(ViewNavigator.getPatientToManage()).getName();
         String patientSurname = userRepository.getUser(ViewNavigator.getPatientToManage()).getSurname();

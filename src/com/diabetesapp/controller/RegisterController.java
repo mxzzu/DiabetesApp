@@ -131,6 +131,10 @@ public class RegisterController {
 
     }
 
+    /**
+     * Creates a random password with the necessary constraints
+     * @return Returns the hashed generated password
+     */
     private String createRandomPsw() {
         String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String LOWER = UPPER.toLowerCase();
@@ -151,10 +155,18 @@ public class RegisterController {
         return BCrypt.hashpw(password.toString(), BCrypt.gensalt());
     }
 
+    /**
+     * Checks if the specified doctor username is present on the user database
+     * @param docUser Username of the doctor
+     * @return Returns whether the doctor is present on the database
+     */
     private boolean checkDoc(String docUser) {
         return userRepository.getUser(docUser) != null;
     }
 
+    /**
+     * Shows a success message in the status label
+     */
     private void showSuccess() {
         statusLabel.setText("User has been saved");
         statusLabel.getStyleClass().clear();
@@ -163,6 +175,9 @@ public class RegisterController {
         statusLabel.setManaged(true);
     }
 
+    /**
+     * Shows an error message in the status label
+     */
     private void showError(String message) {
         statusLabel.setText(message);
         statusLabel.getStyleClass().clear();

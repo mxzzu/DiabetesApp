@@ -26,6 +26,12 @@ public class Validator {
     private static final String[] lowerChar = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ");
     private static final String[] digits = "0 1 2 3 4 5 6 7 8 9".split(" ");
 
+    /**
+     * Creates the constraints for the password fields
+     * @param passwordField First password field
+     * @param passwordField2 Second password field
+     * @param errorLabel Error label to show any error
+     */
     public static void createPasswordConstraints(MFXPasswordField passwordField, MFXPasswordField passwordField2, Label errorLabel) {
         BooleanBinding blankBinding = passwordField.textProperty().isNotEmpty();
         Constraint blankConstraint = createConstraint("Password Field can't be blank", blankBinding);
@@ -79,6 +85,11 @@ public class Validator {
         );
     }
 
+    /**
+     * Creates the constraints for the mail fields
+     * @param mailField TextField to which apply the constraints
+     * @param errorLabel Error label to show any error
+     */
     public static void createMailConstraints(MFXTextField mailField, Label errorLabel) {
         BooleanBinding blankBinding = mailField.textProperty().isNotEmpty();
         Constraint blankConstraint = createConstraint("Field can't be blank", blankBinding);
@@ -107,6 +118,11 @@ public class Validator {
         );
     }
 
+    /**
+     * Creates the constraints for the username fields
+     * @param usernameField TextField to which apply the constraints
+     * @param errorLabel Error label to show any error
+     */
     public static void createUsernameConstraints(MFXTextField usernameField, Label errorLabel) {
         BooleanBinding blankBinding = usernameField.textProperty().isNotEmpty();
         Constraint blankConstraint = createConstraint("Field can't be blank", blankBinding);
@@ -143,6 +159,11 @@ public class Validator {
         );
     }
 
+    /**
+     * Creates the constraint that doesn't allow the field to be empty
+     * @param field TextField to which apply the constraint
+     * @param errorLabel Error label to show the error message
+     */
     public static void emptyFieldConstraints(MFXTextField field, Label errorLabel) {
         BooleanBinding blankBinding = field.textProperty().isNotEmpty();
         Constraint blankConstraint = createConstraint("Field can't be empty", blankBinding);
@@ -167,6 +188,11 @@ public class Validator {
         );
     }
 
+    /**
+     * Creates the constraints for the tax code fields
+     * @param taxCodeField TextField to which apply the constraints
+     * @param errorLabel Error label to show any error
+     */
     public static void createTaxCodeConstraints(MFXTextField taxCodeField, Label errorLabel) {
         BooleanBinding blankBinding = taxCodeField.textProperty().isNotEmpty();
         Constraint blankConstraint = createConstraint("Field can't be empty", blankBinding);
@@ -195,6 +221,11 @@ public class Validator {
         );
     }
 
+    /**
+     * Creates the constraints for the date fields
+     * @param dateField TextField to which apply the constraints
+     * @param errorLabel Error label to show any error
+     */
     public static void createDateConstraints(MFXTextField dateField, Label errorLabel) {
         BooleanBinding blankBinding = dateField.textProperty().isNotEmpty();
         Constraint blankConstraint = createConstraint("Field can't be empty", blankBinding);
@@ -223,6 +254,12 @@ public class Validator {
         );
     }
 
+    /**
+     * Creates the constraints for the detections combo boxes
+     * @param comboBox1 First ComboBox
+     * @param comboBox2 Second ComboBox
+     * @param errorLabel Error label to show any error
+     */
     public static void createDetectionConstraints(MFXComboBox<String> comboBox1, MFXComboBox<String> comboBox2, Label errorLabel) {
         DetectionRepository detectionRepository = Main.getDetectionRepository();
         List<Detection> todaysDetections = detectionRepository.getDailyDetections(ViewNavigator.getAuthenticatedUsername());
@@ -266,6 +303,12 @@ public class Validator {
         );
     }
 
+    /**
+     * Creates the constraints for the therapy fields
+     * @param patientBox The patient ComboBox
+     * @param drugField Drug's TextField
+     * @param errorLabel Error label to show any error
+     */
     public static void createTherapyConstraints(MFXComboBox<String> patientBox, MFXTextField drugField, Label errorLabel) {
         TherapyRepository therapyRepository = Main.getTherapyRepository();
         String patientString = patientBox.getValue();
@@ -301,6 +344,12 @@ public class Validator {
         );
     }
 
+    /**
+     * Checks if the constraints have been met
+     * @param field TextField to check
+     * @param errorLabel Error Label to check
+     * @return Returns whether the constraints have been met
+     */
     public static boolean checkConstraints(MFXTextField field, Label errorLabel) {
         List<Constraint> constraints = field.validate();
         if (!constraints.isEmpty()) {
@@ -313,6 +362,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Creates the constraint for a specified condition
+     * @param errorMessage Error Message to show when the condition has not been met
+     * @param condition Condition to be met
+     * @return Returns the Constraint object to be applied
+     */
     private static Constraint createConstraint(String errorMessage, BooleanBinding condition) {
         return Constraint.Builder.build()
                 .setSeverity(Severity.ERROR)
@@ -321,6 +376,11 @@ public class Validator {
                 .get();
     }
 
+    /**
+     * Removes the date constraint from a field
+     * @param field TextField from which to remove the constraint
+     * @param errorLabel Error label linked to the field
+     */
     public static void removeConstraints(MFXTextField field, Label errorLabel) {
         BooleanBinding blankBinding = field.textProperty().isNotEmpty();
         Constraint blankConstraint = createConstraint("Field can't be empty", blankBinding);
@@ -333,6 +393,15 @@ public class Validator {
         errorLabel.setManaged(false);
     }
 
+    /**
+     * Creates the valid and focus listeners for the constraints
+     * @param validProperty Valid property of the field
+     * @param focusedProperty Focus Property of the field
+     * @param validatorFunction Validator function of the field
+     * @param pseudoClassUpdater Function to change the style class of the label
+     * @param errorMessageSetter Function to execute to show the errors
+     * @param hideError Function to execute to hide the error messages
+     */
     private static void setupValidationListeners(
             ObservableValue<Boolean> validProperty,
             ObservableValue<Boolean> focusedProperty,

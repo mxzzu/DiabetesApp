@@ -91,6 +91,9 @@ public class DoctorDataController {
         setupChartDialog();
     }
 
+    /**
+     * Sets up the Dialag object of the chart pop-up
+     */
     private void setupChartDialog() {
         this.dialogContent = MFXDialogs.info()
                 .setShowMinimize(false)
@@ -109,6 +112,9 @@ public class DoctorDataController {
         }
     }
 
+    /**
+     * Creates the layout of the chart pop-up
+     */
     private void createChartDialogLayout() {
         VBox mainLayout = new VBox(15);
         mainLayout.setPadding(new Insets(10));
@@ -162,6 +168,10 @@ public class DoctorDataController {
         }
     }
 
+    /**
+     * Populates the month ComboBox of the specified year based on the detection in the database
+     * @param year Year picked by the user
+     */
     private void populateMonthPicker(int year) {
         Month previouslySelectedMonth = monthPicker.getValue();
 
@@ -186,6 +196,9 @@ public class DoctorDataController {
         }
     }
 
+    /**
+     * Updates visual charts when the user changed month or year of data
+     */
     private void updateChartsFromPickers() {
         Month selectedMonth = monthPicker.getValue();
         Integer selectedYear = yearPicker.getValue();
@@ -199,6 +212,11 @@ public class DoctorDataController {
         }
     }
 
+    /**
+     * Updates visual charts when the user changed month or year of data
+     * @param month Month picked
+     * @param year Year picked
+     */
     private void updateCharts(Month month, int year) {
         chartsContainer.getChildren().clear();
 
@@ -209,6 +227,13 @@ public class DoctorDataController {
         chartsContainer.getChildren().addAll(breakfastChart, lunchChart, dinnerChart);
     }
 
+    /**
+     * Creates the detection chart based on the meal and by the month and year choosed by the user
+     * @param mealType Meal to be shown
+     * @param month Month choosed by the user
+     * @param year Year choosed by the user
+     * @return Returns the LineChart object to show
+     */
     private LineChart<Number, Number> createMealChart(String mealType, Month month, int year) {
         NumberAxis xAxis = getNumberAxis(month, year);
 
@@ -278,6 +303,11 @@ public class DoctorDataController {
         return lineChart;
     }
 
+    /**
+     * Styles the charts based on the series of input given
+     * @param beforeSeries Before Eating series
+     * @param afterSeries Afer eating series
+     */
     private void styleChartLines(XYChart.Series<Number, Number> beforeSeries, XYChart.Series<Number, Number> afterSeries) {
         Platform.runLater(() -> {
             Node beforeLine = beforeSeries.getNode().lookup(".chart-series-line");
@@ -292,6 +322,12 @@ public class DoctorDataController {
         });
     }
 
+    /**
+     * Creates the axis of the charts based on month and year
+     * @param month Month object representing the month
+     * @param year Integer value of the year
+     * @return Returns the NumberAxis object to use on the charts
+     */
     private static NumberAxis getNumberAxis(Month month, int year) {
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Day of the Month");
@@ -316,6 +352,12 @@ public class DoctorDataController {
         return xAxis;
     }
 
+    /**
+     * Returns the color to show on the chart
+     * @param period String value of the period of the detection
+     * @param parsedLevel Level of the detection
+     * @return Returns the HEX color code
+     */
     private String getGlucoseColor(String period, int parsedLevel) {
         if (period.equals("Before eating")) {
             if (parsedLevel >= 80 && parsedLevel <= 130) return "#4CAF50";
@@ -327,6 +369,10 @@ public class DoctorDataController {
         return "#F44336";
     }
 
+    /**
+     * Creates the legend of the colors used in the charts
+     * @return Returns HBox object to use as legend in the pop-up
+     */
     private HBox createColorLegend() {
         HBox legendBox = new HBox(30);
         legendBox.setAlignment(Pos.CENTER);
@@ -344,6 +390,12 @@ public class DoctorDataController {
         return legendBox;
     }
 
+    /**
+     * Creates the item in the legend box
+     * @param color HEX color code to use for the item
+     * @param text Text to show near the color
+     * @return Returns the HBox object of the item
+     */
     private HBox createLegendItem(String color, String text) {
         Circle circle = new Circle(8, Color.web(color));
         circle.setStroke(Color.BLACK);
@@ -354,6 +406,10 @@ public class DoctorDataController {
         return itemBox;
     }
 
+    /**
+     * Creates the ranges of the detections level for the legend box
+     * @return Returns the HBox object to use in the legend box
+     */
     private HBox createRangesLegend() {
         HBox mainBox = new HBox(20);
         mainBox.setAlignment(Pos.CENTER);

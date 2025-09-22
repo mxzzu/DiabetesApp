@@ -20,6 +20,9 @@ public class IntakeRepository {
     private final List<Intake> intakes = new ArrayList<>();
     private final MongoCollection<Document> intakesCollection;
 
+    /**
+     * Repository for storing patients' intakes
+     */
     public IntakeRepository() {
         MongoClient client = DBConfig.getClient();
         MongoDatabase db = client.getDatabase(AppConfig.DB_NAME);
@@ -28,17 +31,18 @@ public class IntakeRepository {
     }
 
     /**
-     * Load intakes from DB
+     * Loads intakes from the database
      */
     private void loadIntakes() {
         FindIterable<Document> docs = intakesCollection.find();
         for (Document d : docs) {
-            intakes.add(new Intake(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("drugs"), d.getString("hour"), d.getString("quantity")));
+            intakes.add(docToObj(d));
         }
     }
 
     /**
-     * Add intake to DB
+     * Adds an intake to the database
+     * @param intake Intake to add
      */
     private void addIntakeToDB(Intake intake) {
         Document doc = new Document("username", intake.username())
@@ -48,30 +52,42 @@ public class IntakeRepository {
     }
 
     /**
-     * Save intake to the repository
+     * Saves an intake to the repository
+     * @param intake Intake to save
      */
     public void saveIntake(Intake intake) {
         intakes.add(intake);
         addIntakeToDB(intake);
     }
 
+    /**
+     * Fetches daily intakes based on the username
+     * @param username Username of the patient to search
+     * @return Returns a List object of Intakes
+     */
     public List<Intake> getDailyIntakes(String username) {
         return DailyEntityUtils.getDailyEntities(username, intakes);
     }
 
+    /**
+     * Fetches all intakes based on the username
+     * @param username Username of the patient to search
+     * @return Returns an ObservableList of Intakes
+     */
     public ObservableList<Intake> getAllIntakesByUser(String username) {
         List<Intake> intakes = new ArrayList<>();
         FindIterable<Document> docs = intakesCollection.find(new Document("username", username));
         for (Document d : docs) {
-            intakes.add(new Intake(username, LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("drugs"), d.getString("hour"), d.getString("quantity")));
+            intakes.add(docToObj(d));
         }
         return FXCollections.observableList(intakes);
     }
 
     /**
-     * Restituisce la lista dei nomi dei farmaci non assunti il giorno precedente.
-     * @param username L'utente da controllare.
-     * @return Una lista di stringhe con i nomi dei farmaci mancanti. Se è vuota, significa che è tutto a posto.
+     * Checks the database for missing entries of intakes of a specified user
+     * @param username Username of the patient to check
+     * @param daysToCheck Days to check for missing entries
+     * @return Returns a List of String containing the missing drugs. If empty, no missing entries were found
      */
     public List<String> getMissingEntries(String username, int daysToCheck) {
         List<String> missingDrugs = new ArrayList<>();
@@ -96,12 +112,11 @@ public class IntakeRepository {
     }
 
     /**
-     * Conta il numero di assunzioni registrate da un utente in una data specifica.
-     * Questo metodo interroga direttamente MongoDB.
-     *
-     * @param username L'utente da controllare.
-     * @param date     La data per cui contare le assunzioni.
-     * @return il numero di assunzioni (intake) trovate per quel giorno.
+     * Counts the intake number of a specified drug for a specified username on a specified day
+     * @param username Username of the patient to check
+     * @param date LocalDate object representing the day to check
+     * @param drug Drug name to check
+     * @return Returns the number of intakes found for that day
      */
     public long countIntakesForDate(String username, LocalDate date, String drug) {
         String formattedDate = date.format(AppConfig.DATE_FORMAT);
@@ -110,5 +125,14 @@ public class IntakeRepository {
                 .append("date", formattedDate).append("drugs", drug);
 
         return intakesCollection.countDocuments(filter);
+    }
+
+    /**
+     * Parses a JSON Document object into an Intake
+     * @param d Document to parse
+     * @return Returns the parsed Intake object
+     */
+    private Intake docToObj(Document d) {
+        return new Intake(d.getString("username"), LocalDate.parse(d.getString("date"), AppConfig.DATE_FORMAT), d.getString("drugs"), d.getString("hour"), d.getString("quantity"));
     }
 }

@@ -10,13 +10,7 @@ public class User {
     private final String gender;
     private final String email;
     private final boolean mustChangePassword;
-    
-    /**
-     * Constructor for creating a user with a username and password
-     * 
-     * @param username The user's username
-     * @param password The user's password (stored in plain text for educational purposes)
-     */
+
     public User(String username, String password, String userType, String name, String surname, String birthDate, String gender, String email, boolean mustChangePassword) {
         this.username = username;
         this.password = password;
@@ -41,20 +35,10 @@ public class User {
         this.mustChangePassword = oldPatient.isMustChangePassword();
     }
 
-    /**
-     * Get the user's username
-     * 
-     * @return The user's username
-     */
     public String getUsername() {
         return username;
     }
-    
-    /**
-     * Get the user's password
-     * 
-     * @return The user's password
-     */
+
     public String getPassword() {
         return password;
     }

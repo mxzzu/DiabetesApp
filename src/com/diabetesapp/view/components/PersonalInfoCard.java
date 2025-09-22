@@ -57,6 +57,10 @@ public class PersonalInfoCard extends VBox {
         this.setPadding(new Insets(15));
     }
 
+    /**
+     * Fetches main user informations like name, surname, date of birth and email
+     * @param mailUpdatable Boolean value to enable or disable the Update Mail button
+     */
     private void fetchInformation(boolean mailUpdatable) {
 
         User userToDisplay = userRepository.getUser(username);
@@ -114,9 +118,9 @@ public class PersonalInfoCard extends VBox {
     }
 
     /**
-     * Crea un HBox contenente una Label con l'email e un'icona cliccabile per inviarla.
-     * @param user L'utente (paziente o dottore) a cui inviare l'email.
-     * @return un HBox con Label e icona.
+     * Creates an HBox with the email and an icon that links with the mail client
+     * @param user User to which send the email
+     * @return Returns the HBox node
      */
     private HBox createEmailNode(User user) {
         Label emailLabel = new Label(user.getEmail());
@@ -126,6 +130,11 @@ public class PersonalInfoCard extends VBox {
         return emailBox;
     }
 
+    /**
+     * Creates the icon with the link
+     * @param user User to which send the email
+     * @return Returns the FontIcon object
+     */
     private static FontIcon getIcon(User user) {
         FontIcon mailIcon = new FontIcon("bi-box-arrow-up-right");
         mailIcon.setIconColor(Color.web("#780dd7"));
@@ -141,20 +150,28 @@ public class PersonalInfoCard extends VBox {
         return mailIcon;
     }
 
+    /**
+     * Creates a line separator to divide the sections of the card
+     */
     private void createSeparator() {
         Separator sep = new Separator();
         sep.getStyleClass().add("separator");
         infoContainer.getChildren().add(sep);
     }
 
+    /**
+     * Creates an HBox representing the row
+     * @param title Title of the row
+     * @param value Value of the row
+     */
     private void createHBox(String title, String value) {
         createRow(title, new Label(value));
     }
 
     /**
-     * Crea una riga (HBox) con un'etichetta e un qualsiasi componente a destra (Label, Hyperlink, etc.).
-     * @param title Il testo dell'etichetta a sinistra.
-     * @param valueNode Il componente (Nodo) da visualizzare a destra.
+     * Creates a row (HBox) with a title and any Node (Label, Link, Icon...)
+     * @param title Title of the row
+     * @param valueNode Node to show next to the title
      */
     private void createRow(String title, Node valueNode) {
         HBox hBox = new HBox();
@@ -166,6 +183,13 @@ public class PersonalInfoCard extends VBox {
         infoContainer.getChildren().add(hBox);
     }
 
+    /**
+     * Creates an handler for the mail field
+     * @param username Username of the user
+     * @param mailField TextField of the mail
+     * @param errorLabel Error label to show any error
+     * @return Returns the EventHandler object to assing to the field
+     */
     private EventHandler<ActionEvent> updateMail(String username, MFXTextField mailField, Label errorLabel) {
         return _ -> {
             if (!mailField.isVisible()) {

@@ -30,6 +30,9 @@ public class MedicalInformationsController {
         fetchInformations();
     }
 
+    /**
+     * Fetches medical informations already present on the database
+     */
     private void fetchInformations() {
         Patient patient = (Patient) userRepository.getUser(ViewNavigator.getPatientToManage());
         riskFactorsField.setText(patient.getRiskFactors());
@@ -61,6 +64,9 @@ public class MedicalInformationsController {
         ViewNavigator.navigateToManagePatient();
     }
 
+    /**
+     * Fills the patient field if present
+     */
     private void fillPatientField() {
         String patientName = userRepository.getUser(ViewNavigator.getPatientToManage()).getName();
         String patientSurname = userRepository.getUser(ViewNavigator.getPatientToManage()).getSurname();

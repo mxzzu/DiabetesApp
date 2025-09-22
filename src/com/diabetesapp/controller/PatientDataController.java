@@ -54,13 +54,15 @@ public class PatientDataController {
             detectionsTable.setManaged(true);
             detectionsTable.setVisible(true);
             detectionRepository = Main.getDetectionRepository();
-            detectionsList = detectionRepository.getAllDetectionsByUser(ViewNavigator.getAuthenticatedUsername());
+            detectionsList = detectionRepository.getAllDetectionsByPatient(ViewNavigator.getAuthenticatedUsername());
             TableUtils.createDetectionTable(detectionsTable, detectionsList);
             TableUtils.setTableSize(detectionsTable);
         }
     }
 
-
+    /**
+     * Creates concurrent therapies card
+     */
     private void createConcTherapiesCard() {
         concTherapyBox.setManaged(true);
         concTherapyBox.setVisible(true);
@@ -72,6 +74,9 @@ public class PatientDataController {
         addListener();
     }
 
+    /**
+     * Adds listener on the concurrent therapies table to enable the delete button when selecting a row
+     */
     private void addListener() {
         concTherapyTable.getSelectionModel().selectionProperty().addListener((_, _, newSelection) -> deleteButton.setDisable(newSelection == null || newSelection.isEmpty()));
     }
@@ -87,9 +92,6 @@ public class PatientDataController {
         }
     }
 
-    /**
-     * Handle navigating back to the dashboard
-     */
     @FXML
     private void handleBackToDashboard() {
         ViewNavigator.navigateToDashboard();

@@ -30,6 +30,7 @@ public class IntakeController {
     private IntakeRepository intakeRepository;
     private ConcTherapyRepository concTherapyRepository;
 
+    @FXML
     public void initialize() {
         intakeRepository = Main.getIntakeRepository();
         concTherapyRepository = Main.getConcTherapyRepository();
@@ -89,6 +90,9 @@ public class IntakeController {
         ViewNavigator.navigateToDashboard();
     }
 
+    /**
+     * Adds concurrent therapy on database if user had filled its fields
+     */
     private void addConcTherapy() {
         String symptoms = otherSymptoms.getText();
         String drugs = otherDrugs.getText();

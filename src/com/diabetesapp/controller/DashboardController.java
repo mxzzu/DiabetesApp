@@ -53,7 +53,7 @@ public class DashboardController {
     }
 
     /**
-     * Checks yesterday intakes. If missing, add notification to DB
+     * Checks yesterday intakes. If missing, adds notification on the database
      */
     private void updateNotifications() {
         List<String> missingDrugs = intakeRepository.getMissingEntries(username, 1);
@@ -68,7 +68,7 @@ public class DashboardController {
     }
 
     /**
-     * Fetch daily detections and list them in a card
+     * Fetches daily detections and lists them in a card
      */
     private void fetchDailyDetections() {
         Map<String, Integer> mealOrder = Map.of("Breakfast", 1, "Lunch", 2, "Dinner", 3);
@@ -86,7 +86,7 @@ public class DashboardController {
     }
 
     /**
-     * Fetch daily intakes and list them in a card
+     * Fetches daily intakes and lists them in a card
      */
     private void fetchDailyIntakes() {
         List<Intake> intakes = intakeRepository.getDailyIntakes(username);
@@ -99,9 +99,9 @@ public class DashboardController {
     }
 
     /**
-     * Format a list
+     * Formats a list
      * @param list List to print
-     * @return Returns a formatted string
+     * @return Returns a formatted string with the output of the toString methods
      */
     private <T> String printList(List<T> list) {
         StringBuilder result = new StringBuilder();
@@ -207,7 +207,7 @@ public class DashboardController {
     }
 
     /**
-     * Show an error if no therapy was found
+     * Shows an error if no therapy was found
      */
     private void showError() {
         statusLabel.setText("No active therapy!");

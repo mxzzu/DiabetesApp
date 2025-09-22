@@ -17,10 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-/**
- * Controller for the profile view.
- * Handles displaying user information and updating the user's password.
- */
 public class ProfileController {
     @FXML
     private Label statusLabel, validationLabel1, validationLabel2;
@@ -40,17 +36,12 @@ public class ProfileController {
     private UserRepository userRepository;
     private String currentUsername;
 
-    /**
-     * Initialize the controller.
-     * This method is automatically called after the FXML file has been loaded.
-     */
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
         currentUsername = ViewNavigator.getAuthenticatedUsername();
         PersonalInfoCard personalInfoCard = new PersonalInfoCard(currentUsername, !ViewNavigator.isMustChangePassword());
 
-        // Hide the status label initially
         statusLabel.setVisible(false);
         personalInfoContainer.getChildren().add(personalInfoCard);
 
@@ -62,10 +53,6 @@ public class ProfileController {
         }
     }
 
-    /**
-     * Handle updating the user's password.
-     * This method is called when the user clicks the "Update Password" button.
-     */
     @FXML
     private void handleUpdatePassword() {
         boolean check1 = Validator.checkConstraints(newPasswordField, validationLabel1);
@@ -98,6 +85,12 @@ public class ProfileController {
         }
     }
 
+    /**
+     * Creates an updated User object with the newly changed password
+     * @param currentUser User object of the current user to modify
+     * @param newPassword String with the new password to change
+     * @return Returns the updated User object
+     */
     private User getUser(User currentUser, String newPassword) {
         String userType = currentUser.getUserType();
         User updatedUser;
@@ -110,10 +103,6 @@ public class ProfileController {
         return updatedUser;
     }
 
-    /**
-     * Handle navigating back to the dashboard.
-     * This method is called when the user clicks the "Back to Dashboard" button.
-     */
     @FXML
     private void handleBackToDashboard() {
         ViewNavigator.navigateToDashboard();
