@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
 
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <AnchorPane xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.diabetesapp.controller.ProfileController">
@@ -27,6 +28,22 @@
                      </font>
                   </Label>
                   <VBox fx:id="personalInfoContainer">
+                  </VBox>
+                  <VBox fx:id="therapyCard" spacing="10.0" styleClass="card" visible="false" managed="false">
+                      <children>
+                          <Label text="Therapies" styleClass="card-header">
+                              <font>
+                                  <Font name="System Bold" size="18.0" />
+                              </font>
+                          </Label>
+                          <VBox spacing="10.0">
+                              <MFXTableView fx:id="therapyTable" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+                                            prefWidth="800.0" />
+                              <padding>
+                                  <Insets top="5.0" bottom="5.0" />
+                              </padding>
+                          </VBox>
+                      </children>
                   </VBox>
                   <VBox styleClass="card">
                      <children>

@@ -2,16 +2,18 @@ package com.diabetesapp.controller;
 
 import com.diabetesapp.Main;
 import com.diabetesapp.config.PasswordUtil;
-import com.diabetesapp.model.Patient;
-import com.diabetesapp.model.User;
-import com.diabetesapp.model.UserRepository;
+import com.diabetesapp.config.TableUtils;
+import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import com.diabetesapp.view.components.PersonalInfoCard;
 import com.diabetesapp.config.Validator;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
+import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.animation.PauseTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -22,7 +24,10 @@ public class ProfileController {
     private Label statusLabel, validationLabel1, validationLabel2;
 
     @FXML
-    private VBox personalInfoContainer;
+    private VBox personalInfoContainer, therapyCard;
+
+    @FXML
+    private MFXTableView<Therapy> therapyTable;
 
     @FXML
     private MFXPasswordField newPasswordField, confirmPasswordField;
@@ -36,6 +41,9 @@ public class ProfileController {
     private UserRepository userRepository;
     private String currentUsername;
 
+    private TherapyRepository therapyRepository;
+    private ObservableList<Therapy> therapies;
+
     @FXML
     public void initialize() {
         userRepository = Main.getUserRepository();
@@ -45,12 +53,29 @@ public class ProfileController {
         statusLabel.setVisible(false);
         personalInfoContainer.getChildren().add(personalInfoCard);
 
+        if (ViewNavigator.getUserType().equals("patient")) {
+            createTherapyCard();
+        }
+
         Validator.createPasswordConstraints(newPasswordField, confirmPasswordField, validationLabel1);
         Validator.createPasswordConstraints(confirmPasswordField, newPasswordField, validationLabel2);
 
         if (ViewNavigator.isMustChangePassword()) {
             backToDashboardBtn.setDisable(true);
         }
+    }
+
+    /**
+     * Creates Therapies card
+     */
+    private void createTherapyCard() {
+        therapyCard.setManaged(true);
+        therapyCard.setVisible(true);
+        therapyRepository =  Main.getTherapyRepository();
+        therapies = FXCollections.observableArrayList(therapyRepository.getTherapiesByPatient(ViewNavigator.getAuthenticatedUsername()));
+
+        TableUtils.createTherapyTable(therapyTable, therapies);
+        TableUtils.setTableSize(therapyTable);
     }
 
     @FXML

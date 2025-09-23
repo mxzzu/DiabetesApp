@@ -3,6 +3,7 @@ package com.diabetesapp.config;
 import com.diabetesapp.model.ConcTherapy;
 import com.diabetesapp.model.Detection;
 import com.diabetesapp.model.Intake;
+import com.diabetesapp.model.Therapy;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -119,6 +120,42 @@ public class TableUtils {
         );
 
         table.setItems(concTherapyList);
+    }
+
+    /**
+     * Creates therapies table with the therapies of the selected patient
+     * @param table MFXTableView object to populate
+     * @param therapies ObservableList object used to populate the table
+     */
+    public static void createTherapyTable(MFXTableView<Therapy> table,  ObservableList<Therapy> therapies) {
+        MFXTableColumn<Therapy> drugColumn = new MFXTableColumn<>("Drug", false, Comparator.comparing(Therapy::drug));
+        MFXTableColumn<Therapy> intakeColumn = new MFXTableColumn<>("Intake Number", false, Comparator.comparing(Therapy::intakeNumber));
+        MFXTableColumn<Therapy> quantityColumn = new MFXTableColumn<>("Quantity", false, Comparator.comparing(Therapy::quantity));
+        MFXTableColumn<Therapy> indicationsColumn = new MFXTableColumn<>("Indications", false, Comparator.comparing(Therapy::indications));
+
+        drugColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::drug));
+        intakeColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::intakeNumber));
+        quantityColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::quantity));
+        indicationsColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::indications) {{
+            setAlignment(Pos.CENTER_RIGHT);
+        }});
+
+        indicationsColumn.setAlignment(Pos.CENTER_RIGHT);
+
+        drugColumn.getStyleClass().add("bold-text");
+        intakeColumn.getStyleClass().add("bold-text");
+        quantityColumn.getStyleClass().add("bold-text");
+        indicationsColumn.getStyleClass().add("bold-text");
+
+        table.getTableColumns().addAll(drugColumn, intakeColumn, quantityColumn, indicationsColumn);
+        table.getFilters().addAll(
+                new StringFilter<>("Drug", Therapy::drug),
+                new StringFilter<>("Intake Number", Therapy::intakeNumber),
+                new StringFilter<>("Quantity", Therapy::quantity),
+                new StringFilter<>("Indications", Therapy::indications)
+        );
+
+        table.setItems(therapies);
     }
 
     /**

@@ -7,43 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="removed admin profile, added intake table for doctors">
+    <list default="true" id="c66722a8-816f-422a-9d80-02a4fc7b1cb6" name="Changes" comment="added documentations for the methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/DBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/DBConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/DateFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/DateFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/NotificationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/NotificationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/PasswordUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/PasswordUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/TableUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/config/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/config/Validator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DetectionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/DoctorDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/HistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/IntakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/MedicalInformationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/MedicalInformationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientDataController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/PatientsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/controller/TherapyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/ChangeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/ChangeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/ConcTherapyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/ConcTherapyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/DailyEntityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/DailyEntityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/DetectionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/DetectionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/IntakeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/IntakeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/NotificationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/TherapyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/TherapyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/model/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/ViewNavigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/NavBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/diabetesapp/view/components/PersonalInfoCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/ProfileView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +139,8 @@
       <workItem from="1758371615851" duration="617000" />
       <workItem from="1758377331794" duration="5513000" />
       <workItem from="1758533590636" duration="6005000" />
-      <workItem from="1758548047443" duration="4306000" />
+      <workItem from="1758548047443" duration="5586000" />
+      <workItem from="1758623248676" duration="1088000" />
     </task>
     <task id="LOCAL-00001" summary="Detections Level Check">
       <option name="closed" value="true" />
@@ -204,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758381009674</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added documentations for the methods">
+      <option name="closed" value="true" />
+      <created>1758552393658</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1758552393658</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +194,8 @@
     <MESSAGE value="removed unuseful comments" />
     <MESSAGE value="added multiple therapies" />
     <MESSAGE value="removed admin profile, added intake table for doctors" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed admin profile, added intake table for doctors" />
+    <MESSAGE value="added documentations for the methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="added documentations for the methods" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

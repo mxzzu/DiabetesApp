@@ -6,20 +6,15 @@ import com.diabetesapp.model.*;
 import com.diabetesapp.view.ViewNavigator;
 import com.diabetesapp.view.components.PersonalInfoCard;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableRow;
 import io.github.palexdev.materialfx.controls.MFXTableView;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.util.Comparator;
 import java.util.Map;
 
 public class PatientManagementController {
@@ -59,7 +54,7 @@ public class PatientManagementController {
 
         personalInfoContainer.getChildren().add(personalInfoCard);
         fetchMedicalInformation();
-        createTherapyTable();
+        TableUtils.createTherapyTable(therapyTable, therapies);
         TableUtils.setTableSize(therapyTable);
         addListener();
     }
@@ -76,40 +71,6 @@ public class PatientManagementController {
         createHBoxContainer(informationContainer, "Risk Factors: ", riskFactors);
         createHBoxContainer(informationContainer,  "Previous Pathologies: ", prevPats);
         createHBoxContainer(informationContainer,  "Comorbidities: ", coms);
-    }
-
-    /**
-     * Creates therapies table with the therapies of the selected patient
-     */
-    private void createTherapyTable() {
-        MFXTableColumn<Therapy> drugColumn = new MFXTableColumn<>("Drug", false, Comparator.comparing(Therapy::drug));
-        MFXTableColumn<Therapy> intakeColumn = new MFXTableColumn<>("Intake Number", false, Comparator.comparing(Therapy::intakeNumber));
-        MFXTableColumn<Therapy> quantityColumn = new MFXTableColumn<>("Quantity", false, Comparator.comparing(Therapy::quantity));
-        MFXTableColumn<Therapy> indicationsColumn = new MFXTableColumn<>("Indications", false, Comparator.comparing(Therapy::indications));
-
-        drugColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::drug));
-        intakeColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::intakeNumber));
-        quantityColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::quantity));
-        indicationsColumn.setRowCellFactory(_ -> new MFXTableRowCell<>(Therapy::indications) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
-
-        indicationsColumn.setAlignment(Pos.CENTER_RIGHT);
-
-        drugColumn.getStyleClass().add("bold-text");
-        intakeColumn.getStyleClass().add("bold-text");
-        quantityColumn.getStyleClass().add("bold-text");
-        indicationsColumn.getStyleClass().add("bold-text");
-
-        therapyTable.getTableColumns().addAll(drugColumn, intakeColumn, quantityColumn, indicationsColumn);
-        therapyTable.getFilters().addAll(
-                new StringFilter<>("Drug", Therapy::drug),
-                new StringFilter<>("Intake Number", Therapy::intakeNumber),
-                new StringFilter<>("Quantity", Therapy::quantity),
-                new StringFilter<>("Indications", Therapy::indications)
-        );
-
-        therapyTable.setItems(therapies);
     }
 
     /**
