@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.net.URL;
 
 public class Main extends Application {
@@ -54,8 +53,6 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/image/logo.png")));
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        //System.out.println(BCrypt.hashpw("Mazzu105", BCrypt.gensalt())); //DEV
     }
 
     public static HostServices getHostServicesInstance() {

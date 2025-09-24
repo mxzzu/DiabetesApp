@@ -358,7 +358,7 @@ public class DoctorDataController {
      * @param parsedLevel Level of the detection
      * @return Returns the HEX color code
      */
-    private String getGlucoseColor(String period, int parsedLevel) {
+    public String getGlucoseColor(String period, int parsedLevel) {
         if (period.equals("Before eating")) {
             if (parsedLevel >= 80 && parsedLevel <= 130) return "#4CAF50";
             if ((parsedLevel > 130 && parsedLevel <= 180) || (parsedLevel >= 70 && parsedLevel < 80)) return "#FF9800";

@@ -21,5 +21,7 @@ module com.diabetesapp {
     opens com.diabetesapp to javafx.fxml;
     exports com.diabetesapp;
     exports com.diabetesapp.controller;
+    exports com.diabetesapp.model;
+    exports com.diabetesapp.config;
     opens com.diabetesapp.controller to javafx.fxml;
 }
